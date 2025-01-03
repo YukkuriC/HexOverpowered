@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "id": "hexop",
+  "version": "${version}",
+  "name": "HexOverpowered",
+  "description": "Various OP features for HexCasting and its addons",
+  "authors": [
+    "YukkuriC"
+  ],
+  "contact": {
+    "homepage": "https://github.com/YukkuriC/"
+  },
+  "license": "MIT",
+  "icon": "assets/hexop/icon.png",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "io.yukkuric.hexop.fabric.HexOverpoweredFabric"
+    ],
+    "client": [
+      "io.yukkuric.hexop.fabric.client.HexOverpoweredFabricClient"
+    ]
+  },
+  "mixins": [
+    "hexop.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=0.16.9",
+    "minecraft": "~1.20.1",
+    "java": ">=17"
+  },
+  "suggests": {
+    "another-mod": "*"
+  }
+}

@@ -1,0 +1,29 @@
+modLoader = "javafml"
+loaderVersion = "[47,)"
+#issueTrackerURL = ""
+license = "MIT"
+
+[[mods]]
+modId = "hexop"
+version = "${version}"
+displayName = "HexOverpowered"
+authors = "YukkuriC"
+description = '''
+Various OP features for HexCasting and its addons
+'''
+#logoFile = ""
+
+[[dependencies.hexop]]
+modId = "forge"
+mandatory = true
+versionRange = "[47,)"
+ordering = "NONE"
+side = "BOTH"
+
+[[dependencies.hexop]]
+modId = "minecraft"
+mandatory = true
+versionRange = "[1.20.1,)"
+ordering = "NONE"
+side = "BOTH"
+
