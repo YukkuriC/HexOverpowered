@@ -2,15 +2,16 @@ package io.yukkuric.hexop.fabric;
 
 import io.yukkuric.hexop.HexOverpowered;
 import net.fabricmc.api.ModInitializer;
+import net.fabricmc.loader.api.FabricLoader;
 
-public final class HexOverpoweredFabric implements ModInitializer {
+public final class HexOverpoweredFabric extends HexOverpowered implements ModInitializer {
     @Override
     public void onInitialize() {
-        // This code runs as soon as Minecraft is in a mod-load-ready state.
-        // However, some things (like resources) may still be uninitialized.
-        // Proceed with mild caution.
+        // TODO CCA
+    }
 
-        // Run our common setup.
-        HexOverpowered.init();
+    @Override
+    protected boolean isModLoaded(String id) {
+        return FabricLoader.getInstance().isModLoaded(id);
     }
 }

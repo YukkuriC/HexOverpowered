@@ -1,9 +1,11 @@
 package io.yukkuric.hexop;
 
-public final class HexOverpowered {
+import net.minecraft.resources.ResourceLocation;
+
+public abstract class HexOverpowered {
     public static final String MOD_ID = "hexop";
 
-    public static void init() {
-        // Write common init code here.
-    }
+    protected static ResourceLocation ID_NEXUS_INVENTORY = new ResourceLocation("hexop:nexus_inv");
+
+    protected abstract boolean isModLoaded(String id);
 }
