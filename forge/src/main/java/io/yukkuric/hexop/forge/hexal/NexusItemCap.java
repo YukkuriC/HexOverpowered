@@ -2,7 +2,6 @@ package io.yukkuric.hexop.forge.hexal;
 
 import io.yukkuric.hexop.hexal.CachedNexusInventory;
 import net.minecraft.core.Direction;
-import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.common.capabilities.*;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.items.IItemHandler;
