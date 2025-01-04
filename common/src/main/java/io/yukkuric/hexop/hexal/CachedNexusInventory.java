@@ -8,11 +8,13 @@ import ram.talia.hexal.common.blocks.entity.BlockEntityMediafiedStorage;
 
 import java.lang.reflect.Field;
 import java.util.List;
+import java.util.Map;
+
+import static io.yukkuric.hexop.hexal.CompressedChestMenu.UI_VISIBLE_SLOTS;
 
 public class CachedNexusInventory implements AutoCloseable {
-    public static final int UI_VISIBLE_SLOTS = 54;
-
     protected final BlockEntityMediafiedStorage source;
+    protected Map<Integer, ItemRecord> srcMap;
     static final Field fIdx;
     protected final int maxTypes;
 
@@ -51,10 +53,11 @@ public class CachedNexusInventory implements AutoCloseable {
     }
 
     public void refreshCache() {
+        if (srcMap == null) srcMap = source.getStoredItems();
         var newIdx = getIdx();
         if (newIdx == cachedCurIdx) return;
         cachedCurIdx = newIdx;
-        cachedKeys = source.getStoredItems().keySet().stream().toList();
+        cachedKeys = srcMap.keySet().stream().toList();
         emptyCounter = 0;
     }
 
@@ -62,14 +65,11 @@ public class CachedNexusInventory implements AutoCloseable {
         refreshCache();
         if (slot >= cachedKeys.size()) return null;
         var idx = cachedKeys.get(slot);
-        return source.getStoredItems().getOrDefault(idx, null);
+        return srcMap.getOrDefault(idx, null);
     }
 
     protected ItemStack makeItem(ItemRecord record) {
-        var res = new ItemStack(record.getItem(), (int) record.getCount());
-        var tag = record.getTag();
-        if (tag != null) res.setTag(tag);
-        return res;
+        return record.toStack((int) record.getCount());
     }
 
     protected boolean matches(ItemRecord record, ItemStack stack) {
@@ -115,10 +115,12 @@ public class CachedNexusInventory implements AutoCloseable {
         if (record == null) {
             if (!simulate) {
                 try (var self = checkEmptyChange()) {
-                    if (slot < cachedKeys.size()) { // reuse idx
-                        source.getStoredItems().put(cachedKeys.get(slot), new ItemRecord(stack));
-                        if (slot < UI_VISIBLE_SLOTS) emptyCounter--;
-                    } else source.assignItem(new ItemRecord(stack));
+                    synchronized (srcMap) {
+                        if (slot < cachedKeys.size()) { // reuse idx
+                            srcMap.put(cachedKeys.get(slot), new ItemRecord(stack));
+                            if (slot < UI_VISIBLE_SLOTS) emptyCounter--;
+                        } else source.assignItem(new ItemRecord(stack));
+                    }
                 }
             }
             return ItemStack.EMPTY;
@@ -142,8 +144,10 @@ public class CachedNexusInventory implements AutoCloseable {
             record.addCount(-count);
             if (record.getCount() <= 0) {
                 try (var self = checkEmptyChange()) {
-                    source.getStoredItems().remove(cachedKeys.get(slot));
-                    if (slot < UI_VISIBLE_SLOTS) emptyCounter++;
+                    synchronized (srcMap) {
+                        srcMap.remove(cachedKeys.get(slot));
+                        if (slot < UI_VISIBLE_SLOTS) emptyCounter++;
+                    }
                 }
             }
         }
@@ -163,20 +167,38 @@ public class CachedNexusInventory implements AutoCloseable {
         return record == null || matches(record, stack);
     }
 
+    public void setStackInSlot(int slot, @NotNull ItemStack stack) {
+        if (slot >= maxTypes) return;
+        refreshCache();
+        synchronized (srcMap) {
+            if (stack.isEmpty()) {
+                if (slot < cachedKeys.size()) srcMap.remove(cachedKeys.get(slot));
+            } else {
+                var replace = new ItemRecord(stack);
+                if (slot >= cachedKeys.size()) source.assignItem(replace);
+                else srcMap.put(cachedKeys.get(slot), replace);
+            }
+        }
+    }
+
     // ========== Container API Support ==========
 
     public void clearContent() {
         try (var self = checkEmptyChange()) {
-            source.getStoredItems().clear();
+            srcMap.clear();
         }
     }
 
     public boolean isEmpty() {
-        return source.getStoredItems().isEmpty();
+        return srcMap.isEmpty();
+    }
+
+    public boolean isFull() {
+        return srcMap.size() >= maxTypes;
     }
 
     public int getEntryCount() {
-        return source.getStoredItems().size();
+        return srcMap.size();
     }
 
     public boolean shouldFlushForContainer() {

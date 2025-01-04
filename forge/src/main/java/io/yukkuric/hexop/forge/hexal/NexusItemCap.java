@@ -4,12 +4,12 @@ import io.yukkuric.hexop.hexal.CachedNexusInventory;
 import net.minecraft.core.Direction;
 import net.minecraftforge.common.capabilities.*;
 import net.minecraftforge.common.util.LazyOptional;
-import net.minecraftforge.items.IItemHandler;
+import net.minecraftforge.items.IItemHandlerModifiable;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import ram.talia.hexal.common.blocks.entity.BlockEntityMediafiedStorage;
 
-public class NexusItemCap extends CachedNexusInventory implements IItemHandler {
+public class NexusItemCap extends CachedNexusInventory implements IItemHandlerModifiable {
     public NexusItemCap(BlockEntityMediafiedStorage be) {
         super(be);
     }

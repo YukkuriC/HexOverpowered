@@ -7,13 +7,15 @@ import net.minecraft.world.item.ItemStack;
 import org.spongepowered.asm.mixin.Mixin;
 import ram.talia.hexal.common.blocks.entity.BlockEntityMediafiedStorage;
 
+import static io.yukkuric.hexop.hexal.CompressedChestMenu.UI_VISIBLE_SLOTS;
+
 @Mixin(BlockEntityMediafiedStorage.class)
 public class MixinMoteContainer implements Container, CachedNexusInventory.Control {
     final CachedNexusInventory API = new CachedNexusInventory((BlockEntityMediafiedStorage) (Object) this);
 
     @Override
     public int getContainerSize() {
-        return CachedNexusInventory.UI_VISIBLE_SLOTS;
+        return UI_VISIBLE_SLOTS;
     }
 
     @Override
@@ -38,8 +40,7 @@ public class MixinMoteContainer implements Container, CachedNexusInventory.Contr
 
     @Override
     public void setItem(int slot, ItemStack stack) {
-        removeItemNoUpdate(slot);
-        if (!stack.isEmpty()) API.insertItem(slot, stack, false);
+        API.setStackInSlot(slot, stack);
     }
 
     @Override

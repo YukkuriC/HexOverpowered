@@ -1,6 +1,7 @@
 package io.yukkuric.hexop.mixin.hexal;
 
 import io.yukkuric.hexop.hexal.CachedNexusInventory;
+import io.yukkuric.hexop.hexal.CompressedChestMenu;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.*;
@@ -31,7 +32,7 @@ public abstract class MixinMoteMenu extends BlockBehaviour {
         return new MenuProvider() {
             @Nullable
             public AbstractContainerMenu createMenu(int i, Inventory inventory, Player player) {
-                return ChestMenu.sixRows(i, inventory, container);
+                return new CompressedChestMenu(i, inventory, container, ctrl);
             }
 
             public Component getDisplayName() {
