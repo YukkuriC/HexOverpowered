@@ -8,11 +8,9 @@ import ram.talia.hexal.common.blocks.entity.BlockEntityMediafiedStorage;
 
 import java.lang.reflect.Field;
 import java.util.List;
-import java.util.Map;
 
 public class CachedNexusInventory implements AutoCloseable {
     protected final BlockEntityMediafiedStorage source;
-    protected final Map<Integer, ItemRecord> srcMap;
     static final Field fIdx;
     protected final int maxTypes;
 
@@ -30,7 +28,6 @@ public class CachedNexusInventory implements AutoCloseable {
 
     public CachedNexusInventory(BlockEntityMediafiedStorage be) {
         source = be;
-        srcMap = be.getStoredItems();
         maxTypes = HexalConfig.getServer().getMaxRecordsInMediafiedStorage();
     }
 
@@ -44,18 +41,23 @@ public class CachedNexusInventory implements AutoCloseable {
         }
     }
 
-    protected void refreshCache() {
+    public void doForceRefresh() {
+        cachedCurIdx = -1;
+        refreshCache();
+    }
+
+    public void refreshCache() {
         var newIdx = getIdx();
         if (newIdx == cachedCurIdx) return;
         cachedCurIdx = newIdx;
-        cachedKeys = srcMap.keySet().stream().toList();
+        cachedKeys = source.getStoredItems().keySet().stream().toList();
     }
 
     protected ItemRecord get(int slot) {
         refreshCache();
         if (slot >= cachedKeys.size()) return null;
         var idx = cachedKeys.get(slot);
-        return srcMap.getOrDefault(idx, null);
+        return source.getStoredItems().getOrDefault(idx, null);
     }
 
     protected ItemStack makeItem(ItemRecord record) {
@@ -78,13 +80,13 @@ public class CachedNexusInventory implements AutoCloseable {
     boolean oldEmpty;
 
     protected CachedNexusInventory checkEmptyChange() {
-        oldEmpty = srcMap.isEmpty();
+        oldEmpty = source.getStoredItems().isEmpty();
         return this;
     }
 
     @Override
     public void close() {
-        if (oldEmpty != srcMap.isEmpty()) source.sync();
+        if (oldEmpty != source.getStoredItems().isEmpty()) source.sync();
     }
 
     // ========== Forge IItemHandler API ==========
@@ -105,14 +107,14 @@ public class CachedNexusInventory implements AutoCloseable {
         if (slot >= maxTypes) return stack;
         var record = get(slot);
         if (record == null) {
-            try (var self = checkEmptyChange()) {
-                if (!simulate) {
-                    if (slot < cachedKeys.size()) { // reuse idx
-                        srcMap.put(cachedKeys.get(slot), new ItemRecord(stack));
-                    } else source.assignItem(new ItemRecord(stack));
+            if (!simulate) {
+                if (slot < cachedKeys.size()) { // reuse idx
+                    source.getStoredItems().put(cachedKeys.get(slot), new ItemRecord(stack));
+                } else try (var self = checkEmptyChange()) {
+                    source.assignItem(new ItemRecord(stack));
                 }
-                return ItemStack.EMPTY;
             }
+            return ItemStack.EMPTY;
         }
         if (!matches(record, stack)) return stack;
         if (!simulate) {
@@ -132,7 +134,7 @@ public class CachedNexusInventory implements AutoCloseable {
             item.setCount(count);
             if (!simulate) {
                 record.addCount(-count);
-                if (record.getCount() <= 0) srcMap.remove(cachedKeys.get(slot));
+                if (record.getCount() <= 0) source.getStoredItems().remove(cachedKeys.get(slot));
             }
             return item;
         }
@@ -149,5 +151,21 @@ public class CachedNexusInventory implements AutoCloseable {
         if (slot >= maxTypes) return false;
         var record = get(slot);
         return record == null || matches(record, stack);
+    }
+
+    // ========== Container API Support ==========
+
+    public void clearContent() {
+        try (var self = checkEmptyChange()) {
+            source.getStoredItems().clear();
+        }
+    }
+
+    public boolean isEmpty() {
+        return source.getStoredItems().isEmpty();
+    }
+
+    public interface Control {
+        void doRefresh();
     }
 }

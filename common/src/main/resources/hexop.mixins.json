@@ -6,6 +6,8 @@
   "client": [
   ],
   "mixins": [
+    "hexal.MixinMoteContainer",
+    "hexal.MixinMoteMenu"
   ],
   "injectors": {
     "defaultRequire": 1
