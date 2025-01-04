@@ -28,12 +28,13 @@ public abstract class MixinMoteMenu extends BlockBehaviour {
     public @Nullable MenuProvider getMenuProvider(BlockState blockState, Level level, BlockPos blockPos) {
         var be = level.getBlockEntity(blockPos);
         if (!(be instanceof Container container)) return null;
-        var ctrl = ((CachedNexusInventory.Control) be).getAPI();
-        ctrl.doForceRefresh();
+        var ctrl = ((CachedNexusInventory.Control) be);
+        var api = ctrl.getAPI();
+        api.doForceRefresh();
         return new MenuProvider() {
             @Nullable
             public AbstractContainerMenu createMenu(int i, Inventory inventory, Player player) {
-                return new CompressedChestMenu(i, inventory, container, ctrl);
+                return new CompressedChestMenu(i, inventory, ctrl.wrapForChest(), api);
             }
 
             public Component getDisplayName() {

@@ -209,5 +209,7 @@ public class CachedNexusInventory implements AutoCloseable {
 
     public interface Control {
         CachedNexusInventory getAPI();
+
+        MoteChestContainer wrapForChest();
     }
 }
