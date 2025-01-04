@@ -44,6 +44,7 @@ public class CachedNexusInventory implements AutoCloseable {
     public void doForceRefresh() {
         cachedCurIdx = -1;
         refreshCache();
+        source.sync();
     }
 
     public void refreshCache() {
@@ -165,7 +166,11 @@ public class CachedNexusInventory implements AutoCloseable {
         return source.getStoredItems().isEmpty();
     }
 
+    public int getEntryCount() {
+        return source.getStoredItems().size();
+    }
+
     public interface Control {
-        void doRefresh();
+        CachedNexusInventory getAPI();
     }
 }

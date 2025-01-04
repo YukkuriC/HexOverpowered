@@ -26,30 +26,18 @@ public abstract class MixinMoteMenu extends BlockBehaviour {
     public @Nullable MenuProvider getMenuProvider(BlockState blockState, Level level, BlockPos blockPos) {
         var be = level.getBlockEntity(blockPos);
         if (!(be instanceof Container container)) return null;
-        var ctrl = (CachedNexusInventory.Control) be;
-        ctrl.doRefresh();
+        var ctrl = ((CachedNexusInventory.Control) be).getAPI();
+        ctrl.doForceRefresh();
         return new MenuProvider() {
             @Nullable
             public AbstractContainerMenu createMenu(int i, Inventory inventory, Player player) {
-                switch (container.getContainerSize()) {
-                    case 9:
-                        return new ChestMenu(MenuType.GENERIC_9x1, i, inventory, container, 1);
-                    case 18:
-                        return new ChestMenu(MenuType.GENERIC_9x2, i, inventory, container, 2);
-                    case 27:
-                        return ChestMenu.threeRows(i, inventory, container);
-                    case 36:
-                        return new ChestMenu(MenuType.GENERIC_9x4, i, inventory, container, 4);
-                    case 45:
-                        return new ChestMenu(MenuType.GENERIC_9x5, i, inventory, container, 5);
-                    case 54:
-                        return ChestMenu.sixRows(i, inventory, container);
-                }
-                return null;
+                return ChestMenu.sixRows(i, inventory, container);
             }
 
             public Component getDisplayName() {
-                return Component.literal("Mote Chest");
+                var realCount = ctrl.getEntryCount();
+                if (realCount <= 54) return Component.translatable("hexop.mote.chest.title");
+                return Component.translatable("hexop.mote.chest.title.partial", 54, realCount);
             }
         };
     }

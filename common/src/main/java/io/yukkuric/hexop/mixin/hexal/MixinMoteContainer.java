@@ -13,9 +13,7 @@ public class MixinMoteContainer implements Container, CachedNexusInventory.Contr
 
     @Override
     public int getContainerSize() {
-        var raw = API.getSlots();
-        raw = (int) (Math.ceil(raw / (float) 9) * 9);
-        return Math.min(54, Math.max(9, raw));
+        return 54;
     }
 
     @Override
@@ -64,7 +62,7 @@ public class MixinMoteContainer implements Container, CachedNexusInventory.Contr
     }
 
     @Override
-    public void doRefresh() {
-        API.doForceRefresh();
+    public CachedNexusInventory getAPI() {
+        return API;
     }
 }
