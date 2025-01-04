@@ -13,7 +13,7 @@ public class MixinMoteContainer implements Container, CachedNexusInventory.Contr
 
     @Override
     public int getContainerSize() {
-        return 54;
+        return CachedNexusInventory.UI_VISIBLE_SLOTS;
     }
 
     @Override

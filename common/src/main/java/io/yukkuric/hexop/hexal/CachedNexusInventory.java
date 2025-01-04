@@ -10,12 +10,15 @@ import java.lang.reflect.Field;
 import java.util.List;
 
 public class CachedNexusInventory implements AutoCloseable {
+    public static final int UI_VISIBLE_SLOTS = 54;
+
     protected final BlockEntityMediafiedStorage source;
     static final Field fIdx;
     protected final int maxTypes;
 
     protected int cachedCurIdx = -1;
     protected List<Integer> cachedKeys = List.of();
+    protected int emptyCounter = 0;
 
     static {
         try {
@@ -52,6 +55,7 @@ public class CachedNexusInventory implements AutoCloseable {
         if (newIdx == cachedCurIdx) return;
         cachedCurIdx = newIdx;
         cachedKeys = source.getStoredItems().keySet().stream().toList();
+        emptyCounter = 0;
     }
 
     protected ItemRecord get(int slot) {
@@ -81,13 +85,14 @@ public class CachedNexusInventory implements AutoCloseable {
     boolean oldEmpty;
 
     protected CachedNexusInventory checkEmptyChange() {
-        oldEmpty = source.getStoredItems().isEmpty();
+        oldEmpty = isEmpty();
         return this;
     }
 
     @Override
     public void close() {
-        if (oldEmpty != source.getStoredItems().isEmpty()) source.sync();
+        if (oldEmpty != isEmpty()) source.sync();
+        if (shouldFlushForContainer()) doForceRefresh(); // force squash empty slots
     }
 
     // ========== Forge IItemHandler API ==========
@@ -109,10 +114,11 @@ public class CachedNexusInventory implements AutoCloseable {
         var record = get(slot);
         if (record == null) {
             if (!simulate) {
-                if (slot < cachedKeys.size()) { // reuse idx
-                    source.getStoredItems().put(cachedKeys.get(slot), new ItemRecord(stack));
-                } else try (var self = checkEmptyChange()) {
-                    source.assignItem(new ItemRecord(stack));
+                try (var self = checkEmptyChange()) {
+                    if (slot < cachedKeys.size()) { // reuse idx
+                        source.getStoredItems().put(cachedKeys.get(slot), new ItemRecord(stack));
+                        if (slot < UI_VISIBLE_SLOTS) emptyCounter--;
+                    } else source.assignItem(new ItemRecord(stack));
                 }
             }
             return ItemStack.EMPTY;
@@ -130,15 +136,18 @@ public class CachedNexusInventory implements AutoCloseable {
         if (record == null) return ItemStack.EMPTY;
         count = (int) Math.min(count, record.getCount());
         if (count <= 0) return ItemStack.EMPTY;
-        try (var self = checkEmptyChange()) {
-            var item = makeItem(record);
-            item.setCount(count);
-            if (!simulate) {
-                record.addCount(-count);
-                if (record.getCount() <= 0) source.getStoredItems().remove(cachedKeys.get(slot));
+        var item = makeItem(record);
+        item.setCount(count);
+        if (!simulate) {
+            record.addCount(-count);
+            if (record.getCount() <= 0) {
+                try (var self = checkEmptyChange()) {
+                    source.getStoredItems().remove(cachedKeys.get(slot));
+                    if (slot < UI_VISIBLE_SLOTS) emptyCounter++;
+                }
             }
-            return item;
         }
+        return item;
     }
 
     public int getSlotLimit(int slot) {
@@ -169,6 +178,12 @@ public class CachedNexusInventory implements AutoCloseable {
     public int getEntryCount() {
         return source.getStoredItems().size();
     }
+
+    public boolean shouldFlushForContainer() {
+        return (emptyCounter >= UI_VISIBLE_SLOTS - 9) && (cachedKeys.size() > UI_VISIBLE_SLOTS);
+    }
+
+    // ========== Exposed to Mixin ==========
 
     public interface Control {
         CachedNexusInventory getAPI();
