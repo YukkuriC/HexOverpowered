@@ -37,8 +37,7 @@ public abstract class MixinMoteMenu extends BlockBehaviour {
 
             public Component getDisplayName() {
                 var realCount = ctrl.getEntryCount();
-                if (realCount <= 54) return Component.translatable("hexop.mote.chest.title");
-                return Component.translatable("hexop.mote.chest.title.partial", 54, realCount);
+                return Component.translatable("hexop.mote.chest.title");
             }
         };
     }
