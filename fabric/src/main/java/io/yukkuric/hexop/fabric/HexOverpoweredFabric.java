@@ -7,7 +7,7 @@ import net.fabricmc.loader.api.FabricLoader;
 public final class HexOverpoweredFabric extends HexOverpowered implements ModInitializer {
     @Override
     public void onInitialize() {
-        // TODO CCA
+        HexOPConfigFabric.setup();
     }
 
     @Override

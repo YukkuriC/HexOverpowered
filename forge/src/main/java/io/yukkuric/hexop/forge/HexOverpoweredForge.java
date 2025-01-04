@@ -6,6 +6,7 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.fml.ModList;
+import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
 import ram.talia.hexal.common.blocks.entity.BlockEntityMediafiedStorage;
 
@@ -21,6 +22,9 @@ public final class HexOverpoweredForge extends HexOverpowered {
                 e.addCapability(ID_NEXUS_INVENTORY, new NexusItemCap.Provider(be));
             });
         }
+
+        var ctx = ModLoadingContext.get();
+        HexOPConfigForge.register(ctx);
     }
 
     @Override

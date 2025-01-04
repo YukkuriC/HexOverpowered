@@ -1,0 +1,32 @@
+package io.yukkuric.hexop.forge;
+
+import net.minecraftforge.common.ForgeConfigSpec;
+import net.minecraftforge.fml.ModLoadingContext;
+import net.minecraftforge.fml.config.ModConfig;
+import org.apache.commons.lang3.tuple.Pair;
+
+import static io.yukkuric.hexop.HexOPConfig.*;
+
+public class HexOPConfigForge implements API {
+    @Override
+    public boolean EnablesMoteChestGUI() {
+        return cfgEnablesMoteChestGUI.get();
+    }
+
+    public ForgeConfigSpec.BooleanValue cfgEnablesMoteChestGUI;
+
+    public HexOPConfigForge(ForgeConfigSpec.Builder builder) {
+        cfgEnablesMoteChestGUI = builder.comment(DESCRIP_MOTE_GLANCE).define("EnablesMoteChestGUI", true);
+    }
+
+    private static final Pair<HexOPConfigForge, ForgeConfigSpec> CFG_REGISTRY;
+
+    static {
+        CFG_REGISTRY = new ForgeConfigSpec.Builder().configure(HexOPConfigForge::new);
+    }
+
+    public static void register(ModLoadingContext ctx) {
+        bindConfigImp(CFG_REGISTRY.getKey());
+        ctx.registerConfig(ModConfig.Type.COMMON, CFG_REGISTRY.getValue());
+    }
+}

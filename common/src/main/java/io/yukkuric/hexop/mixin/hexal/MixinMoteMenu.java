@@ -1,5 +1,6 @@
 package io.yukkuric.hexop.mixin.hexal;
 
+import io.yukkuric.hexop.HexOPConfig;
 import io.yukkuric.hexop.hexal.CachedNexusInventory;
 import io.yukkuric.hexop.hexal.CompressedChestMenu;
 import net.minecraft.core.BlockPos;
@@ -36,7 +37,6 @@ public abstract class MixinMoteMenu extends BlockBehaviour {
             }
 
             public Component getDisplayName() {
-                var realCount = ctrl.getEntryCount();
                 return Component.translatable("hexop.mote.chest.title");
             }
         };
@@ -45,6 +45,7 @@ public abstract class MixinMoteMenu extends BlockBehaviour {
     @Override
     public @NotNull InteractionResult use(BlockState blockState, Level level, BlockPos blockPos, Player player, InteractionHand interactionHand, BlockHitResult blockHitResult) {
         if (level.isClientSide) return InteractionResult.SUCCESS;
+        if (!HexOPConfig.EnablesMoteChestGUI()) return InteractionResult.PASS;
 
         MenuProvider menuProvider = this.getMenuProvider(blockState, level, blockPos);
         if (menuProvider != null) {
