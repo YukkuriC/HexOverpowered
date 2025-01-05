@@ -70,7 +70,7 @@ public class MixinMoteContainer implements Container, CachedNexusInventory.Contr
 
     @Override
     public MoteChestContainer wrapForChest() {
-        if (cachedChest == null) cachedChest = new MoteChestContainer(this);
+        if (cachedChest == null) cachedChest = new MoteChestContainer(this, API);
         return cachedChest;
     }
 }
