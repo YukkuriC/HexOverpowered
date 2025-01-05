@@ -110,7 +110,7 @@ public class CachedNexusInventory implements AutoCloseable {
     }
 
     public @NotNull ItemStack insertItem(int slot, @NotNull ItemStack stack, boolean simulate) {
-        if (slot >= maxTypes) return stack;
+        if (slot >= maxTypes || stack.isEmpty()) return stack;
         var record = get(slot);
         if (record == null) {
             if (!simulate) {
@@ -195,10 +195,6 @@ public class CachedNexusInventory implements AutoCloseable {
 
     public boolean isFull() {
         return srcMap.size() >= maxTypes;
-    }
-
-    public int getEntryCount() {
-        return srcMap.size();
     }
 
     public boolean shouldFlushForContainer() {
