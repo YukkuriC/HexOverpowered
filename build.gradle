@@ -31,6 +31,7 @@ subprojects {
         // for more information about repositories.
         mavenLocal()
         maven { url "https://maven.blamejared.com/" }
+        // maven { url 'https://modmaven.dev/' }
         flatDir { dir 'libs' }
         flatDir { dir '../libs' }
     }
