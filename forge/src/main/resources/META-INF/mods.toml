@@ -1,6 +1,6 @@
 modLoader = "javafml"
 loaderVersion = "[47,)"
-#issueTrackerURL = ""
+issueTrackerURL = "https://github.com/YukkuriC/HexOverpowered/issues"
 license = "MIT"
 
 [[mods]]
@@ -11,7 +11,9 @@ authors = "YukkuriC"
 description = '''
 Various OP features for HexCasting and its addons
 '''
-#logoFile = ""
+logoFile = "logo.png"
+updateJSONURL = "https://api.modrinth.com/updates/PkhtCPsD/forge_updates.json"
+displayURL = "https://modrinth.com/project/hexoverpowered"
 
 [[dependencies.hexop]]
 modId = "forge"
@@ -27,3 +29,30 @@ versionRange = "[1.20.1,)"
 ordering = "NONE"
 side = "BOTH"
 
+[[dependencies.hexop]]
+modId = "hexcasting"
+mandatory = true
+versionRange = "[0,)"
+ordering = "AFTER"
+side = "BOTH"
+
+[[dependencies.hexop]]
+modId = "hexal"
+mandatory = false
+versionRange = "[0,)"
+ordering = "AFTER"
+side = "BOTH"
+
+[[dependencies.hexop]]
+modId = "mekanism"
+mandatory = false
+versionRange = "[0,)"
+ordering = "AFTER"
+side = "BOTH"
+
+[[dependencies.hexop]]
+modId = "foo" # test for not exist dep
+mandatory = false
+versionRange = "[0,)"
+ordering = "AFTER"
+side = "BOTH"

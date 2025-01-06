@@ -8,10 +8,12 @@
     "YukkuriC"
   ],
   "contact": {
-    "homepage": "https://github.com/YukkuriC/"
+    "homepage": "https://modrinth.com/project/hexoverpowered",
+    "sources": "https://github.com/YukkuriC/HexOverpowered",
+    "issues": "https://github.com/YukkuriC/HexOverpowered/issues"
   },
   "license": "MIT",
-  "icon": "assets/hexop/icon.png",
+  "icon": "logo.png",
   "environment": "*",
   "entrypoints": {
     "main": [
@@ -27,9 +29,11 @@
   "depends": {
     "fabricloader": ">=0.16.9",
     "minecraft": "~1.20.1",
-    "java": ">=17"
+    "java": ">=17",
+    "hexcasting": ">=0"
   },
   "suggests": {
-    "another-mod": "*"
+    "hexal": ">=0",
+    "mekanism": ">=0"
   }
 }
