@@ -9,7 +9,7 @@ with opentext('secrets.json') as f:
 with opentext('config.json') as f:
     CFG = json.load(f)
 
-with opentext('changelog.md') as f: 
+with opentext('changelog.md') as f:
     CHANGELOG = f.read()
 
 if CFG.get('mock'):
@@ -37,14 +37,18 @@ def push_file(file):
             "User-Agent": f"YukkuriC/{mod_name}",
             # "Content-Type": "multipart/form-data"
         }
+        dep = [{
+            "project_id": dep,
+            "dependency_type": "required"
+        } for dep in CFG['MR']['dependencies']] + [{
+            "project_id": dep,
+            "dependency_type": "optional"
+        } for dep in CFG['MR']["optional"]]
         data = {
             "name": filename_body,
             "version_number": mod_version_full,
             "changelog": CHANGELOG,
-            "dependencies": [{
-                "project_id": dep,
-                "dependency_type": "required"
-            } for dep in CFG['MR']['dependencies']],
+            "dependencies": dep,
             "game_versions": [game_version],
             "version_type": "release",
             "loaders": [platform],
