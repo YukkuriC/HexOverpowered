@@ -12,6 +12,9 @@ import ram.talia.hexal.common.blocks.entity.BlockEntityMediafiedStorage;
 public class MixinMoteContainer implements Container, CachedNexusInventory.Control {
     final CachedNexusInventory API = new CachedNexusInventory((BlockEntityMediafiedStorage) (Object) this);
 
+    int cachedSlot = -1;
+    ItemStack cachedItem = null;
+
     @Override
     public int getContainerSize() {
         return API.getSlots();
@@ -24,21 +27,27 @@ public class MixinMoteContainer implements Container, CachedNexusInventory.Contr
 
     @Override
     public ItemStack getItem(int slot) {
-        return API.getStackInSlot(slot);
+        var res = API.getStackInSlot(slot);
+        cachedSlot = slot;
+        cachedItem = res;
+        return res;
     }
 
     @Override
     public ItemStack removeItem(int slot, int count) {
+        cachedItem = null; // invalidate cached
         return API.extractItem(slot, count, false);
     }
 
     @Override
     public ItemStack removeItemNoUpdate(int slot) {
+        cachedItem = null; // invalidate cached
         return API.extractItem(slot, Integer.MAX_VALUE, false);
     }
 
     @Override
     public void setItem(int slot, ItemStack stack) {
+        cachedItem = null; // invalidate cached
         API.setStackInSlot(slot, stack);
     }
 
@@ -48,7 +57,10 @@ public class MixinMoteContainer implements Container, CachedNexusInventory.Contr
     }
 
     @Override
-    public void setChanged() { // nope
+    public void setChanged() {
+        if (cachedItem == null) return;
+        API.setStackInSlot(cachedSlot, cachedItem);
+        cachedItem = null;
     }
 
     @Override
@@ -59,6 +71,7 @@ public class MixinMoteContainer implements Container, CachedNexusInventory.Contr
     @Override
     public void clearContent() {
         API.clearContent();
+        cachedItem = null; // invalidate cached
     }
 
     @Override

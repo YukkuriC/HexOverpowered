@@ -56,7 +56,8 @@ public class MoteChestContainer implements Container {
     }
 
     @Override
-    public void setChanged() { // nope
+    public void setChanged() {
+        parent.setChanged();
     }
 
     @Override
