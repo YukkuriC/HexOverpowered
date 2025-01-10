@@ -18,11 +18,20 @@ public class HexOPConfigForge implements API {
         return cfgEnablesMishapNoYeet.get();
     }
 
-    public ForgeConfigSpec.BooleanValue cfgEnablesMoteChestGUI, cfgEnablesMishapNoYeet;
+    @Override
+    public boolean EnablesTeleportVehicles() {
+        return cfgEnablesTeleportVehicles.get();
+    }
+
+    public ForgeConfigSpec.BooleanValue
+            cfgEnablesTeleportVehicles,
+            cfgEnablesMishapNoYeet,
+            cfgEnablesMoteChestGUI;
 
     public HexOPConfigForge(ForgeConfigSpec.Builder builder) {
         cfgEnablesMoteChestGUI = builder.comment(DESCRIP_MOTE_GLANCE).define("EnablesMoteChestGUI", true);
         cfgEnablesMishapNoYeet = builder.comment(DESCRIP_NO_YEET).define("EnablesMishapNoYeet", true);
+        cfgEnablesTeleportVehicles = builder.comment(DESCRIP_TP_VEHICLES).define("EnablesTeleportVehicles", true);
     }
 
     private static final Pair<HexOPConfigForge, ForgeConfigSpec> CFG_REGISTRY;

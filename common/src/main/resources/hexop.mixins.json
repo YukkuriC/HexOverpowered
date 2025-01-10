@@ -6,9 +6,10 @@
   "client": [
   ],
   "mixins": [
+    "PleaseDontYeet",
+    "TeleportVehicles",
     "hexal.MixinMoteContainer",
-    "hexal.MixinMoteMenu",
-    "PleaseDontYeet"
+    "hexal.MixinMoteMenu"
   ],
   "injectors": {
     "defaultRequire": 1

@@ -25,6 +25,8 @@ public class HexOPConfigFabric implements ConfigData {
         private boolean EnablesMoteChestGUI = true;
         @Comment(DESCRIP_NO_YEET)
         private boolean EnablesMishapNoYeet = true;
+        @Comment(DESCRIP_TP_VEHICLES)
+        private boolean EnablesTeleportVehicles = true;
 
 
         @Override
@@ -35,6 +37,11 @@ public class HexOPConfigFabric implements ConfigData {
         @Override
         public boolean EnablesMishapNoYeet() {
             return EnablesMishapNoYeet;
+        }
+
+        @Override
+        public boolean EnablesTeleportVehicles() {
+            return EnablesTeleportVehicles;
         }
     }
 }
