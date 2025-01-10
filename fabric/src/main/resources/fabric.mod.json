@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "id": "hexop",
+  "id": "hexoverpowered",
   "version": "${version}",
   "name": "HexOverpowered",
   "description": "Various OP features for HexCasting and its addons",

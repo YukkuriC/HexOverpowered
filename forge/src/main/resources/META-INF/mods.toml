@@ -4,7 +4,7 @@ issueTrackerURL = "https://github.com/YukkuriC/HexOverpowered/issues"
 license = "MIT"
 
 [[mods]]
-modId = "hexop"
+modId = "hexoverpowered"
 version = "${version}"
 displayName = "HexOverpowered"
 authors = "YukkuriC"
