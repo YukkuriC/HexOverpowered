@@ -4,6 +4,8 @@ plugins {
     id 'com.github.johnrengelman.shadow' version '8.1.1' apply false
 }
 
+project.mod_version = "$minecraft_version-$mod_version_base"
+
 architectury {
     minecraft = project.minecraft_version
 }
@@ -20,7 +22,7 @@ subprojects {
 
     base {
         // Set up a suffixed format for the mod jar names, e.g. `example-fabric`.
-        archivesName = "$rootProject.archives_name-$project.name-$minecraft_version"
+        archivesName = "$rootProject.archives_name-$project.name"
     }
 
     repositories {
