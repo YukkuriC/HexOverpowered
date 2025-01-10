@@ -8,7 +8,7 @@
   "mixins": [
     "hexal.MixinMoteContainer",
     "hexal.MixinMoteMenu",
-    "hexal.PleaseDontYeet"
+    "PleaseDontYeet"
   ],
   "injectors": {
     "defaultRequire": 1

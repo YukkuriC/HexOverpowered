@@ -23,10 +23,18 @@ public class HexOPConfigFabric implements ConfigData {
     public static class Common implements API, ConfigData {
         @Comment(DESCRIP_MOTE_GLANCE)
         private boolean EnablesMoteChestGUI = true;
+        @Comment(DESCRIP_NO_YEET)
+        private boolean EnablesMishapNoYeet = true;
+
 
         @Override
         public boolean EnablesMoteChestGUI() {
             return EnablesMoteChestGUI;
+        }
+
+        @Override
+        public boolean EnablesMishapNoYeet() {
+            return EnablesMishapNoYeet;
         }
     }
 }

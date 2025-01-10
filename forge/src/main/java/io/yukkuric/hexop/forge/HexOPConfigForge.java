@@ -13,10 +13,16 @@ public class HexOPConfigForge implements API {
         return cfgEnablesMoteChestGUI.get();
     }
 
-    public ForgeConfigSpec.BooleanValue cfgEnablesMoteChestGUI;
+    @Override
+    public boolean EnablesMishapNoYeet() {
+        return cfgEnablesMishapNoYeet.get();
+    }
+
+    public ForgeConfigSpec.BooleanValue cfgEnablesMoteChestGUI, cfgEnablesMishapNoYeet;
 
     public HexOPConfigForge(ForgeConfigSpec.Builder builder) {
         cfgEnablesMoteChestGUI = builder.comment(DESCRIP_MOTE_GLANCE).define("EnablesMoteChestGUI", true);
+        cfgEnablesMishapNoYeet = builder.comment(DESCRIP_NO_YEET).define("EnablesMishapNoYeet", true);
     }
 
     private static final Pair<HexOPConfigForge, ForgeConfigSpec> CFG_REGISTRY;
