@@ -34,8 +34,8 @@ subprojects {
         mavenLocal()
         maven { url "https://maven.blamejared.com/" }
         // maven { url 'https://modmaven.dev/' }
-        flatDir { dir 'libs' }
-        flatDir { dir '../libs' }
+        flatDir { dir "libs/$minecraft_version" }
+        flatDir { dir "../libs/$minecraft_version" }
     }
 
     var nameForRef = project.name.equals("common") ? "fabric" : project.name
@@ -45,8 +45,8 @@ subprojects {
 
         modImplementation("at.petra-k.hexcasting:hexcasting-${nameForRef}-${project.minecraft_version}:${project.hexcastingVersion}") { transitive = false }
 
-        implementation fileTree(dir: 'libs', include: '*.jar')
-        implementation fileTree(dir: '../libs', include: '*.jar')
+        implementation fileTree(dir: "libs/$minecraft_version", include: '*.jar')
+        implementation fileTree(dir: "../libs/$minecraft_version", include: '*.jar')
     }
 
     java {
