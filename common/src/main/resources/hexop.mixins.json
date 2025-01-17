@@ -8,6 +8,7 @@
   "mixins": [
     "PleaseDontYeet",
     "TeleportVehicles",
+    "VisiblePackagedHex",
     "hexal.MixinMoteContainer",
     "hexal.MixinMoteMenu"
   ],

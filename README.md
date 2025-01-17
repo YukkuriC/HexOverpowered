@@ -8,8 +8,8 @@ CurseForge](https://www.curseforge.com/minecraft/mc-mods/hexoverpowered)
 
 ## General
 
+* displays spell inside casting items (ItemPackagedHex)
 * (optional) disables item dropping of certain mishaps
-
 * (optional) re-enable TP for various limited entities
 
 * Hexal interop
