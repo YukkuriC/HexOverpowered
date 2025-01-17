@@ -15,42 +15,42 @@ logoFile = "logo.png"
 updateJSONURL = "https://api.modrinth.com/updates/PkhtCPsD/forge_updates.json"
 displayURL = "https://modrinth.com/project/hexoverpowered"
 
-[[dependencies.hexop]]
+[[dependencies.hexoverpowered]]
 modId = "forge"
 mandatory = true
 versionRange = "[47,)"
 ordering = "NONE"
 side = "BOTH"
 
-[[dependencies.hexop]]
+[[dependencies.hexoverpowered]]
 modId = "minecraft"
 mandatory = true
 versionRange = "[1.20.1,)"
 ordering = "NONE"
 side = "BOTH"
 
-[[dependencies.hexop]]
+[[dependencies.hexoverpowered]]
 modId = "hexcasting"
 mandatory = true
 versionRange = "[0,)"
 ordering = "AFTER"
 side = "BOTH"
 
-[[dependencies.hexop]]
+[[dependencies.hexoverpowered]]
 modId = "hexal"
 mandatory = false
 versionRange = "[0,)"
 ordering = "AFTER"
 side = "BOTH"
 
-[[dependencies.hexop]]
+[[dependencies.hexoverpowered]]
 modId = "mekanism"
 mandatory = false
 versionRange = "[0,)"
 ordering = "AFTER"
 side = "BOTH"
 
-[[dependencies.hexop]]
+[[dependencies.hexoverpowered]]
 modId = "foo" # test for not exist dep
 mandatory = false
 versionRange = "[0,)"
