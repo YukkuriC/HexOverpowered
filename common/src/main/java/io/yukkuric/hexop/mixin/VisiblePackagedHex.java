@@ -1,6 +1,6 @@
 package io.yukkuric.hexop.mixin;
 
-import at.petrak.hexcasting.api.casting.iota.ListIota;
+import at.petrak.hexcasting.api.spell.iota.ListIota;
 import at.petrak.hexcasting.common.items.magic.ItemMediaHolder;
 import at.petrak.hexcasting.common.items.magic.ItemPackagedHex;
 import net.minecraft.nbt.Tag;

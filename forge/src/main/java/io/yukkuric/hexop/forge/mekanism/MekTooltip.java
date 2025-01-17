@@ -20,9 +20,9 @@ public class MekTooltip {
         var mediaHolder = IXplatAbstractions.INSTANCE.findMediaHolder(stack);
         if (mediaHolder == null) return;
 
-        long maxMedia = mediaHolder.getMaxMedia();
+        int maxMedia = mediaHolder.getMaxMedia();
         if (maxMedia > 0L) {
-            long media = mediaHolder.getMedia();
+            int media = mediaHolder.getMedia();
             float fullness = (float) media / (float) maxMedia;
             TextColor color = TextColor.fromRgb(MediaHelper.mediaBarColor(media, maxMedia));
             MutableComponent mediamount = Component.literal(DUST_AMOUNT.format((float) media / 10000.0F));

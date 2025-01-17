@@ -1,6 +1,6 @@
 package io.yukkuric.hexop.mixin;
 
-import at.petrak.hexcasting.common.casting.actions.spells.great.OpTeleport;
+import at.petrak.hexcasting.common.casting.operators.spells.great.OpTeleport;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import io.yukkuric.hexop.HexOPConfig;
