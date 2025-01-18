@@ -25,6 +25,7 @@ public class MekasuitMediaHolder implements ADMediaHolder {
 
     @Override
     public void setMedia(long newVal) {
+        newVal = Math.max(0, newVal);
         source.setEnergy(FloatingLong.create(newVal));
     }
 
