@@ -1,8 +1,10 @@
 package io.yukkuric.hexop.forge;
 
+import at.petrak.hexcasting.common.lib.HexRegistries;
 import at.petrak.hexcasting.forge.cap.ForgeCapabilityHandler;
 import at.petrak.hexcasting.forge.cap.HexCapabilities;
 import io.yukkuric.hexop.HexOverpowered;
+import io.yukkuric.hexop.actions.HexOPActions;
 import io.yukkuric.hexop.forge.hexal.NexusItemCap;
 import io.yukkuric.hexop.forge.mekanism.MekTooltip;
 import io.yukkuric.hexop.forge.mekanism.MekasuitMediaHolder;
@@ -14,6 +16,8 @@ import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.minecraftforge.registries.RegisterEvent;
 import ram.talia.hexal.common.blocks.entity.BlockEntityMediafiedStorage;
 
 @Mod(HexOverpowered.MOD_ID)
@@ -36,6 +40,14 @@ public final class HexOverpoweredForge extends HexOverpowered {
             });
             evBus.addListener(MekTooltip::handleMekasuitTooltip);
         }
+
+        var modBus = FMLJavaModLoadingContext.get().getModEventBus();
+        modBus.addListener((RegisterEvent event) -> {
+            var key = event.getRegistryKey();
+            if (key.equals(HexRegistries.ACTION)) {
+                HexOPActions.registerActions();
+            }
+        });
 
         var ctx = ModLoadingContext.get();
         HexOPConfigForge.register(ctx);

@@ -1,6 +1,7 @@
 package io.yukkuric.hexop.fabric;
 
 import io.yukkuric.hexop.HexOverpowered;
+import io.yukkuric.hexop.actions.HexOPActions;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.loader.api.FabricLoader;
 
@@ -8,6 +9,7 @@ public final class HexOverpoweredFabric extends HexOverpowered implements ModIni
     @Override
     public void onInitialize() {
         HexOPConfigFabric.setup();
+        HexOPActions.registerActions();
     }
 
     @Override
