@@ -12,6 +12,9 @@ CurseForge](https://www.curseforge.com/minecraft/mc-mods/hexoverpowered)
 * (optional) disables item dropping of certain mishaps
 * (optional) re-enable TP for various limited entities
 
+* OP great spells:
+  * `YJSP's Charge Media`
+
 * Hexal interop
     * item handler for mote nexus
         * supports interaction with hoppers, AE/RS, etc.
