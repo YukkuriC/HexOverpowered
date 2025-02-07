@@ -11,7 +11,7 @@ CurseForge](https://www.curseforge.com/minecraft/mc-mods/hexoverpowered)
 * displays spell inside casting items (ItemPackagedHex)
 * (optional) disables item dropping of certain mishaps
 * (optional) re-enable TP for various limited entities
-* (experimental) amethyst budding crystal growth accelerator circle
+* (experimental, 1.20 exclusive) amethyst budding crystal growth accelerator circle
 
 * OP great spells:
   * `YJSP's Charge Media`
