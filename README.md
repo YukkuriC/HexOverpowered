@@ -13,8 +13,12 @@ CurseForge](https://www.curseforge.com/minecraft/mc-mods/hexoverpowered)
 * (optional) re-enable TP for various limited entities
 * (experimental, 1.20 exclusive) amethyst budding crystal growth accelerator circle
 
+------
+
 * OP great spells:
   * `YJSP's Charge Media`
+
+------
 
 * Hexal interop
     * item handler for mote nexus
