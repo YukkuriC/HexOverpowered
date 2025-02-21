@@ -1,4 +1,8 @@
 {
   "hexcasting.action.hexoverpowered:yjsp_media": "YJSP's Charge Media",
-  "hexop.mote.chest.title": "A Glance of the Mote Chest"
+  "hexop.mote.chest.title": "A Glance of the Mote Chest",
+  "hexop.display.frame.eval": "Eval(%s)",
+  "hexop.display.frame.foreach": "ForEach(%s| %s, %s -> %s)",
+  "hexop.display.frame.reduce": "Reduce(%s, %s)",
+  "hexop.display.frame.recover_stack": "RecoverStack(%s)"
 }

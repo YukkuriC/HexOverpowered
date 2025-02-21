@@ -1,6 +1,7 @@
 package io.yukkuric.hexop;
 
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.MinecraftServer;
 
 public abstract class HexOverpowered {
     public HexOverpowered() {
@@ -9,6 +10,7 @@ public abstract class HexOverpowered {
 
     public static final String MOD_ID = "hexoverpowered";
     public static HexOverpowered INSTANCE;
+    public static MinecraftServer GRAB_SERVER;
 
     protected static ResourceLocation ID_NEXUS_INVENTORY = new ResourceLocation("hexop:nexus_inv");
     protected static ResourceLocation ID_MEKASUIT_MEDIA_POOL = new ResourceLocation("hexop:mekasuit_media");

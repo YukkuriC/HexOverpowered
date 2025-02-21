@@ -13,6 +13,8 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
+import net.minecraftforge.event.server.ServerStartingEvent;
+import net.minecraftforge.event.server.ServerStoppingEvent;
 import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
@@ -40,6 +42,13 @@ public final class HexOverpoweredForge extends HexOverpowered {
             });
             evBus.addListener(MekTooltip::handleMekasuitTooltip);
         }
+
+        evBus.addListener((ServerStartingEvent e) -> {
+            HexOverpowered.GRAB_SERVER = e.getServer();
+        });
+        evBus.addListener((ServerStoppingEvent e) -> {
+            HexOverpowered.GRAB_SERVER = null;
+        });
 
         var modBus = FMLJavaModLoadingContext.get().getModEventBus();
         modBus.addListener((RegisterEvent event) -> {
