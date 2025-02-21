@@ -1,10 +1,9 @@
 # Hex Overpowered
 
-as the name reveals, this mod contains some OP stuff for Hex Casting
+[![Curseforge](https://badges.moddingx.org/curseforge/versions/1173074) ![CurseForge](https://badges.moddingx.org/curseforge/downloads/1173074)](https://www.curseforge.com/minecraft/mc-mods/hexoverpowered)  
+[![Modrinth](https://badges.moddingx.org/modrinth/versions/PkhtCPsD) ![Modrinth](https://badges.moddingx.org/modrinth/downloads/PkhtCPsD)](https://modrinth.com/mod/hexoverpowered)
 
-[<img src="https://static-beta.curseforge.com/images/favicon.ico" style="width:1em"/>
-CurseForge](https://www.curseforge.com/minecraft/mc-mods/hexoverpowered)
-[<img src="https://modrinth.com/favicon.ico" style="width:1em"/>Modrinth](https://modrinth.com/mod/hexoverpowered)
+as the name reveals, this mod contains some OP stuff for Hex Casting
 
 ## General
 
