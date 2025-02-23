@@ -8,6 +8,13 @@ import org.apache.commons.lang3.tuple.Pair;
 import static io.yukkuric.hexop.HexOPConfig.*;
 
 public class HexOPConfigForge implements API {
+    public static HexOPConfigForge INSTANCE;
+    public static final String DESCRIP_MEKASUIT_RATIO = "How many media points each FE point equals";
+
+    public static double MekasuitConversionRatio() {
+        return INSTANCE.cfgMekasuitConversionRatio.get();
+    }
+
     @Override
     public boolean EnablesMoteChestGUI() {
         return cfgEnablesMoteChestGUI.get();
@@ -27,11 +34,14 @@ public class HexOPConfigForge implements API {
             cfgEnablesTeleportVehicles,
             cfgEnablesMishapNoYeet,
             cfgEnablesMoteChestGUI;
+    public ForgeConfigSpec.DoubleValue cfgMekasuitConversionRatio;
 
     public HexOPConfigForge(ForgeConfigSpec.Builder builder) {
         cfgEnablesMoteChestGUI = builder.comment(DESCRIP_MOTE_GLANCE).define("EnablesMoteChestGUI", true);
         cfgEnablesMishapNoYeet = builder.comment(DESCRIP_NO_YEET).define("EnablesMishapNoYeet", true);
         cfgEnablesTeleportVehicles = builder.comment(DESCRIP_TP_VEHICLES).define("EnablesTeleportVehicles", true);
+        cfgMekasuitConversionRatio = builder.comment(DESCRIP_MEKASUIT_RATIO).defineInRange("MekasuitConversionRatio", 1, 0, 1e10);
+        INSTANCE = this;
     }
 
     private static final Pair<HexOPConfigForge, ForgeConfigSpec> CFG_REGISTRY;
