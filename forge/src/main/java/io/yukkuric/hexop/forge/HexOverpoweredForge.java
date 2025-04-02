@@ -11,10 +11,12 @@ import io.yukkuric.hexop.forge.mekanism.MekTooltip;
 import io.yukkuric.hexop.forge.mekanism.MekasuitMediaHolder;
 import mekanism.common.item.gear.ItemMekaSuitArmor;
 import net.minecraft.core.registries.Registries;
+import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
+import net.minecraftforge.event.entity.EntityAttributeModificationEvent;
 import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
@@ -51,6 +53,11 @@ public final class HexOverpoweredForge extends HexOverpowered {
             } else if (key.equals(Registries.ATTRIBUTE)) {
                 HexOPAttributes.registerSelf();
             }
+        });
+
+        modBus.addListener((EntityAttributeModificationEvent e) -> {
+            for (var attr : HexOPAttributes.getAll())
+                e.add(EntityType.PLAYER, attr);
         });
 
         var ctx = ModLoadingContext.get();
