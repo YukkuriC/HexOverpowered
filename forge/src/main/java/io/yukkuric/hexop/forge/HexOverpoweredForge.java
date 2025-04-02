@@ -3,12 +3,14 @@ package io.yukkuric.hexop.forge;
 import at.petrak.hexcasting.common.lib.HexRegistries;
 import at.petrak.hexcasting.forge.cap.ForgeCapabilityHandler;
 import at.petrak.hexcasting.forge.cap.HexCapabilities;
+import io.yukkuric.hexop.HexOPAttributes;
 import io.yukkuric.hexop.HexOverpowered;
 import io.yukkuric.hexop.actions.HexOPActions;
 import io.yukkuric.hexop.forge.hexal.NexusItemCap;
 import io.yukkuric.hexop.forge.mekanism.MekTooltip;
 import io.yukkuric.hexop.forge.mekanism.MekasuitMediaHolder;
 import mekanism.common.item.gear.ItemMekaSuitArmor;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraftforge.common.MinecraftForge;
@@ -46,6 +48,8 @@ public final class HexOverpoweredForge extends HexOverpowered {
             var key = event.getRegistryKey();
             if (key.equals(HexRegistries.ACTION)) {
                 HexOPActions.registerActions();
+            } else if (key.equals(Registries.ATTRIBUTE)) {
+                HexOPAttributes.registerSelf();
             }
         });
 
