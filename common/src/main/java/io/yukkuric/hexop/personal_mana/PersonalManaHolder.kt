@@ -21,6 +21,10 @@ class PersonalManaHolder(val player: Player) : ADMediaHolder {
         private val MAP = WeakHashMap<Player, PersonalManaHolder>()
 
         @JvmStatic
-        fun get(player: Player): PersonalManaHolder = MAP.computeIfAbsent(player, ::PersonalManaHolder)
+        fun get(player: Player?): PersonalManaHolder? = if (player == null) {
+            null
+        } else {
+            MAP.computeIfAbsent(player, ::PersonalManaHolder)
+        }
     }
 }
