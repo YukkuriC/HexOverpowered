@@ -11,7 +11,9 @@
     "VisiblePackagedHex",
     "circle.AmethystCircle",
     "hexal.MixinMoteContainer",
-    "hexal.MixinMoteMenu"
+    "hexal.MixinMoteMenu",
+    "personal_mana.MixinManaFetcher",
+    "personal_mana.MixinManaRegen"
   ],
   "injectors": {
     "defaultRequire": 1
