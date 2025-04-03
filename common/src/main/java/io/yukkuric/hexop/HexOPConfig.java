@@ -29,8 +29,8 @@ public class HexOPConfig {
         return imp.EnablesTeleportVehicles();
     }
 
-    public static boolean EnablesPersonalMediaPool() {
-        return imp.EnablesPersonalMediaPool();
+    public static boolean DisablesPersonalMediaPool() {
+        return !imp.EnablesPersonalMediaPool();
     }
     public static int PersonalMediaMax() {
         return imp.PersonalMediaMax();

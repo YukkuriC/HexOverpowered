@@ -21,7 +21,7 @@ public abstract class MixinManaRegen extends Player {
 
     @Inject(method = "tick", at = @At("HEAD"))
     void regenTick(CallbackInfo ci) {
-        if (!HexOPConfig.EnablesPersonalMediaPool() || tickCount % HexOPConfig.PersonalMediaRegenInterval() > 0) return;
+        if (HexOPConfig.DisablesPersonalMediaPool() || tickCount % HexOPConfig.PersonalMediaRegenInterval() > 0) return;
         if (holder == null) holder = PersonalManaHolder.get(this);
         holder.insertMedia(HexOPConfig.PersonalMediaRegenStep(), false);
     }
