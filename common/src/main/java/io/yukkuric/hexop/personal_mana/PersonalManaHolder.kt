@@ -7,10 +7,12 @@ import java.util.WeakHashMap
 
 class PersonalManaHolder private constructor(val player: Player) : ADMediaHolder {
     override fun getMedia() = player.getAttributeBaseValue(HexOPAttributes.PERSONAL_MEDIA).toLong()
-    override fun getMaxMedia() = player.getAttributeBaseValue(HexOPAttributes.PERSONAL_MEDIA_MAX).toLong()
+    override fun getMaxMedia() = player.getAttributeValue(HexOPAttributes.PERSONAL_MEDIA_MAX).toLong()
     override fun setMedia(value: Long) {
         player.getAttribute(HexOPAttributes.PERSONAL_MEDIA)?.baseValue = value.coerceAtLeast(0).toDouble()
     }
+
+    fun getMediaRegenStep() = player.getAttributeValue(HexOPAttributes.PERSONAL_MEDIA_REGEN).toLong()
 
     override fun canRecharge() = false
     override fun canProvide() = true

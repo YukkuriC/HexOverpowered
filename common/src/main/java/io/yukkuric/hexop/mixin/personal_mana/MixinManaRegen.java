@@ -23,6 +23,6 @@ public abstract class MixinManaRegen extends Player {
     void regenTick(CallbackInfo ci) {
         if (HexOPConfig.DisablesPersonalMediaPool() || tickCount % HexOPConfig.PersonalMediaRegenInterval() > 0) return;
         if (holder == null) holder = PersonalManaHolder.get(this);
-        holder.insertMedia(HexOPConfig.PersonalMediaRegenStep(), false);
+        holder.insertMedia(holder.getMediaRegenStep(), false);
     }
 }

@@ -33,10 +33,10 @@ public class HexOPHUD {
         width *= (double) value / (double) maxValue;
 
         var alpha = (float) Math.sin(Util.getMillis() / 200D) * 0.5f + 1F;
-        RenderSystem.setShaderColor(1, 0.8f, 0.6f, alpha);
+        RenderSystem.setShaderColor(1, 0.6f, 0.8f, alpha);
         RenderSystem.enableBlend();
         RenderSystem.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-        gui.blit(imgMediaBar, x, y, 0, 0, width, 0, 256, 256);
+        gui.blit(imgMediaBar, x, y, 0, 0, width, 5, 182, 5);
         RenderSystem.disableBlend();
         RenderSystem.setShaderColor(1, 1, 1, 1);
 
