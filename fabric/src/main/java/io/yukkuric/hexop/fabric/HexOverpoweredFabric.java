@@ -9,13 +9,20 @@ import net.fabricmc.loader.api.FabricLoader;
 public final class HexOverpoweredFabric extends HexOverpowered implements ModInitializer {
     @Override
     public void onInitialize() {
-        HexOPConfigFabric.setup();
         HexOPActions.registerActions();
-        HexOPAttributes.registerSelf();
     }
 
     @Override
     protected boolean isModLoaded(String id) {
         return FabricLoader.getInstance().isModLoaded(id);
+    }
+
+    public static void initSelfHook() {
+    }
+
+    // dirty work
+    static {
+        HexOPConfigFabric.setup();
+        HexOPAttributes.registerSelf();
     }
 }

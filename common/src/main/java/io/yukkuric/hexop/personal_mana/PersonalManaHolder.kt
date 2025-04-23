@@ -5,7 +5,7 @@ import io.yukkuric.hexop.HexOPAttributes
 import net.minecraft.world.entity.player.Player
 import java.util.WeakHashMap
 
-class PersonalManaHolder(val player: Player) : ADMediaHolder {
+class PersonalManaHolder private constructor(val player: Player) : ADMediaHolder {
     override fun getMedia() = player.getAttributeBaseValue(HexOPAttributes.PERSONAL_MEDIA).toLong()
     override fun getMaxMedia() = player.getAttributeBaseValue(HexOPAttributes.PERSONAL_MEDIA_MAX).toLong()
     override fun setMedia(value: Long) {

@@ -21,7 +21,10 @@ public class HexOPHUD {
         var mediaHolder = PersonalManaHolder.get(player);
         var value = mediaHolder.getMedia();
         var maxValue = mediaHolder.getMaxMedia();
-        if (value <= 0 || maxValue <= 0) return;
+        if (value <= 0 || maxValue <= 0) {
+            profiler.pop();
+            return;
+        }
 
 
         int width = 182;
