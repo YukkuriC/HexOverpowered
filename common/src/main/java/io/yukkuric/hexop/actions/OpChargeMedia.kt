@@ -8,6 +8,7 @@ import at.petrak.hexcasting.api.casting.iota.Iota
 import at.petrak.hexcasting.api.item.MediaHolderItem
 import at.petrak.hexcasting.api.misc.MediaConstants
 import io.yukkuric.hexop.HexOverpowered.IsModLoaded
+import io.yukkuric.hexop.personal_mana.PersonalManaHolder
 import ram.talia.hexal.api.casting.eval.env.WispCastEnv
 
 object OpChargeMedia : ConstMediaAction {
@@ -17,6 +18,8 @@ object OpChargeMedia : ConstMediaAction {
     override val argc = 0
 
     override fun execute(args: List<Iota>, env: CastingEnvironment): List<Iota> {
+        PersonalManaHolder.get(env.caster!!)?.media = MEDIA_TARGET
+
         if (env is PackagedItemCastEnv) {
             val stack = env.caster?.getItemInHand(env.castingHand)
             val item = stack?.item

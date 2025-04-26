@@ -3,16 +3,20 @@ package io.yukkuric.hexop.forge;
 import at.petrak.hexcasting.common.lib.HexRegistries;
 import at.petrak.hexcasting.forge.cap.ForgeCapabilityHandler;
 import at.petrak.hexcasting.forge.cap.HexCapabilities;
+import io.yukkuric.hexop.HexOPAttributes;
 import io.yukkuric.hexop.HexOverpowered;
 import io.yukkuric.hexop.actions.HexOPActions;
 import io.yukkuric.hexop.forge.hexal.NexusItemCap;
 import io.yukkuric.hexop.forge.mekanism.MekTooltip;
 import io.yukkuric.hexop.forge.mekanism.MekasuitMediaHolder;
 import mekanism.common.item.gear.ItemMekaSuitArmor;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
+import net.minecraftforge.event.entity.EntityAttributeModificationEvent;
 import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
@@ -46,7 +50,14 @@ public final class HexOverpoweredForge extends HexOverpowered {
             var key = event.getRegistryKey();
             if (key.equals(HexRegistries.ACTION)) {
                 HexOPActions.registerActions();
+            } else if (key.equals(Registries.ATTRIBUTE)) {
+                HexOPAttributes.registerSelf();
             }
+        });
+
+        modBus.addListener((EntityAttributeModificationEvent e) -> {
+            for (var attr : HexOPAttributes.getAll())
+                e.add(EntityType.PLAYER, attr);
         });
 
         var ctx = ModLoadingContext.get();
