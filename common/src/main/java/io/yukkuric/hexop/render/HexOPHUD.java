@@ -33,7 +33,8 @@ public class HexOPHUD {
         int y = client.getWindow().getGuiScaledHeight() - 29; // TODO: cfg
         width *= (double) value / (double) maxValue;
 
-        var alpha = (float) Math.sin(Util.getMillis() / 200D) * 0.5f + 1F;
+        var time = Util.getMillis();
+        var alpha = (float) Math.sin(time / 300D) * 0.5f + 0.5f; // shifted from botania mana bar
         RenderSystem.setShaderColor(1, 0.6f, 0.8f, alpha);
         RenderSystem.setShaderTexture(0, imgMediaBar);
         RenderSystem.enableBlend();

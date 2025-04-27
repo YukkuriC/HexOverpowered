@@ -15,6 +15,7 @@ as the name reveals, this mod contains some OP stuff for Hex Casting
 -   (optional) extra player mana(media) bar
     -   has max priority
     -   configurable max value & regeneration
+    -   won't be naturally regenerating before player is enlightened
 -   (experimental, 1.20 exclusive) amethyst budding crystal growth accelerator circle
 
 ---
