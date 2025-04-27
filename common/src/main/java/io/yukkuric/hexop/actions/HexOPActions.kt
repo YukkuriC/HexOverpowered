@@ -5,9 +5,6 @@ import at.petrak.hexcasting.api.spell.Action
 import at.petrak.hexcasting.api.spell.math.HexDir
 import at.petrak.hexcasting.api.spell.math.HexPattern
 import io.yukkuric.hexop.HexOverpowered.opModLoc
-import io.yukkuric.hexparse.hooks.PatternMapper
-import net.minecraft.core.Registry
-import net.minecraft.resources.ResourceLocation
 
 class HexOPActions {
     companion object {

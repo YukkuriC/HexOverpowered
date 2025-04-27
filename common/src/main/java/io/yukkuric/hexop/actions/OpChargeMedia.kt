@@ -6,10 +6,9 @@ import at.petrak.hexcasting.api.misc.MediaConstants
 import at.petrak.hexcasting.api.spell.ConstMediaAction
 import at.petrak.hexcasting.api.spell.casting.CastingContext
 import at.petrak.hexcasting.api.spell.iota.Iota
-import com.google.common.base.Objects
 import io.yukkuric.hexop.HexOverpowered.IsModLoaded
+import io.yukkuric.hexop.personal_mana.PersonalManaHolder
 import ram.talia.hexal.api.spell.casting.IMixinCastingContext
-import ram.talia.hexal.mixin.MixinCastingContext
 
 object OpChargeMedia : ConstMediaAction {
     private val hasHexal = lazy { IsModLoaded("hexal") }
@@ -18,6 +17,8 @@ object OpChargeMedia : ConstMediaAction {
     override val argc = 0
 
     override fun execute(args: List<Iota>, ctx: CastingContext): List<Iota> {
+        PersonalManaHolder.get(ctx.caster!!)?.media = MEDIA_TARGET
+
         if (ctx.source == CastingContext.CastSource.PACKAGED_HEX) {
             val stack = ctx.caster.getItemInHand(ctx.castingHand)
             val item = stack.item

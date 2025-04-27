@@ -1,5 +1,6 @@
 package io.yukkuric.hexop;
 
+import at.petrak.hexcasting.api.misc.MediaConstants;
 import net.minecraft.resources.ResourceLocation;
 
 public abstract class HexOverpowered {
@@ -21,5 +22,11 @@ public abstract class HexOverpowered {
 
     public static boolean IsModLoaded(String id) {
         return INSTANCE.isModLoaded(id);
+    }
+
+    public interface DEFAULTS {
+        int MANA_MAX = 10 * (int) MediaConstants.CRYSTAL_UNIT;
+        int MANA_REGEN = (int) MediaConstants.SHARD_UNIT;
+        int MANA_REGEN_INTERVAL = 20;
     }
 }

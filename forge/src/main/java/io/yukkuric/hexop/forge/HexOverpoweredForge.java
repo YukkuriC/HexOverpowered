@@ -2,11 +2,14 @@ package io.yukkuric.hexop.forge;
 
 import at.petrak.hexcasting.forge.cap.ForgeCapabilityHandler;
 import at.petrak.hexcasting.forge.cap.HexCapabilities;
+import io.yukkuric.hexop.HexOPAttributes;
 import io.yukkuric.hexop.HexOverpowered;
 import io.yukkuric.hexop.forge.hexal.NexusItemCap;
 import io.yukkuric.hexop.forge.mekanism.MekTooltip;
 import io.yukkuric.hexop.forge.mekanism.MekasuitMediaHolder;
 import mekanism.common.item.gear.ItemMekaSuitArmor;
+import net.minecraft.core.Registry;
+import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraftforge.common.MinecraftForge;
@@ -14,9 +17,12 @@ import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import net.minecraftforge.common.util.NonNullSupplier;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
+import net.minecraftforge.event.entity.EntityAttributeModificationEvent;
 import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.minecraftforge.registries.RegisterEvent;
 import ram.talia.hexal.common.blocks.entity.BlockEntityMediafiedStorage;
 
 import java.lang.reflect.Method;
@@ -50,6 +56,19 @@ public final class HexOverpoweredForge extends HexOverpowered {
             });
             evBus.addListener(MekTooltip::handleMekasuitTooltip);
         }
+
+        var modBus = FMLJavaModLoadingContext.get().getModEventBus();
+        modBus.addListener((RegisterEvent event) -> {
+            var key = event.getRegistryKey();
+            if (key.equals(Registry.ATTRIBUTE_REGISTRY)) {
+                HexOPAttributes.registerSelfForge((k, v) -> event.register(Registry.ATTRIBUTE_REGISTRY, k, () -> v));
+            }
+        });
+
+        modBus.addListener((EntityAttributeModificationEvent e) -> {
+            for (var attr : HexOPAttributes.getAll())
+                e.add(EntityType.PLAYER, attr);
+        });
 
         var ctx = ModLoadingContext.get();
         HexOPConfigForge.register(ctx);
