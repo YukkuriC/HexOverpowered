@@ -17,5 +17,9 @@ class HexOPActions {
             val key = opModLoc(name)
             PatternRegistry.mapPattern(pattern, key, action, isGreat);
         }
+
+        @JvmStatic
+        fun keppAlive() {
+        }
     }
 }

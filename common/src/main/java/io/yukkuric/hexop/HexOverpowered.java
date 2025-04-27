@@ -1,11 +1,13 @@
 package io.yukkuric.hexop;
 
 import at.petrak.hexcasting.api.misc.MediaConstants;
+import io.yukkuric.hexop.actions.HexOPActions;
 import net.minecraft.resources.ResourceLocation;
 
 public abstract class HexOverpowered {
     public HexOverpowered() {
         INSTANCE = this;
+        HexOPActions.keppAlive();
     }
 
     public static final String MOD_ID = "hexoverpowered";
