@@ -44,13 +44,17 @@ public class HexOPConfigForge implements API {
     public int PersonalMediaRegenInterval() {
         return cfgPersonalMediaRegenInterval.get();
     }
+    @Override
+    public boolean FakePlayerDontRegenMedia() {
+        return cfgFakePlayerDontRegenMedia.get();
+    }
 
     public ForgeConfigSpec.BooleanValue
             cfgEnablesTeleportVehicles,
             cfgEnablesMishapNoYeet,
             cfgEnablesMoteChestGUI;
     public ForgeConfigSpec.DoubleValue cfgMekasuitConversionRatio;
-    public ForgeConfigSpec.BooleanValue cfgEnablesPersonalMediaPool;
+    public ForgeConfigSpec.BooleanValue cfgEnablesPersonalMediaPool, cfgFakePlayerDontRegenMedia;
     public ForgeConfigSpec.IntValue
             cfgPersonalMediaMax,
             cfgPersonalMediaRegenStep,
@@ -65,6 +69,7 @@ public class HexOPConfigForge implements API {
         cfgPersonalMediaMax = builder.comment(DESCRIP_MANA_MAX).defineInRange("PersonalMediaMax", HexOverpowered.DEFAULTS.MANA_MAX, 0, (int) 1e10);
         cfgPersonalMediaRegenStep = builder.comment(DESCRIP_MANA_REGEN_STEP).defineInRange("PersonalMediaRegenStep", HexOverpowered.DEFAULTS.MANA_REGEN, 0, (int) 1e10);
         cfgPersonalMediaRegenInterval = builder.comment(DESCRIP_MANA_REGEN_INTERVAL).defineInRange("PersonalMediaRegenInterval", HexOverpowered.DEFAULTS.MANA_REGEN_INTERVAL, 0, (int) 1e10);
+        cfgFakePlayerDontRegenMedia = builder.comment(DESCRIP_FAKE_PLAYERS_NOT_REGEN_MANA).define("FakePlayerDontRegenMedia", true);
         INSTANCE = this;
     }
 

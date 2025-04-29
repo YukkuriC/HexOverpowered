@@ -36,6 +36,8 @@ public class HexOPConfigFabric implements ConfigData {
         private int PersonalMediaRegenStep = HexOverpowered.DEFAULTS.MANA_REGEN;
         @Comment(DESCRIP_MANA_REGEN_INTERVAL)
         private int PersonalMediaRegenInterval = HexOverpowered.DEFAULTS.MANA_REGEN_INTERVAL;
+        @Comment(DESCRIP_FAKE_PLAYERS_NOT_REGEN_MANA)
+        private boolean FakePlayerDontRegenMedia = true;
 
 
         @Override
@@ -67,6 +69,10 @@ public class HexOPConfigFabric implements ConfigData {
         @Override
         public int PersonalMediaRegenInterval() {
             return PersonalMediaRegenInterval;
+        }
+        @Override
+        public boolean FakePlayerDontRegenMedia() {
+            return FakePlayerDontRegenMedia;
         }
     }
 }
