@@ -9,29 +9,31 @@ as the name reveals, this mod contains some OP stuff for Hex Casting
 
 ## General
 
--   displays spell inside casting items (ItemPackagedHex)
--   (optional) disables item dropping of certain mishaps
--   (optional) re-enable TP for various limited entities
--   (optional) extra player mana(media) bar
+_note: all features that currently can't be turned off are marked with `☆`_
+
+-   `☆` displays spell inside casting items (ItemPackagedHex)
+-   disables item dropping of certain mishaps
+-   re-enable TP for various limited entities
+-   extra player mana(media) bar
     -   has max priority
     -   configurable max value & regeneration
     -   attribute driven, can be adjusted by modifiers, commands, etc.
     -   won't be naturally regenerating before player is enlightened
--   (experimental, 1.20 exclusive) amethyst budding crystal growth accelerator circle
+-   `☆` (1.20 exclusive) amethyst budding crystal growth accelerator circle
 
 ---
 
--   OP great spells:
+-   `☆` OP great spells:
     -   `YJSP's Charge Media`
 
 ---
 
 -   Hexal interop
-    -   item handler for mote nexus
-        -   supports interaction with hoppers, AE/RS, etc.
+    -   `☆` item handler for mote nexus
+        -   `☆` supports interaction with hoppers, AE/RS, etc.
         -   optional GUI to display (first 6x9) mote entries; can be disabled in config
 
 ## Forge Exclusive
 
 -   Mekanism interop
-    -   use MekaSuit's battery as media provider
+    -   `☆` use MekaSuit's battery as media provider
