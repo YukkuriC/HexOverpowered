@@ -2,6 +2,7 @@ package io.yukkuric.hexop.mixin.personal_mana;
 
 import com.mojang.authlib.GameProfile;
 import io.yukkuric.hexop.HexOPConfig;
+import io.yukkuric.hexop.HexOverpowered;
 import io.yukkuric.hexop.personal_mana.PersonalManaHolder;
 import net.minecraft.advancements.Advancement;
 import net.minecraft.core.BlockPos;
@@ -35,6 +36,7 @@ public abstract class MixinManaRegen extends Player {
     @Inject(method = "tick", at = @At("HEAD"))
     void regenTick(CallbackInfo ci) {
         var checkStep = Math.max(1, HexOPConfig.PersonalMediaRegenInterval());
+        if (HexOPConfig.FakePlayerDontRegenMedia() && HexOverpowered.IsFakePlayer(this)) return;
         if (HexOPConfig.DisablesPersonalMediaPool() || tickCount % checkStep > 0) return;
 
         // check enlighten

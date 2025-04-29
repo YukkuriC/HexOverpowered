@@ -10,11 +10,13 @@ import io.yukkuric.hexop.forge.mekanism.MekasuitMediaHolder;
 import mekanism.common.item.gear.ItemMekaSuitArmor;
 import net.minecraft.core.Registry;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
+import net.minecraftforge.common.util.FakePlayer;
 import net.minecraftforge.common.util.NonNullSupplier;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.event.entity.EntityAttributeModificationEvent;
@@ -77,5 +79,10 @@ public final class HexOverpoweredForge extends HexOverpowered {
     @Override
     protected boolean isModLoaded(String id) {
         return ModList.get().isLoaded(id);
+    }
+
+    @Override
+    public boolean isFakePlayer(Player target) {
+        return target instanceof FakePlayer;
     }
 }

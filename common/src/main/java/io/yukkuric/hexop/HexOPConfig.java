@@ -14,6 +14,7 @@ public class HexOPConfig {
     public static final String DESCRIP_MANA_MAX = "Max media (in 0.0001 dust) for personal pool";
     public static final String DESCRIP_MANA_REGEN_STEP = "How many media points (in 0.0001 dust) personal pool regenerates each time";
     public static final String DESCRIP_MANA_REGEN_INTERVAL = "For every X ticks personal pool regenerate once";
+    public static final String DESCRIP_FAKE_PLAYERS_NOT_REGEN_MANA = "Fake players (for example, Deployer from Create) won't regenerate their media pool";
 
     public static void bindConfigImp(API api) {
         imp = api;
@@ -41,6 +42,9 @@ public class HexOPConfig {
     public static int PersonalMediaRegenInterval() {
         return imp.PersonalMediaRegenInterval();
     }
+    public static boolean FakePlayerDontRegenMedia() {
+        return imp.FakePlayerDontRegenMedia();
+    }
 
     public interface API {
         boolean EnablesMoteChestGUI();
@@ -51,5 +55,6 @@ public class HexOPConfig {
         int PersonalMediaMax();
         int PersonalMediaRegenStep();
         int PersonalMediaRegenInterval();
+        boolean FakePlayerDontRegenMedia();
     }
 }
