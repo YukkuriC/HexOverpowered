@@ -17,13 +17,6 @@ public final class HexOverpoweredFabric extends HexOverpowered implements ModIni
         return FabricLoader.getInstance().isModLoaded(id);
     }
 
-    @Override
-    public boolean isFakePlayer(Player target) {
-//        return target instanceof FakePlayer;
-        // wait wtf fabric 1.19 has no FakePlayer?
-        return false;
-    }
-
     public static void initSelfHook() {
     }
 
