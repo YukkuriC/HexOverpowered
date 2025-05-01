@@ -8,16 +8,23 @@ import at.petrak.hexcasting.api.spell.casting.CastingContext
 import at.petrak.hexcasting.api.spell.iota.Iota
 import io.yukkuric.hexop.HexOverpowered.IsModLoaded
 import io.yukkuric.hexop.personal_mana.PersonalManaHolder
+import net.minecraft.server.level.ServerPlayer
 import ram.talia.hexal.api.spell.casting.IMixinCastingContext
 
 object OpChargeMedia : ConstMediaAction {
     private val hasHexal = lazy { IsModLoaded("hexal") }
-    private val MEDIA_TARGET = 114514 * MediaConstants.DUST_UNIT
+    private const val MEDIA_TARGET = 114514 * MediaConstants.DUST_UNIT
 
     override val argc = 0
 
+    private fun rechargePersonalMedia(caster: ServerPlayer?) {
+        val holder = PersonalManaHolder.get(caster) ?: return
+        holder.media = MEDIA_TARGET.coerceAtMost(holder.maxMedia)
+    }
+
     override fun execute(args: List<Iota>, ctx: CastingContext): List<Iota> {
-        PersonalManaHolder.get(ctx.caster!!)?.media = MEDIA_TARGET
+        if (ctx.source == CastingContext.CastSource.PACKAGED_HEX || ctx.source == CastingContext.CastSource.STAFF)
+            rechargePersonalMedia(ctx.caster)
 
         if (ctx.source == CastingContext.CastSource.PACKAGED_HEX) {
             val stack = ctx.caster.getItemInHand(ctx.castingHand)
