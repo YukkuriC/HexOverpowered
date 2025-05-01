@@ -16,7 +16,7 @@ import java.util.List;
 public class MixinManaFetcher {
     @Inject(method = "collectMediaHolders", at = @At("RETURN"), remap = false)
     private static void insertMine(CastingHarness harness, CallbackInfoReturnable<List<ADMediaHolder>> cir) {
-        if (HexOPConfig.DisablesPersonalMediaPool()) return;
+        if (!HexOPConfig.EnablesPersonalMediaPool()) return;
         cir.getReturnValue().add(0, PersonalManaHolder.get(harness.getCtx().getCaster()));
     }
 }

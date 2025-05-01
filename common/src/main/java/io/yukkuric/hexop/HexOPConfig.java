@@ -6,16 +6,6 @@ public class HexOPConfig {
     public static boolean loaded() {
         return imp != null;
     }
-
-    public static final String DESCRIP_MOTE_GLANCE = "Enables 'A Glance of Mote Chest' (a simple chest GUI) on right click";
-    public static final String DESCRIP_NO_YEET = "Mishaps won't drop items anymore";
-    public static final String DESCRIP_TP_VEHICLES = "Teleporting riding entities no longer do mishaps";
-    public static final String DESCRIP_MANA_ENABLE = "Enables player's personal media pool";
-    public static final String DESCRIP_MANA_MAX = "Max media (in 0.0001 dust) for personal pool";
-    public static final String DESCRIP_MANA_REGEN_STEP = "How many media points (in 0.0001 dust) personal pool regenerates each time";
-    public static final String DESCRIP_MANA_REGEN_INTERVAL = "For every X ticks personal pool regenerate once";
-    public static final String DESCRIP_FAKE_PLAYERS_NOT_REGEN_MANA = "Fake players (for example, Deployer from Create) won't regenerate their media pool";
-
     public static void bindConfigImp(API api) {
         imp = api;
     }
@@ -29,9 +19,8 @@ public class HexOPConfig {
     public static boolean EnablesTeleportVehicles() {
         return imp.EnablesTeleportVehicles();
     }
-
-    public static boolean DisablesPersonalMediaPool() {
-        return !imp.EnablesPersonalMediaPool();
+    public static boolean EnablesPersonalMediaPool() {
+        return imp.EnablesPersonalMediaPool();
     }
     public static int PersonalMediaMax() {
         return imp.PersonalMediaMax();
@@ -45,12 +34,19 @@ public class HexOPConfig {
     public static boolean FakePlayerDontRegenMedia() {
         return imp.FakePlayerDontRegenMedia();
     }
-
     public interface API {
+        String desc_EnablesMoteChestGUI = "<Mote>\nEnables 'A Glance of Mote Chest' (a simple chest GUI) on right click";
+        String desc_EnablesMishapNoYeet = "<Mishap>\nMishaps won't drop items anymore";
+        String desc_EnablesTeleportVehicles = "<Mishap>\nTeleporting riding entities no longer do mishaps";
+        String desc_EnablesPersonalMediaPool = "<Personal Media>\nEnables player's personal media pool";
+        String desc_PersonalMediaMax = "<Personal Media>\nMax media (in 0.0001 dust) for personal pool";
+        String desc_PersonalMediaRegenStep = "<Personal Media>\nHow many media points (in 0.0001 dust) personal pool regenerates each time";
+        String desc_PersonalMediaRegenInterval = "<Personal Media>\nFor every X ticks personal pool regenerate once";
+        String desc_FakePlayerDontRegenMedia = "<Personal Media>\nFake players (for example, Deployer from Create) won't regenerate their media pool";
+
         boolean EnablesMoteChestGUI();
         boolean EnablesMishapNoYeet();
         boolean EnablesTeleportVehicles();
-
         boolean EnablesPersonalMediaPool();
         int PersonalMediaMax();
         int PersonalMediaRegenStep();
