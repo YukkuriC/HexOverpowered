@@ -26,6 +26,8 @@ public abstract class MixinManaRegen extends Player {
     public abstract PlayerAdvancements getAdvancements();
     private Advancement enlightenCheck;
 
+    private final boolean isSelfFake = HexOverpowered.IsFakePlayer(this);
+
     public MixinManaRegen(Level level, BlockPos blockPos, float f, GameProfile gameProfile) {
         super(level, blockPos, f, gameProfile);
     }
@@ -33,8 +35,8 @@ public abstract class MixinManaRegen extends Player {
 
     @Inject(method = "tick", at = @At("HEAD"))
     void regenTick(CallbackInfo ci) {
+        if (isSelfFake && HexOPConfig.FakePlayerDontRegenMedia()) return;
         var checkStep = Math.max(1, HexOPConfig.PersonalMediaRegenInterval());
-        if (HexOPConfig.FakePlayerDontRegenMedia() && HexOverpowered.IsFakePlayer(this)) return;
         if (!HexOPConfig.EnablesPersonalMediaPool() || tickCount % checkStep > 0) return;
 
         // check enlighten
