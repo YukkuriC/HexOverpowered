@@ -16,7 +16,7 @@ import java.util.List;
 public class MixinManaFetcher {
     @Inject(method = "scanPlayerForMediaStuff", at = @At("RETURN"), remap = false)
     private static void insertMine(ServerPlayer player, CallbackInfoReturnable<List<ADMediaHolder>> cir) {
-        if (HexOPConfig.DisablesPersonalMediaPool()) return;
+        if (!HexOPConfig.EnablesPersonalMediaPool()) return;
         cir.getReturnValue().add(0, PersonalManaHolder.get(player));
     }
 }

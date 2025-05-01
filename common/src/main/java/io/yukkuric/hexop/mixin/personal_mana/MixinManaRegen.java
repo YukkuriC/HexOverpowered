@@ -35,7 +35,7 @@ public abstract class MixinManaRegen extends Player {
     void regenTick(CallbackInfo ci) {
         var checkStep = Math.max(1, HexOPConfig.PersonalMediaRegenInterval());
         if (HexOPConfig.FakePlayerDontRegenMedia() && HexOverpowered.IsFakePlayer(this)) return;
-        if (HexOPConfig.DisablesPersonalMediaPool() || tickCount % checkStep > 0) return;
+        if (!HexOPConfig.EnablesPersonalMediaPool() || tickCount % checkStep > 0) return;
 
         // check enlighten
         if (enlightenCheck == null)

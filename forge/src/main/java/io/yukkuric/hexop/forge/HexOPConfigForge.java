@@ -10,66 +10,51 @@ import static io.yukkuric.hexop.HexOPConfig.*;
 
 public class HexOPConfigForge implements API {
     public static HexOPConfigForge INSTANCE;
-    public static final String DESCRIP_MEKASUIT_RATIO = "How many media points each FE point equals";
-
+    private static final String desc_MekasuitConversionRatio = "<MekaSuit>\nHow many media points each FE point equals";
     public static double MekasuitConversionRatio() {
-        return INSTANCE.cfgMekasuitConversionRatio.get();
+        return INSTANCE.cfg_MekasuitConversionRatio.get();
     }
-    @Override
+
     public boolean EnablesMoteChestGUI() {
-        return cfgEnablesMoteChestGUI.get();
+        return cfg_EnablesMoteChestGUI.get();
     }
-    @Override
     public boolean EnablesMishapNoYeet() {
-        return cfgEnablesMishapNoYeet.get();
+        return cfg_EnablesMishapNoYeet.get();
     }
-    @Override
     public boolean EnablesTeleportVehicles() {
-        return cfgEnablesTeleportVehicles.get();
+        return cfg_EnablesTeleportVehicles.get();
     }
-
-    @Override
     public boolean EnablesPersonalMediaPool() {
-        return cfgEnablesPersonalMediaPool.get();
+        return cfg_EnablesPersonalMediaPool.get();
     }
-    @Override
     public int PersonalMediaMax() {
-        return cfgPersonalMediaMax.get();
+        return cfg_PersonalMediaMax.get();
     }
-    @Override
     public int PersonalMediaRegenStep() {
-        return cfgPersonalMediaRegenStep.get();
+        return cfg_PersonalMediaRegenStep.get();
     }
-    @Override
     public int PersonalMediaRegenInterval() {
-        return cfgPersonalMediaRegenInterval.get();
+        return cfg_PersonalMediaRegenInterval.get();
     }
-    @Override
     public boolean FakePlayerDontRegenMedia() {
-        return cfgFakePlayerDontRegenMedia.get();
+        return cfg_FakePlayerDontRegenMedia.get();
     }
 
-    public ForgeConfigSpec.BooleanValue
-            cfgEnablesTeleportVehicles,
-            cfgEnablesMishapNoYeet,
-            cfgEnablesMoteChestGUI;
-    public ForgeConfigSpec.DoubleValue cfgMekasuitConversionRatio;
-    public ForgeConfigSpec.BooleanValue cfgEnablesPersonalMediaPool, cfgFakePlayerDontRegenMedia;
-    public ForgeConfigSpec.IntValue
-            cfgPersonalMediaMax,
-            cfgPersonalMediaRegenStep,
-            cfgPersonalMediaRegenInterval;
+    public ForgeConfigSpec.BooleanValue cfg_EnablesMoteChestGUI, cfg_EnablesMishapNoYeet, cfg_EnablesTeleportVehicles, cfg_EnablesPersonalMediaPool, cfg_FakePlayerDontRegenMedia;
+    public ForgeConfigSpec.IntValue cfg_PersonalMediaMax, cfg_PersonalMediaRegenStep, cfg_PersonalMediaRegenInterval;
+    public ForgeConfigSpec.DoubleValue cfg_MekasuitConversionRatio;
 
     public HexOPConfigForge(ForgeConfigSpec.Builder builder) {
-        cfgEnablesMoteChestGUI = builder.comment(DESCRIP_MOTE_GLANCE).define("EnablesMoteChestGUI", true);
-        cfgEnablesMishapNoYeet = builder.comment(DESCRIP_NO_YEET).define("EnablesMishapNoYeet", true);
-        cfgEnablesTeleportVehicles = builder.comment(DESCRIP_TP_VEHICLES).define("EnablesTeleportVehicles", true);
-        cfgMekasuitConversionRatio = builder.comment(DESCRIP_MEKASUIT_RATIO).defineInRange("MekasuitConversionRatio", 1, 0, 1e10);
-        cfgEnablesPersonalMediaPool = builder.comment(DESCRIP_MANA_ENABLE).define("EnablesPersonalMediaPool", true);
-        cfgPersonalMediaMax = builder.comment(DESCRIP_MANA_MAX).defineInRange("PersonalMediaMax", HexOverpowered.DEFAULTS.MANA_MAX, 0, (int) 1e10);
-        cfgPersonalMediaRegenStep = builder.comment(DESCRIP_MANA_REGEN_STEP).defineInRange("PersonalMediaRegenStep", HexOverpowered.DEFAULTS.MANA_REGEN, 0, (int) 1e10);
-        cfgPersonalMediaRegenInterval = builder.comment(DESCRIP_MANA_REGEN_INTERVAL).defineInRange("PersonalMediaRegenInterval", HexOverpowered.DEFAULTS.MANA_REGEN_INTERVAL, 0, (int) 1e10);
-        cfgFakePlayerDontRegenMedia = builder.comment(DESCRIP_FAKE_PLAYERS_NOT_REGEN_MANA).define("FakePlayerDontRegenMedia", true);
+        cfg_EnablesMoteChestGUI = builder.comment(desc_EnablesMoteChestGUI).define("EnablesMoteChestGUI", true);
+        cfg_EnablesMishapNoYeet = builder.comment(desc_EnablesMishapNoYeet).define("EnablesMishapNoYeet", true);
+        cfg_EnablesTeleportVehicles = builder.comment(desc_EnablesTeleportVehicles).define("EnablesTeleportVehicles", true);
+        cfg_EnablesPersonalMediaPool = builder.comment(desc_EnablesPersonalMediaPool).define("EnablesPersonalMediaPool", true);
+        cfg_PersonalMediaMax = builder.comment(desc_PersonalMediaMax).defineInRange("PersonalMediaMax", HexOverpowered.DEFAULTS.MANA_MAX, 0, (int) 1e10);
+        cfg_PersonalMediaRegenStep = builder.comment(desc_PersonalMediaRegenStep).defineInRange("PersonalMediaRegenStep", HexOverpowered.DEFAULTS.MANA_REGEN, 0, (int) 1e10);
+        cfg_PersonalMediaRegenInterval = builder.comment(desc_PersonalMediaRegenInterval).defineInRange("PersonalMediaRegenInterval", HexOverpowered.DEFAULTS.MANA_REGEN_INTERVAL, 0, (int) 1e10);
+        cfg_FakePlayerDontRegenMedia = builder.comment(desc_FakePlayerDontRegenMedia).define("FakePlayerDontRegenMedia", true);
+        cfg_MekasuitConversionRatio = builder.comment(desc_MekasuitConversionRatio).defineInRange("MekasuitConversionRatio", 1, 0, 1e10);
+
         INSTANCE = this;
     }
 

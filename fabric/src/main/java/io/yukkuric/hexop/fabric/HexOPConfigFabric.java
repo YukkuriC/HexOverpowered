@@ -22,55 +22,44 @@ public class HexOPConfigFabric implements ConfigData {
     }
 
     public static class Common implements API, ConfigData {
-        @Comment(DESCRIP_MOTE_GLANCE)
+        @Comment(desc_EnablesMoteChestGUI)
         private boolean EnablesMoteChestGUI = true;
-        @Comment(DESCRIP_NO_YEET)
+        @Comment(desc_EnablesMishapNoYeet)
         private boolean EnablesMishapNoYeet = true;
-        @Comment(DESCRIP_TP_VEHICLES)
+        @Comment(desc_EnablesTeleportVehicles)
         private boolean EnablesTeleportVehicles = true;
-        @Comment(DESCRIP_MANA_ENABLE)
+        @Comment(desc_EnablesPersonalMediaPool)
         private boolean EnablesPersonalMediaPool = true;
-        @Comment(DESCRIP_MANA_MAX)
+        @Comment(desc_PersonalMediaMax)
         private int PersonalMediaMax = HexOverpowered.DEFAULTS.MANA_MAX;
-        @Comment(DESCRIP_MANA_REGEN_STEP)
+        @Comment(desc_PersonalMediaRegenStep)
         private int PersonalMediaRegenStep = HexOverpowered.DEFAULTS.MANA_REGEN;
-        @Comment(DESCRIP_MANA_REGEN_INTERVAL)
+        @Comment(desc_PersonalMediaRegenInterval)
         private int PersonalMediaRegenInterval = HexOverpowered.DEFAULTS.MANA_REGEN_INTERVAL;
-        @Comment(DESCRIP_FAKE_PLAYERS_NOT_REGEN_MANA)
+        @Comment(desc_FakePlayerDontRegenMedia)
         private boolean FakePlayerDontRegenMedia = true;
 
-
-        @Override
         public boolean EnablesMoteChestGUI() {
             return EnablesMoteChestGUI;
         }
-
-        @Override
         public boolean EnablesMishapNoYeet() {
             return EnablesMishapNoYeet;
         }
-
-        @Override
         public boolean EnablesTeleportVehicles() {
             return EnablesTeleportVehicles;
         }
-        @Override
         public boolean EnablesPersonalMediaPool() {
             return EnablesPersonalMediaPool;
         }
-        @Override
         public int PersonalMediaMax() {
             return PersonalMediaMax;
         }
-        @Override
         public int PersonalMediaRegenStep() {
             return PersonalMediaRegenStep;
         }
-        @Override
         public int PersonalMediaRegenInterval() {
             return PersonalMediaRegenInterval;
         }
-        @Override
         public boolean FakePlayerDontRegenMedia() {
             return FakePlayerDontRegenMedia;
         }
