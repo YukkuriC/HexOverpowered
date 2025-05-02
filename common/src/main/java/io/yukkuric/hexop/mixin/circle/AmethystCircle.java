@@ -3,7 +3,9 @@ package io.yukkuric.hexop.mixin.circle;
 import at.petrak.hexcasting.api.casting.circles.ICircleComponent;
 import at.petrak.hexcasting.api.casting.eval.env.CircleCastEnv;
 import at.petrak.hexcasting.api.casting.eval.vm.CastingImage;
-import at.petrak.hexcasting.api.misc.MediaConstants;
+import at.petrak.hexcasting.api.casting.mishaps.MishapNotEnoughMedia;
+import at.petrak.hexcasting.api.casting.mishaps.circle.MishapNoSpellCircle;
+import io.yukkuric.hexop.HexOPConfig;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
@@ -17,9 +19,6 @@ import java.util.EnumSet;
 
 @Mixin(BuddingAmethystBlock.class)
 public class AmethystCircle extends Block implements ICircleComponent {
-    private static final int SHARD_STRENGTH_MAX = 15;
-    private static final int SHARD_STRENGTH_STEP = 1;
-    private static final double CHARGE_COST = MediaConstants.CRYSTAL_UNIT;
     private static LegacyRandomSource BUDDING_CHARGER = new LegacyRandomSource(114514) {
         private int cnt = 0;
 
@@ -38,19 +37,26 @@ public class AmethystCircle extends Block implements ICircleComponent {
     @Override
     public ControlFlow acceptControlFlow(CastingImage imageIn, CircleCastEnv env, Direction enterDir, BlockPos pos, BlockState state, ServerLevel world) {
         // broken between waves
-        if (!state.is(Blocks.BUDDING_AMETHYST)) return new ControlFlow.Stop();
+        if (!state.is(Blocks.BUDDING_AMETHYST)) {
+            fakeThrowMishap(pos, state, imageIn, env, new MishapNoSpellCircle());
+            return new ControlFlow.Stop();
+        }
 
         // update self
         {
             // decide grow strength
-            var maxCost = (int) Math.ceil(CHARGE_COST * SHARD_STRENGTH_MAX / SHARD_STRENGTH_STEP);
-            var growthStrength = (int) Math.floor((maxCost - env.extractMedia(maxCost, true)) / CHARGE_COST) * SHARD_STRENGTH_STEP;
-            growthStrength = Math.min(growthStrength, SHARD_STRENGTH_MAX);
+            var singleCost = HexOPConfig.AmethystCircleSingleChargeCost();
+            var fullLevel = HexOPConfig.AmethystCircleFullPowerLevel();
+            var maxCost = singleCost * fullLevel;
+            int growthStrength;
+            if (maxCost <= 0) growthStrength = fullLevel;
+            else growthStrength = (int) Math.floor((maxCost - env.extractMedia(maxCost, true)) / (float) singleCost);
             if (growthStrength < 1) {// failed
                 world.setBlockAndUpdate(pos, Blocks.AMETHYST_BLOCK.defaultBlockState());
+                fakeThrowMishap(pos, state, imageIn, env, new MishapNotEnoughMedia(singleCost));
                 return new ControlFlow.Stop();
             }
-            env.extractMedia((int) CHARGE_COST, false);
+            env.extractMedia(singleCost, false);
 
             // grow shards
             for (var i = 0; i < growthStrength; i++) {
@@ -69,7 +75,7 @@ public class AmethystCircle extends Block implements ICircleComponent {
 
     @Override
     public boolean canEnterFromDirection(Direction direction, BlockPos blockPos, BlockState blockState, ServerLevel serverLevel) {
-        return blockState.is(Blocks.BUDDING_AMETHYST);
+        return HexOPConfig.EnablesAmethystCircle() && blockState.is(Blocks.BUDDING_AMETHYST);
     }
 
     @Override

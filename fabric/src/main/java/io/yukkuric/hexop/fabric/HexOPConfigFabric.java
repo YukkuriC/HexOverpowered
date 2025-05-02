@@ -38,6 +38,12 @@ public class HexOPConfigFabric implements ConfigData {
         private int PersonalMediaRegenInterval = HexOverpowered.DEFAULTS.MANA_REGEN_INTERVAL;
         @Comment(desc_FakePlayerDontRegenMedia)
         private boolean FakePlayerDontRegenMedia = true;
+        @Comment(desc_EnablesAmethystCircle)
+        private boolean EnablesAmethystCircle = true;
+        @Comment(desc_AmethystCircleSingleChargeCost)
+        private int AmethystCircleSingleChargeCost = 100000;
+        @Comment(desc_AmethystCircleFullPowerLevel)
+        private int AmethystCircleFullPowerLevel = 15;
 
         public boolean EnablesMoteChestGUI() {
             return EnablesMoteChestGUI;
@@ -62,6 +68,15 @@ public class HexOPConfigFabric implements ConfigData {
         }
         public boolean FakePlayerDontRegenMedia() {
             return FakePlayerDontRegenMedia;
+        }
+        public boolean EnablesAmethystCircle() {
+            return EnablesAmethystCircle;
+        }
+        public int AmethystCircleSingleChargeCost() {
+            return AmethystCircleSingleChargeCost;
+        }
+        public int AmethystCircleFullPowerLevel() {
+            return AmethystCircleFullPowerLevel;
         }
     }
 }

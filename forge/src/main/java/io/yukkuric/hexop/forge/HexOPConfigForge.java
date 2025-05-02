@@ -39,9 +39,18 @@ public class HexOPConfigForge implements API {
     public boolean FakePlayerDontRegenMedia() {
         return cfg_FakePlayerDontRegenMedia.get();
     }
+    public boolean EnablesAmethystCircle() {
+        return cfg_EnablesAmethystCircle.get();
+    }
+    public int AmethystCircleSingleChargeCost() {
+        return cfg_AmethystCircleSingleChargeCost.get();
+    }
+    public int AmethystCircleFullPowerLevel() {
+        return cfg_AmethystCircleFullPowerLevel.get();
+    }
 
-    public ForgeConfigSpec.BooleanValue cfg_EnablesMoteChestGUI, cfg_EnablesMishapNoYeet, cfg_EnablesTeleportVehicles, cfg_EnablesPersonalMediaPool, cfg_FakePlayerDontRegenMedia;
-    public ForgeConfigSpec.IntValue cfg_PersonalMediaMax, cfg_PersonalMediaRegenStep, cfg_PersonalMediaRegenInterval;
+    public ForgeConfigSpec.BooleanValue cfg_EnablesMoteChestGUI, cfg_EnablesMishapNoYeet, cfg_EnablesTeleportVehicles, cfg_EnablesPersonalMediaPool, cfg_FakePlayerDontRegenMedia, cfg_EnablesAmethystCircle;
+    public ForgeConfigSpec.IntValue cfg_PersonalMediaMax, cfg_PersonalMediaRegenStep, cfg_PersonalMediaRegenInterval, cfg_AmethystCircleSingleChargeCost, cfg_AmethystCircleFullPowerLevel;
     public ForgeConfigSpec.DoubleValue cfg_MekasuitConversionRatio;
 
     public HexOPConfigForge(ForgeConfigSpec.Builder builder) {
@@ -53,6 +62,9 @@ public class HexOPConfigForge implements API {
         cfg_PersonalMediaRegenStep = builder.comment(desc_PersonalMediaRegenStep).defineInRange("PersonalMediaRegenStep", HexOverpowered.DEFAULTS.MANA_REGEN, 0, (int) 1e10);
         cfg_PersonalMediaRegenInterval = builder.comment(desc_PersonalMediaRegenInterval).defineInRange("PersonalMediaRegenInterval", HexOverpowered.DEFAULTS.MANA_REGEN_INTERVAL, 0, (int) 1e10);
         cfg_FakePlayerDontRegenMedia = builder.comment(desc_FakePlayerDontRegenMedia).define("FakePlayerDontRegenMedia", true);
+        cfg_EnablesAmethystCircle = builder.comment(desc_EnablesAmethystCircle).define("EnablesAmethystCircle", true);
+        cfg_AmethystCircleSingleChargeCost = builder.comment(desc_AmethystCircleSingleChargeCost).defineInRange("AmethystCircleSingleChargeCost", 100000, 0, (int) 1e10);
+        cfg_AmethystCircleFullPowerLevel = builder.comment(desc_AmethystCircleFullPowerLevel).defineInRange("AmethystCircleFullPowerLevel", 15, 1, 30);
         cfg_MekasuitConversionRatio = builder.comment(desc_MekasuitConversionRatio).defineInRange("MekasuitConversionRatio", 1, 0, 1e10);
 
         INSTANCE = this;

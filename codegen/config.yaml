@@ -38,6 +38,21 @@
   default: 'true'
   descrip: <Personal Media>\nFake players (for example, Deployer from Create) won't regenerate their media pool
   side: common
+- name: EnablesAmethystCircle
+  type: boolean
+  default: 'true'
+  descrip: <Amethyst Circle>\nmedia waves from circles go through amethyst budding blocks, and accelerates their crystal growth
+  side: common
+- name: AmethystCircleSingleChargeCost
+  type: int
+  default: 100000, 0, (int) 1e10
+  descrip: <Amethyst Circle>\neach time media reduces for crystal growth passing a budding block
+  side: common
+- name: AmethystCircleFullPowerLevel
+  type: int
+  default: 15, 1, 30
+  descrip: "<Amethyst Circle>\\nmax possible charging level of the wave: growth strength = min(this, wave total media / single cost)"
+  side: common
 - name: MekasuitConversionRatio
   type: double
   default: 1, 0, 1e10

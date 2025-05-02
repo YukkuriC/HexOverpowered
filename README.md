@@ -20,7 +20,8 @@ _note: all features that currently can't be turned off are marked with `☆`_
     -   attribute driven, can be adjusted by modifiers, commands, etc.
     -   won't be naturally regenerating before player is enlightened
     -   fake players don't regenerate media by default; can be turned on
--   `☆` (1.20 exclusive) amethyst budding crystal growth accelerator circle
+-   (1.20 exclusive) amethyst budding crystal growth accelerator circle
+    -   configurable cost, required base media & max accelerate power
 
 ---
 
