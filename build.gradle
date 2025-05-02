@@ -35,6 +35,7 @@ subprojects {
         // for more information about repositories.
         mavenLocal()
         maven { url "https://maven.blamejared.com/" }
+        maven { url "https://maven.parchmentmc.net/" }
         // maven { url 'https://modmaven.dev/' }
         flatDir { dir "libs/$minecraft_version" }
         flatDir { dir "../libs/$minecraft_version" }
@@ -43,7 +44,10 @@ subprojects {
     var nameForRef = project.name.equals("common") ? "forge" : project.name
     dependencies {
         minecraft "net.minecraft:minecraft:$rootProject.minecraft_version"
-        mappings loom.officialMojangMappings()
+        mappings loom.layered() {
+            officialMojangMappings()
+            parchment("org.parchmentmc.data:parchment-${parchment_version}")
+        }
 
         modImplementation("at.petra-k.hexcasting:hexcasting-${nameForRef}-${project.minecraft_version}:${project.hexcastingVersion}") { transitive = false }
 
