@@ -2,14 +2,22 @@ package io.yukkuric.hexop.mixin.hexal;
 
 import io.yukkuric.hexop.hexal.CachedNexusInventory;
 import io.yukkuric.hexop.hexal.MoteChestContainer;
+import net.minecraft.core.BlockPos;
 import net.minecraft.world.Container;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.state.BlockState;
 import org.spongepowered.asm.mixin.Mixin;
 import ram.talia.hexal.common.blocks.entity.BlockEntityMediafiedStorage;
 
 @Mixin(BlockEntityMediafiedStorage.class)
-public class MixinMoteContainer implements Container, CachedNexusInventory.Control {
+public abstract class MixinMoteContainer extends BlockEntity
+        implements Container, CachedNexusInventory.Control {
+    public MixinMoteContainer(BlockEntityType<?> type, BlockPos pos, BlockState blockState) {
+        super(type, pos, blockState);
+    }
     final CachedNexusInventory API = new CachedNexusInventory((BlockEntityMediafiedStorage) (Object) this);
 
     int cachedSlot = -1;
@@ -58,6 +66,7 @@ public class MixinMoteContainer implements Container, CachedNexusInventory.Contr
 
     @Override
     public void setChanged() {
+        super.setChanged();
         if (cachedItem == null) return;
         API.setStackInSlot(cachedSlot, cachedItem);
         cachedItem = null;
