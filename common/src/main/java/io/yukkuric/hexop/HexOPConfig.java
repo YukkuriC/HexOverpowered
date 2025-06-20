@@ -10,6 +10,9 @@ public class HexOPConfig {
         imp = api;
     }
 
+    public static boolean RevealsHexInsideCastingItems() {
+        return imp.RevealsHexInsideCastingItems();
+    }
     public static boolean EnablesMoteChestGUI() {
         return imp.EnablesMoteChestGUI();
     }
@@ -44,6 +47,7 @@ public class HexOPConfig {
         return imp.AmethystCircleFullPowerLevel();
     }
     public interface API {
+        String desc_RevealsHexInsideCastingItems = "<Display>\nDisplays the hex inside readonly casting items; working client-side";
         String desc_EnablesMoteChestGUI = "<Mote>\nEnables 'A Glance of Mote Chest' (a simple chest GUI) on right click";
         String desc_EnablesMishapNoYeet = "<Mishap>\nMishaps won't drop items anymore";
         String desc_EnablesTeleportVehicles = "<Mishap>\nTeleporting riding entities no longer do mishaps";
@@ -56,6 +60,7 @@ public class HexOPConfig {
         String desc_AmethystCircleSingleChargeCost = "<Amethyst Circle>\neach time media reduces for crystal growth passing a budding block";
         String desc_AmethystCircleFullPowerLevel = "<Amethyst Circle>\nmax possible charging level of the wave: growth strength = min(this, wave total media / single cost)";
 
+        boolean RevealsHexInsideCastingItems();
         boolean EnablesMoteChestGUI();
         boolean EnablesMishapNoYeet();
         boolean EnablesTeleportVehicles();

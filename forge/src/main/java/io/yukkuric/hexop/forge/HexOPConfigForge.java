@@ -15,6 +15,9 @@ public class HexOPConfigForge implements API {
         return INSTANCE.cfg_MekasuitConversionRatio.get();
     }
 
+    public boolean RevealsHexInsideCastingItems() {
+        return cfg_RevealsHexInsideCastingItems.get();
+    }
     public boolean EnablesMoteChestGUI() {
         return cfg_EnablesMoteChestGUI.get();
     }
@@ -49,11 +52,12 @@ public class HexOPConfigForge implements API {
         return cfg_AmethystCircleFullPowerLevel.get();
     }
 
-    public ForgeConfigSpec.BooleanValue cfg_EnablesMoteChestGUI, cfg_EnablesMishapNoYeet, cfg_EnablesTeleportVehicles, cfg_EnablesPersonalMediaPool, cfg_FakePlayerDontRegenMedia, cfg_EnablesAmethystCircle;
+    public ForgeConfigSpec.BooleanValue cfg_RevealsHexInsideCastingItems, cfg_EnablesMoteChestGUI, cfg_EnablesMishapNoYeet, cfg_EnablesTeleportVehicles, cfg_EnablesPersonalMediaPool, cfg_FakePlayerDontRegenMedia, cfg_EnablesAmethystCircle;
     public ForgeConfigSpec.IntValue cfg_PersonalMediaMax, cfg_PersonalMediaRegenStep, cfg_PersonalMediaRegenInterval, cfg_AmethystCircleSingleChargeCost, cfg_AmethystCircleFullPowerLevel;
     public ForgeConfigSpec.DoubleValue cfg_MekasuitConversionRatio;
 
     public HexOPConfigForge(ForgeConfigSpec.Builder builder) {
+        cfg_RevealsHexInsideCastingItems = builder.comment(desc_RevealsHexInsideCastingItems).define("RevealsHexInsideCastingItems", true);
         cfg_EnablesMoteChestGUI = builder.comment(desc_EnablesMoteChestGUI).define("EnablesMoteChestGUI", true);
         cfg_EnablesMishapNoYeet = builder.comment(desc_EnablesMishapNoYeet).define("EnablesMishapNoYeet", true);
         cfg_EnablesTeleportVehicles = builder.comment(desc_EnablesTeleportVehicles).define("EnablesTeleportVehicles", true);
