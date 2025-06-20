@@ -1,3 +1,8 @@
+- name: RevealsHexInsideCastingItems
+  type: boolean
+  default: 'true'
+  descrip: <Display>\nDisplays the hex inside readonly casting items; working client-side
+  side: common
 - name: EnablesMoteChestGUI
   type: boolean
   default: 'true'

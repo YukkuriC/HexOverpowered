@@ -11,7 +11,7 @@ as the name reveals, this mod contains some OP stuff for Hex Casting
 
 _note: all features that currently can't be turned off are marked with `☆`_
 
--   `☆` displays spell inside casting items (ItemPackagedHex)
+-   displays spell inside casting items (ItemPackagedHex)
 -   disables item dropping of certain mishaps
 -   re-enable TP for various limited entities
 -   extra player mana(media) bar

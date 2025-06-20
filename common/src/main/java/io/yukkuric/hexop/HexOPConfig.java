@@ -10,6 +10,9 @@ public class HexOPConfig {
         imp = api;
     }
 
+    public static boolean RevealsHexInsideCastingItems() {
+        return imp.RevealsHexInsideCastingItems();
+    }
     public static boolean EnablesMoteChestGUI() {
         return imp.EnablesMoteChestGUI();
     }
@@ -35,6 +38,7 @@ public class HexOPConfig {
         return imp.FakePlayerDontRegenMedia();
     }
     public interface API {
+        String desc_RevealsHexInsideCastingItems = "<Display>\nDisplays the hex inside readonly casting items; working client-side";
         String desc_EnablesMoteChestGUI = "<Mote>\nEnables 'A Glance of Mote Chest' (a simple chest GUI) on right click";
         String desc_EnablesMishapNoYeet = "<Mishap>\nMishaps won't drop items anymore";
         String desc_EnablesTeleportVehicles = "<Mishap>\nTeleporting riding entities no longer do mishaps";
@@ -44,6 +48,7 @@ public class HexOPConfig {
         String desc_PersonalMediaRegenInterval = "<Personal Media>\nFor every X ticks personal pool regenerate once";
         String desc_FakePlayerDontRegenMedia = "<Personal Media>\nFake players (for example, Deployer from Create) won't regenerate their media pool";
 
+        boolean RevealsHexInsideCastingItems();
         boolean EnablesMoteChestGUI();
         boolean EnablesMishapNoYeet();
         boolean EnablesTeleportVehicles();

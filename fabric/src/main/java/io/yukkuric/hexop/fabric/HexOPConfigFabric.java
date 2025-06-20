@@ -22,6 +22,8 @@ public class HexOPConfigFabric implements ConfigData {
     }
 
     public static class Common implements API, ConfigData {
+        @Comment(desc_RevealsHexInsideCastingItems)
+        private boolean RevealsHexInsideCastingItems = true;
         @Comment(desc_EnablesMoteChestGUI)
         private boolean EnablesMoteChestGUI = true;
         @Comment(desc_EnablesMishapNoYeet)
@@ -39,6 +41,9 @@ public class HexOPConfigFabric implements ConfigData {
         @Comment(desc_FakePlayerDontRegenMedia)
         private boolean FakePlayerDontRegenMedia = true;
 
+        public boolean RevealsHexInsideCastingItems() {
+            return RevealsHexInsideCastingItems;
+        }
         public boolean EnablesMoteChestGUI() {
             return EnablesMoteChestGUI;
         }
