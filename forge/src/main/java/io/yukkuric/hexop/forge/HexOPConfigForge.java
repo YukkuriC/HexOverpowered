@@ -27,6 +27,9 @@ public class HexOPConfigForge implements API {
     public boolean EnablesTeleportVehicles() {
         return cfg_EnablesTeleportVehicles.get();
     }
+    public boolean EnablesChargeMediaAction() {
+        return cfg_EnablesChargeMediaAction.get();
+    }
     public boolean EnablesPersonalMediaPool() {
         return cfg_EnablesPersonalMediaPool.get();
     }
@@ -52,7 +55,7 @@ public class HexOPConfigForge implements API {
         return cfg_AmethystCircleFullPowerLevel.get();
     }
 
-    public ForgeConfigSpec.BooleanValue cfg_RevealsHexInsideCastingItems, cfg_EnablesMoteChestGUI, cfg_EnablesMishapNoYeet, cfg_EnablesTeleportVehicles, cfg_EnablesPersonalMediaPool, cfg_FakePlayerDontRegenMedia, cfg_EnablesAmethystCircle;
+    public ForgeConfigSpec.BooleanValue cfg_RevealsHexInsideCastingItems, cfg_EnablesMoteChestGUI, cfg_EnablesMishapNoYeet, cfg_EnablesTeleportVehicles, cfg_EnablesChargeMediaAction, cfg_EnablesPersonalMediaPool, cfg_FakePlayerDontRegenMedia, cfg_EnablesAmethystCircle;
     public ForgeConfigSpec.IntValue cfg_PersonalMediaMax, cfg_PersonalMediaRegenStep, cfg_PersonalMediaRegenInterval, cfg_AmethystCircleSingleChargeCost, cfg_AmethystCircleFullPowerLevel;
     public ForgeConfigSpec.DoubleValue cfg_MekasuitConversionRatio;
 
@@ -61,6 +64,7 @@ public class HexOPConfigForge implements API {
         cfg_EnablesMoteChestGUI = builder.comment(desc_EnablesMoteChestGUI).define("EnablesMoteChestGUI", true);
         cfg_EnablesMishapNoYeet = builder.comment(desc_EnablesMishapNoYeet).define("EnablesMishapNoYeet", true);
         cfg_EnablesTeleportVehicles = builder.comment(desc_EnablesTeleportVehicles).define("EnablesTeleportVehicles", true);
+        cfg_EnablesChargeMediaAction = builder.comment(desc_EnablesChargeMediaAction).define("EnablesChargeMediaAction", true);
         cfg_EnablesPersonalMediaPool = builder.comment(desc_EnablesPersonalMediaPool).define("EnablesPersonalMediaPool", true);
         cfg_PersonalMediaMax = builder.comment(desc_PersonalMediaMax).defineInRange("PersonalMediaMax", HexOverpowered.DEFAULTS.MANA_MAX, 0, (int) 1e10);
         cfg_PersonalMediaRegenStep = builder.comment(desc_PersonalMediaRegenStep).defineInRange("PersonalMediaRegenStep", HexOverpowered.DEFAULTS.MANA_REGEN, 0, (int) 1e10);
