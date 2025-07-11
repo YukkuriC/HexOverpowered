@@ -20,12 +20,14 @@ _note: all features that currently can't be turned off are marked with `☆`_
     -   attribute driven, can be adjusted by modifiers, commands, etc.
     -   won't be naturally regenerating before player is enlightened
     -   fake players don't regenerate media by default; can be turned on
+    -   `☆` triggers events when consuming/regenerating personal media pool
+        -   `TODO` kjs example script links
 -   (1.20 exclusive) amethyst budding crystal growth accelerator circle
     -   configurable cost, required base media & max accelerate power
 
 ---
 
--   `☆` OP great spells:
+-   OP great spells:
     -   `YJSP's Charge Media`: recharges casting item / circle / wisp / personal media pool to 114514 dust
         -   (id: `hexoverpowered:yjsp_media`, could be set forbidden in base Hex's config)
 
