@@ -18,6 +18,11 @@
   default: 'true'
   descrip: <Mishap>\nTeleporting riding entities no longer do mishaps
   side: common
+- name: EnablesChargeMediaAction
+  type: boolean
+  default: 'true'
+  descrip: <Pattern>\nif not, the `YJSP's Charge Media` pattern becomes YJSP's roar
+  side: common
 - name: EnablesPersonalMediaPool
   type: boolean
   default: 'true'
