@@ -26,9 +26,9 @@ public class HexOPConfigForge implements API {
     {%- endfor %}{{'\n'}}
 
     {%- for grp,lines in group_val(data,'type') %}
-    public ForgeConfigSpec.{{grp.capitalize()}}Value {% for line in lines -%}
+    public ForgeConfigSpec.{{grp.capitalize()}}Value{% for line in lines %}
             cfg_{{line.name}}
-            {%- if loop.last %};{% else %}, {% endif %}
+            {%- if loop.last %};{% else %},{% endif %}
         {%- endfor %}
     {%- endfor %}
 

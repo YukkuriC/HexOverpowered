@@ -61,9 +61,25 @@ public class HexOPConfigForge implements API {
         return cfg_AmethystCircleFullPowerLevel.get();
     }
 
-    public ForgeConfigSpec.BooleanValue cfg_RevealsHexInsideCastingItems, cfg_EnablesMoteChestGUI, cfg_EnablesMishapNoYeet, cfg_EnablesTeleportVehicles, cfg_EnablesChargeMediaAction, cfg_EnablesPersonalMediaPool, cfg_FakePlayerDontRegenMedia, cfg_PersonalMediaAfterEnlightened, cfg_FiresPersonalMediaEvents, cfg_EnablesAmethystCircle;
-    public ForgeConfigSpec.IntValue cfg_PersonalMediaMax, cfg_PersonalMediaRegenStep, cfg_PersonalMediaRegenInterval, cfg_AmethystCircleSingleChargeCost, cfg_AmethystCircleFullPowerLevel;
-    public ForgeConfigSpec.DoubleValue cfg_MekasuitConversionRatio;
+    public ForgeConfigSpec.BooleanValue
+            cfg_RevealsHexInsideCastingItems,
+            cfg_EnablesMoteChestGUI,
+            cfg_EnablesMishapNoYeet,
+            cfg_EnablesTeleportVehicles,
+            cfg_EnablesChargeMediaAction,
+            cfg_EnablesPersonalMediaPool,
+            cfg_FakePlayerDontRegenMedia,
+            cfg_PersonalMediaAfterEnlightened,
+            cfg_FiresPersonalMediaEvents,
+            cfg_EnablesAmethystCircle;
+    public ForgeConfigSpec.IntValue
+            cfg_PersonalMediaMax,
+            cfg_PersonalMediaRegenStep,
+            cfg_PersonalMediaRegenInterval,
+            cfg_AmethystCircleSingleChargeCost,
+            cfg_AmethystCircleFullPowerLevel;
+    public ForgeConfigSpec.DoubleValue
+            cfg_MekasuitConversionRatio;
 
     public HexOPConfigForge(ForgeConfigSpec.Builder builder) {
         cfg_RevealsHexInsideCastingItems = builder.comment(desc_RevealsHexInsideCastingItems).define("RevealsHexInsideCastingItems", true);
