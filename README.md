@@ -22,6 +22,7 @@ _note: all features that currently can't be turned off are marked with `☆`_
     -   fake players don't regenerate media by default; can be turned on
     -   triggers events when consuming/regenerating personal media pool
         -   event handlers inside class `io.yukkuric.hexop.personal_mana.PersonalManaEvents`
+        -   also registered as global access `PersonalManaEvents` & `PersonalMediaEvents` inside startup & server script scopes if `KubeJS` installed
         -   `TODO` kjs example script links
 -   (1.20 exclusive) amethyst budding crystal growth accelerator circle
     -   configurable cost, required base media & max accelerate power
