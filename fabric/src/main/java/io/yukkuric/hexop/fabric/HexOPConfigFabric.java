@@ -42,6 +42,10 @@ public class HexOPConfigFabric implements ConfigData {
         private int PersonalMediaRegenInterval = HexOverpowered.DEFAULTS.MANA_REGEN_INTERVAL;
         @Comment(desc_FakePlayerDontRegenMedia)
         private boolean FakePlayerDontRegenMedia = true;
+        @Comment(desc_PersonalMediaAfterEnlightened)
+        private boolean PersonalMediaAfterEnlightened = true;
+        @Comment(desc_FiresPersonalMediaEvents)
+        private boolean FiresPersonalMediaEvents = true;
         @Comment(desc_EnablesAmethystCircle)
         private boolean EnablesAmethystCircle = true;
         @Comment(desc_AmethystCircleSingleChargeCost)
@@ -78,6 +82,12 @@ public class HexOPConfigFabric implements ConfigData {
         }
         public boolean FakePlayerDontRegenMedia() {
             return FakePlayerDontRegenMedia;
+        }
+        public boolean PersonalMediaAfterEnlightened() {
+            return PersonalMediaAfterEnlightened;
+        }
+        public boolean FiresPersonalMediaEvents() {
+            return FiresPersonalMediaEvents;
         }
         public boolean EnablesAmethystCircle() {
             return EnablesAmethystCircle;

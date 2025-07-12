@@ -15,12 +15,13 @@ _note: all features that currently can't be turned off are marked with `☆`_
 -   disables item dropping of certain mishaps
 -   re-enable TP for various limited entities
 -   extra player mana(media) bar
-    -   has max priority
+    -   `☆` has max priority
     -   configurable max value & regeneration
     -   attribute driven, can be adjusted by modifiers, commands, etc.
-    -   won't be naturally regenerating before player is enlightened
+    -   active after player is enlightened, or any time, depends on config
     -   fake players don't regenerate media by default; can be turned on
-    -   `☆` triggers events when consuming/regenerating personal media pool
+    -   triggers events when consuming/regenerating personal media pool
+        -   event handlers inside class `io.yukkuric.hexop.personal_mana.PersonalManaEvents`
         -   `TODO` kjs example script links
 -   (1.20 exclusive) amethyst budding crystal growth accelerator circle
     -   configurable cost, required base media & max accelerate power

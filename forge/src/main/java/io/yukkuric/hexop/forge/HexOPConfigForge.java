@@ -45,6 +45,12 @@ public class HexOPConfigForge implements API {
     public boolean FakePlayerDontRegenMedia() {
         return cfg_FakePlayerDontRegenMedia.get();
     }
+    public boolean PersonalMediaAfterEnlightened() {
+        return cfg_PersonalMediaAfterEnlightened.get();
+    }
+    public boolean FiresPersonalMediaEvents() {
+        return cfg_FiresPersonalMediaEvents.get();
+    }
     public boolean EnablesAmethystCircle() {
         return cfg_EnablesAmethystCircle.get();
     }
@@ -55,7 +61,7 @@ public class HexOPConfigForge implements API {
         return cfg_AmethystCircleFullPowerLevel.get();
     }
 
-    public ForgeConfigSpec.BooleanValue cfg_RevealsHexInsideCastingItems, cfg_EnablesMoteChestGUI, cfg_EnablesMishapNoYeet, cfg_EnablesTeleportVehicles, cfg_EnablesChargeMediaAction, cfg_EnablesPersonalMediaPool, cfg_FakePlayerDontRegenMedia, cfg_EnablesAmethystCircle;
+    public ForgeConfigSpec.BooleanValue cfg_RevealsHexInsideCastingItems, cfg_EnablesMoteChestGUI, cfg_EnablesMishapNoYeet, cfg_EnablesTeleportVehicles, cfg_EnablesChargeMediaAction, cfg_EnablesPersonalMediaPool, cfg_FakePlayerDontRegenMedia, cfg_PersonalMediaAfterEnlightened, cfg_FiresPersonalMediaEvents, cfg_EnablesAmethystCircle;
     public ForgeConfigSpec.IntValue cfg_PersonalMediaMax, cfg_PersonalMediaRegenStep, cfg_PersonalMediaRegenInterval, cfg_AmethystCircleSingleChargeCost, cfg_AmethystCircleFullPowerLevel;
     public ForgeConfigSpec.DoubleValue cfg_MekasuitConversionRatio;
 
@@ -70,6 +76,8 @@ public class HexOPConfigForge implements API {
         cfg_PersonalMediaRegenStep = builder.comment(desc_PersonalMediaRegenStep).defineInRange("PersonalMediaRegenStep", HexOverpowered.DEFAULTS.MANA_REGEN, 0, (int) 1e10);
         cfg_PersonalMediaRegenInterval = builder.comment(desc_PersonalMediaRegenInterval).defineInRange("PersonalMediaRegenInterval", HexOverpowered.DEFAULTS.MANA_REGEN_INTERVAL, 0, (int) 1e10);
         cfg_FakePlayerDontRegenMedia = builder.comment(desc_FakePlayerDontRegenMedia).define("FakePlayerDontRegenMedia", true);
+        cfg_PersonalMediaAfterEnlightened = builder.comment(desc_PersonalMediaAfterEnlightened).define("PersonalMediaAfterEnlightened", true);
+        cfg_FiresPersonalMediaEvents = builder.comment(desc_FiresPersonalMediaEvents).define("FiresPersonalMediaEvents", true);
         cfg_EnablesAmethystCircle = builder.comment(desc_EnablesAmethystCircle).define("EnablesAmethystCircle", true);
         cfg_AmethystCircleSingleChargeCost = builder.comment(desc_AmethystCircleSingleChargeCost).defineInRange("AmethystCircleSingleChargeCost", 100000, 0, (int) 1e10);
         cfg_AmethystCircleFullPowerLevel = builder.comment(desc_AmethystCircleFullPowerLevel).defineInRange("AmethystCircleFullPowerLevel", 15, 1, 30);

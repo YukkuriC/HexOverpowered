@@ -35,6 +35,7 @@ public abstract class MixinManaRegen extends Player {
 
     @Inject(method = "tick", at = @At("HEAD"))
     void regenTick(CallbackInfo ci) {
+        if (!PersonalManaHolder.enablesManaForPlayer(this)) return;
         if (isSelfFake && HexOPConfig.FakePlayerDontRegenMedia()) return;
         var checkStep = Math.max(1, HexOPConfig.PersonalMediaRegenInterval());
         if (!HexOPConfig.EnablesPersonalMediaPool() || tickCount % checkStep > 0) return;

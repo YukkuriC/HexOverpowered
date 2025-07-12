@@ -40,6 +40,12 @@ public class HexOPConfig {
     public static boolean FakePlayerDontRegenMedia() {
         return imp.FakePlayerDontRegenMedia();
     }
+    public static boolean PersonalMediaAfterEnlightened() {
+        return imp.PersonalMediaAfterEnlightened();
+    }
+    public static boolean FiresPersonalMediaEvents() {
+        return imp.FiresPersonalMediaEvents();
+    }
     public static boolean EnablesAmethystCircle() {
         return imp.EnablesAmethystCircle();
     }
@@ -60,6 +66,8 @@ public class HexOPConfig {
         String desc_PersonalMediaRegenStep = "<Personal Media>\nHow many media points (in 0.0001 dust) personal pool regenerates each time";
         String desc_PersonalMediaRegenInterval = "<Personal Media>\nFor every X ticks personal pool regenerate once";
         String desc_FakePlayerDontRegenMedia = "<Personal Media>\nFake players (for example, Deployer from Create) won't regenerate their media pool";
+        String desc_PersonalMediaAfterEnlightened = "<Personal Media>\nOnly activates personal media bar after enlightened";
+        String desc_FiresPersonalMediaEvents = "<Personal Media>\nTriggers events when personal media pool changed";
         String desc_EnablesAmethystCircle = "<Amethyst Circle>\nmedia waves from circles go through amethyst budding blocks, and accelerates their crystal growth";
         String desc_AmethystCircleSingleChargeCost = "<Amethyst Circle>\neach time media reduces for crystal growth passing a budding block";
         String desc_AmethystCircleFullPowerLevel = "<Amethyst Circle>\nmax possible charging level of the wave: growth strength = min(this, wave total media / single cost)";
@@ -74,6 +82,8 @@ public class HexOPConfig {
         int PersonalMediaRegenStep();
         int PersonalMediaRegenInterval();
         boolean FakePlayerDontRegenMedia();
+        boolean PersonalMediaAfterEnlightened();
+        boolean FiresPersonalMediaEvents();
         boolean EnablesAmethystCircle();
         int AmethystCircleSingleChargeCost();
         int AmethystCircleFullPowerLevel();

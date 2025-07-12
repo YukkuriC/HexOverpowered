@@ -2,7 +2,6 @@ package io.yukkuric.hexop.mixin.personal_mana;
 
 import at.petrak.hexcasting.api.addldata.ADMediaHolder;
 import at.petrak.hexcasting.api.utils.MediaHelper;
-import io.yukkuric.hexop.HexOPConfig;
 import io.yukkuric.hexop.personal_mana.PersonalManaHolder;
 import net.minecraft.server.level.ServerPlayer;
 import org.spongepowered.asm.mixin.Mixin;
@@ -16,7 +15,7 @@ import java.util.List;
 public class MixinManaFetcher {
     @Inject(method = "scanPlayerForMediaStuff", at = @At("RETURN"), remap = false)
     private static void insertMine(ServerPlayer player, CallbackInfoReturnable<List<ADMediaHolder>> cir) {
-        if (!HexOPConfig.EnablesPersonalMediaPool()) return;
+        if (!PersonalManaHolder.enablesManaForPlayer(player)) return;
         cir.getReturnValue().add(0, PersonalManaHolder.get(player));
     }
 }

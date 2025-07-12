@@ -48,6 +48,16 @@
   default: 'true'
   descrip: <Personal Media>\nFake players (for example, Deployer from Create) won't regenerate their media pool
   side: common
+- name: PersonalMediaAfterEnlightened
+  type: boolean
+  default: 'true'
+  descrip: <Personal Media>\nOnly activates personal media bar after enlightened
+  side: common
+- name: FiresPersonalMediaEvents
+  type: boolean
+  default: 'true'
+  descrip: <Personal Media>\nTriggers events when personal media pool changed
+  side: common
 - name: EnablesAmethystCircle
   type: boolean
   default: 'true'
