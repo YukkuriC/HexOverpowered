@@ -1,10 +1,14 @@
 package io.yukkuric.hexop.personal_mana
 
+import at.petrak.hexcasting.api.HexAPI
 import at.petrak.hexcasting.api.addldata.ADMediaHolder
 import io.yukkuric.hexop.HexOPAttributes
+import io.yukkuric.hexop.HexOPConfig
 import net.minecraft.network.chat.Component
+import net.minecraft.server.level.ServerPlayer
 import net.minecraft.world.entity.player.Player
 import java.util.*
+
 
 class PersonalManaHolder private constructor(val player: Player) : ADMediaHolder {
     override fun getMedia() = player.getAttributeBaseValue(HexOPAttributes.PERSONAL_MEDIA).toInt()
@@ -35,6 +39,7 @@ class PersonalManaHolder private constructor(val player: Player) : ADMediaHolder
     }
 
     private fun tryTriggerEvent(action: Runnable) {
+        if (!HexOPConfig.FiresPersonalMediaEvents()) return
         triggersEvent = false
         try {
             action.run()
@@ -60,6 +65,16 @@ class PersonalManaHolder private constructor(val player: Player) : ADMediaHolder
             null
         } else {
             MAP.computeIfAbsent(player, ::PersonalManaHolder)
+        }
+
+        @JvmStatic
+        fun enablesManaForPlayer(player: Player): Boolean {
+            if (!HexOPConfig.EnablesPersonalMediaPool()) return false
+            if (player !is ServerPlayer) return false
+            if (!HexOPConfig.PersonalMediaAfterEnlightened()) return true
+            // https://github.com/FallingColors/HexMod/blob/main/Common/src/main/java/at/petrak/hexcasting/api/casting/eval/CastingEnvironment.java#L232
+            val adv = player.server.advancements.getAdvancement(HexAPI.modLoc("enlightenment")) ?: return false
+            return player.advancements.getOrStartProgress(adv).isDone
         }
     }
 }

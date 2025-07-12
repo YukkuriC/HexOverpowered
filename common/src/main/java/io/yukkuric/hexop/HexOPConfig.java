@@ -40,6 +40,12 @@ public class HexOPConfig {
     public static boolean FakePlayerDontRegenMedia() {
         return imp.FakePlayerDontRegenMedia();
     }
+    public static boolean PersonalMediaAfterEnlightened() {
+        return imp.PersonalMediaAfterEnlightened();
+    }
+    public static boolean FiresPersonalMediaEvents() {
+        return imp.FiresPersonalMediaEvents();
+    }
     public interface API {
         String desc_RevealsHexInsideCastingItems = "<Display>\nDisplays the hex inside readonly casting items; working client-side";
         String desc_EnablesMoteChestGUI = "<Mote>\nEnables 'A Glance of Mote Chest' (a simple chest GUI) on right click";
@@ -51,6 +57,8 @@ public class HexOPConfig {
         String desc_PersonalMediaRegenStep = "<Personal Media>\nHow many media points (in 0.0001 dust) personal pool regenerates each time";
         String desc_PersonalMediaRegenInterval = "<Personal Media>\nFor every X ticks personal pool regenerate once";
         String desc_FakePlayerDontRegenMedia = "<Personal Media>\nFake players (for example, Deployer from Create) won't regenerate their media pool";
+        String desc_PersonalMediaAfterEnlightened = "<Personal Media>\nOnly activates personal media bar after enlightened";
+        String desc_FiresPersonalMediaEvents = "<Personal Media>\nTriggers events when personal media pool changed";
 
         boolean RevealsHexInsideCastingItems();
         boolean EnablesMoteChestGUI();
@@ -62,5 +70,7 @@ public class HexOPConfig {
         int PersonalMediaRegenStep();
         int PersonalMediaRegenInterval();
         boolean FakePlayerDontRegenMedia();
+        boolean PersonalMediaAfterEnlightened();
+        boolean FiresPersonalMediaEvents();
     }
 }
