@@ -1,4 +1,7 @@
 {
   "hexcasting.spell.hexoverpowered:yjsp_media": "沼气驱动",
-  "hexop.mote.chest.title": "物元箱一瞥"
+  "hexop.mote.chest.title": "物元箱一瞥",
+  "hexoverpowered.attr.personal_media": "个人媒质",
+  "hexoverpowered.attr.personal_media_max": "最大个人媒质",
+  "hexoverpowered.attr.personal_media_regen": "个人媒质回复"
 }
