@@ -1,4 +1,7 @@
 {
   "hexcasting.action.hexoverpowered:yjsp_media": "YJSP's Charge Media",
-  "hexop.mote.chest.title": "A Glance of the Mote Chest"
+  "hexop.mote.chest.title": "A Glance of the Mote Chest",
+  "hexoverpowered.attr.personal_media": "Personal Media",
+  "hexoverpowered.attr.personal_media_max": "Max Personal Media",
+  "hexoverpowered.attr.personal_media_regen": "Personal Media Regeneration"
 }
