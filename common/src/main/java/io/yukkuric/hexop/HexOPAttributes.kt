@@ -4,17 +4,19 @@ import io.yukkuric.hexop.HexOverpowered.MOD_ID
 import io.yukkuric.hexop.HexOverpowered.opModLoc
 import net.minecraft.core.Registry
 import net.minecraft.core.registries.BuiltInRegistries
-import net.minecraft.core.registries.Registries
 import net.minecraft.resources.ResourceLocation
 import net.minecraft.world.entity.ai.attributes.Attribute
 import net.minecraft.world.entity.ai.attributes.RangedAttribute
 
 class HexOPAttributes {
     companion object {
+        @JvmStatic
         val PERSONAL_MEDIA: Attribute
             get() = _personal_media
+        @JvmStatic
         val PERSONAL_MEDIA_MAX: Attribute
             get() = _personal_media_max
+        @JvmStatic
         val PERSONAL_MEDIA_REGEN: Attribute
             get() = _personal_media_regen
 

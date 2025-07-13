@@ -7,28 +7,43 @@ import java.util.List;
 import java.util.function.Consumer;
 
 public class PersonalManaEvents {
-    private static final List<Consumer<EventInsert>> onInsert = new ArrayList<>();
-    private static final List<Consumer<EventExtract>> onExtract = new ArrayList<>();
+    private static final List<Consumer<EventBody>> onInsert = new ArrayList<>();
+    private static final List<Consumer<EventBody>> onExtract = new ArrayList<>();
 
     public static void resetAll() {
         onInsert.clear();
         onExtract.clear();
     }
-    static void OnInsert(EventInsert event) {
+    static void OnInsert(EventBody event) {
         for (var callback : onInsert) callback.accept(event);
     }
-    static void OnExtract(EventExtract event) {
+    static void OnExtract(EventBody event) {
         for (var callback : onExtract) callback.accept(event);
     }
-    public static void AddOnInsert(Consumer<EventInsert> callback) {
+    public static void AddOnInsert(Consumer<EventBody> callback) {
         onInsert.add(callback);
     }
-    public static void AddOnExtract(Consumer<EventExtract> callback) {
+    public static void AddOnExtract(Consumer<EventBody> callback) {
         onExtract.add(callback);
     }
 
-    public record EventInsert(Player player, long target, long inserted) {
-    }
-    public record EventExtract(Player player, long target, long extracted) {
+    public static class EventBody {
+        public final Player player;
+        public final long target, actual;
+
+        public EventBody(Player player, long target, long actual) {
+            this.player = player;
+            this.target = target;
+            this.actual = actual;
+        }
+
+        public long getDropped() {
+            return this.target - this.actual;
+        }
+
+        @Override
+        public String toString() {
+            return "[p=%s,t=%s,a=%s]".formatted(player.getDisplayName().getString(), target, actual);
+        }
     }
 }

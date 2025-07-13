@@ -4,6 +4,7 @@ import at.petrak.hexcasting.api.HexAPI
 import at.petrak.hexcasting.api.addldata.ADMediaHolder
 import io.yukkuric.hexop.HexOPAttributes
 import io.yukkuric.hexop.HexOPConfig
+import net.minecraft.client.player.LocalPlayer
 import net.minecraft.network.chat.Component
 import net.minecraft.server.level.ServerPlayer
 import net.minecraft.world.entity.player.Player
@@ -22,7 +23,7 @@ class PersonalManaHolder private constructor(val player: Player) : ADMediaHolder
         val ret = super.insertMedia(amount, simulate)
         if (triggersEvent && !simulate) {
             tryTriggerEvent {
-                PersonalManaEvents.OnInsert(PersonalManaEvents.EventInsert(player, amount, ret))
+                PersonalManaEvents.OnInsert(PersonalManaEvents.EventBody(player, amount, ret))
             }
         }
         return ret
@@ -32,7 +33,7 @@ class PersonalManaHolder private constructor(val player: Player) : ADMediaHolder
         val ret = super.withdrawMedia(cost, simulate)
         if (triggersEvent && !simulate) {
             tryTriggerEvent {
-                PersonalManaEvents.OnExtract(PersonalManaEvents.EventExtract(player, cost, ret))
+                PersonalManaEvents.OnExtract(PersonalManaEvents.EventBody(player, cost, ret))
             }
         }
         return ret
@@ -59,10 +60,13 @@ class PersonalManaHolder private constructor(val player: Player) : ADMediaHolder
 
     companion object {
         private val MAP = WeakHashMap<Player, PersonalManaHolder>()
+        private val LOCAL_MAP = WeakHashMap<Player, PersonalManaHolder>()
 
         @JvmStatic
         fun get(player: Player?): PersonalManaHolder? = if (player == null) {
             null
+        } else if (player is LocalPlayer) {
+            LOCAL_MAP.computeIfAbsent(player, ::PersonalManaHolder)
         } else {
             MAP.computeIfAbsent(player, ::PersonalManaHolder)
         }
