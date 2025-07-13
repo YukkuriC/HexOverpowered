@@ -10,10 +10,13 @@ import org.apache.logging.log4j.util.BiConsumer
 
 class HexOPAttributes {
     companion object {
+        @JvmStatic
         val PERSONAL_MEDIA: Attribute
             get() = _personal_media
+        @JvmStatic
         val PERSONAL_MEDIA_MAX: Attribute
             get() = _personal_media_max
+        @JvmStatic
         val PERSONAL_MEDIA_REGEN: Attribute
             get() = _personal_media_regen
 
