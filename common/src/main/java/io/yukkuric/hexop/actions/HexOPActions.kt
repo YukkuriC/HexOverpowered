@@ -9,10 +9,12 @@ import io.yukkuric.hexop.HexOverpowered.opModLoc
 class HexOPActions {
     companion object {
         init {
-            wrap("yjsp_media", "eaddaddaeaeaddaddaeaeaddaddae", HexDir.NORTH_EAST, OpChargeMedia)
+            wrap("yjsp_media", "eaddaddaeaeaddaddaeaeaddaddae", HexDir.NORTH_EAST, OpChargeMedia, true)
+            wrap("get_personal_media", "qqaqqea", HexDir.EAST, OpGetAttr.GetMana)
+            wrap("get_personal_media_max", "qqaqqqd", HexDir.EAST, OpGetAttr.GetMaxMana)
         }
 
-        private fun wrap(name: String, signature: String, dir: HexDir, action: Action, isGreat: Boolean = true) {
+        private fun wrap(name: String, signature: String, dir: HexDir, action: Action, isGreat: Boolean = false) {
             val pattern = HexPattern.fromAngles(signature, dir)
             val key = opModLoc(name)
             PatternRegistry.mapPattern(pattern, key, action, isGreat);
