@@ -15,6 +15,8 @@ class HexOPActions {
 
         init {
             wrap("yjsp_media", "eaddaddaeaeaddaddaeaeaddaddae", HexDir.NORTH_EAST, OpChargeMedia)
+            wrap("get_personal_media", "qqaqqea", HexDir.EAST, OpGetAttr.GetMana)
+            wrap("get_personal_media_max", "qqaqqqd", HexDir.EAST, OpGetAttr.GetMaxMana)
         }
 
         @JvmStatic
