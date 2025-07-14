@@ -5,17 +5,21 @@ import at.petrak.hexcasting.api.spell.OperationResult
 import at.petrak.hexcasting.api.spell.casting.CastingContext
 import at.petrak.hexcasting.api.spell.casting.eval.SpellContinuation
 import at.petrak.hexcasting.api.spell.iota.Iota
-import java.util.function.BiFunction
 
 open class BaseSelectAction(
-    val predicate: BiFunction<CastingContext, SpellContinuation, Boolean>,
+    val predicate: QuadFunction<SpellContinuation, MutableList<Iota>, Iota?, CastingContext, Boolean>,
     val testTrue: Action,
     val testFalse: Action
 ) : Action {
     override fun operate(
         continuation: SpellContinuation, stack: MutableList<Iota>, ravenmind: Iota?, ctx: CastingContext
     ): OperationResult {
-        if (predicate.apply(ctx, continuation)) return testTrue.operate(continuation, stack, ravenmind, ctx)
+        if (predicate.apply(continuation, stack, ravenmind, ctx))
+            return testTrue.operate(continuation, stack, ravenmind, ctx)
         return testFalse.operate(continuation, stack, ravenmind, ctx)
+    }
+
+    fun interface QuadFunction<P1, P2, P3, P4, R> {
+        fun apply(p1: P1, p2: P2, p3: P3, p4: P4): R
     }
 }

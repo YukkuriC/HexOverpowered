@@ -13,7 +13,7 @@ import net.minecraft.server.level.ServerPlayer
 import ram.talia.hexal.api.spell.casting.IMixinCastingContext
 
 object OpChargeMedia : BaseSelectAction(
-    { _, _ -> HexOPConfig.EnablesChargeMediaAction() },
+    { _, _, _, _ -> HexOPConfig.EnablesChargeMediaAction() },
     OpChargeForReal,
     OpChargeFake,
 ) {
