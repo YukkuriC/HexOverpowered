@@ -9,7 +9,7 @@ import net.minecraft.world.entity.player.Player;
 public abstract class HexOverpowered {
     public HexOverpowered() {
         INSTANCE = this;
-        HexOPActions.keppAlive();
+        HexOPActions.keepAlive();
     }
 
     public static final String MOD_ID = "hexoverpowered";

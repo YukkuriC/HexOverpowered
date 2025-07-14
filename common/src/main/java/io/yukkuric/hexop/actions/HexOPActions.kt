@@ -19,7 +19,7 @@ class HexOPActions {
         }
 
         @JvmStatic
-        fun keppAlive() {
+        fun keepAlive() {
         }
     }
 }
