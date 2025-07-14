@@ -23,7 +23,7 @@ class PersonalManaHolder private constructor(val player: Player) : ADMediaHolder
         val ret = super.insertMedia(amount, simulate)
         if (triggersEvent && !simulate) {
             tryTriggerEvent {
-                PersonalManaEvents.OnInsert(PersonalManaEvents.EventBody(player, amount, ret))
+                PersonalManaEvents.OnInsert(PersonalManaEvents.EventBody(this, amount, ret))
             }
         }
         return ret
@@ -33,7 +33,7 @@ class PersonalManaHolder private constructor(val player: Player) : ADMediaHolder
         val ret = super.withdrawMedia(cost, simulate)
         if (triggersEvent && !simulate) {
             tryTriggerEvent {
-                PersonalManaEvents.OnExtract(PersonalManaEvents.EventBody(player, cost, ret))
+                PersonalManaEvents.OnExtract(PersonalManaEvents.EventBody(this, cost, ret))
             }
         }
         return ret

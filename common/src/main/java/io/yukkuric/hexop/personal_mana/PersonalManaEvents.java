@@ -29,10 +29,12 @@ public class PersonalManaEvents {
 
     public static class EventBody {
         public final Player player;
+        public final PersonalManaHolder holder;
         public final int target, actual;
 
-        public EventBody(Player player, int target, int actual) {
-            this.player = player;
+        public EventBody(PersonalManaHolder holder, int target, int actual) {
+            this.holder = holder;
+            this.player = holder.getPlayer();
             this.target = target;
             this.actual = actual;
         }
