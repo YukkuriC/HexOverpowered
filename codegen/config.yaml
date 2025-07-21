@@ -23,6 +23,11 @@
   default: 'true'
   descrip: <Pattern>\nif not, the `YJSP's Charge Media` pattern becomes YJSP's roar
   side: common
+- name: EnablesMindEnvActions
+  type: boolean
+  default: 'true'
+  descrip: <Pattern>\nif not, mind environment series patterns will be disabled
+  side: common
 - name: EnablesPersonalMediaPool
   type: boolean
   default: 'true'
