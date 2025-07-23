@@ -18,7 +18,7 @@ class PersonalManaHolder private constructor(val player: Player) : ADMediaHolder
         player.getAttribute(HexOPAttributes.PERSONAL_MEDIA)?.baseValue = value.coerceAtLeast(0).toDouble()
     }
 
-    var triggersEvent = true
+    private var triggersEvent = true
     override fun insertMedia(amount: Long, simulate: Boolean): Long {
         val ret = super.insertMedia(amount, simulate)
         if (triggersEvent && !simulate) {
