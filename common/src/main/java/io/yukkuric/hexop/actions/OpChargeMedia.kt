@@ -6,6 +6,7 @@ import at.petrak.hexcasting.api.misc.MediaConstants
 import at.petrak.hexcasting.api.spell.ConstMediaAction
 import at.petrak.hexcasting.api.spell.casting.CastingContext
 import at.petrak.hexcasting.api.spell.iota.Iota
+import at.petrak.hexcasting.api.spell.mishaps.MishapDisallowedSpell
 import io.yukkuric.hexop.HexOPConfig
 import io.yukkuric.hexop.HexOverpowered.IsModLoaded
 import io.yukkuric.hexop.personal_mana.PersonalManaHolder
@@ -53,7 +54,8 @@ object OpChargeMedia : BaseSelectAction(
 
         override fun execute(args: List<Iota>, ctx: CastingContext): List<Iota> {
             // TODO: play sound
-            return listOf()
+            // return listOf()
+            throw MishapDisallowedSpell()
         }
     }
 }

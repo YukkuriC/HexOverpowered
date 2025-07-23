@@ -21,7 +21,7 @@
 - name: EnablesChargeMediaAction
   type: boolean
   default: 'true'
-  descrip: <Pattern>\nif not, the `YJSP's Charge Media` pattern becomes YJSP's roar
+  descrip: <Pattern>\nif not, the `YJSP's Charge Media` pattern will be disabled
   side: common
 - name: EnablesMindEnvActions
   type: boolean

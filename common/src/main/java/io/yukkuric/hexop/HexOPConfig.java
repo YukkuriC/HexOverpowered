@@ -54,7 +54,7 @@ public class HexOPConfig {
         String desc_EnablesMoteChestGUI = "<Mote>\nEnables 'A Glance of Mote Chest' (a simple chest GUI) on right click";
         String desc_EnablesMishapNoYeet = "<Mishap>\nMishaps won't drop items anymore";
         String desc_EnablesTeleportVehicles = "<Mishap>\nTeleporting riding entities no longer do mishaps";
-        String desc_EnablesChargeMediaAction = "<Pattern>\nif not, the `YJSP's Charge Media` pattern becomes YJSP's roar";
+        String desc_EnablesChargeMediaAction = "<Pattern>\nif not, the `YJSP's Charge Media` pattern will be disabled";
         String desc_EnablesMindEnvActions = "<Pattern>\nif not, mind environment series patterns will be disabled";
         String desc_EnablesPersonalMediaPool = "<Personal Media>\nEnables player's personal media pool";
         String desc_PersonalMediaMax = "<Personal Media>\nMax media (in 0.0001 dust) for personal pool";
