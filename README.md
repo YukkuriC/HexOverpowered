@@ -28,7 +28,7 @@ _note: all features that currently can't be turned off are marked with `☆`_
     -   triggers events when consuming/regenerating personal media pool
         -   event handlers inside class `io.yukkuric.hexop.personal_mana.PersonalManaEvents`
         -   also registered as global access `PersonalManaEvents` & `PersonalMediaEvents` inside startup & server script scopes if `KubeJS` installed
-        -   `TODO` kjs example script links
+        -   a simple example using these events in `KubeJS`: [HERE](https://github.com/YukkuriC/hex_playground/blob/main/server_scripts/HexOP_TrainingPersonalMedia.js)
 -   (1.20 exclusive) amethyst budding crystal growth accelerator circle
     -   configurable cost, required base media & max accelerate power
 
