@@ -1,0 +1,64 @@
+{
+	"name": "hexoverpowered.hexbook.entry",
+	"category": "hexcasting:patterns",
+	"icon": "minecraft:dragon_breath",
+	"advancement": "hexcasting:root",
+	"pages": [
+		{
+			"type": "hexcasting:pattern",
+			"op_id": "hexoverpowered:yjsp_media",
+			"anchor": "hexoverpowered:yjsp_media",
+			"input": "",
+			"output": "num",
+			"text": "book.descrip.hexoverpowered:yjsp_media"
+		},
+		{
+			"type": "hexcasting:pattern",
+			"op_id": "hexoverpowered:get_personal_media",
+			"anchor": "hexoverpowered:get_personal_media",
+			"input": "",
+			"output": "num",
+			"text": "book.descrip.hexoverpowered:get_personal_media"
+		},
+		{
+			"type": "hexcasting:pattern",
+			"op_id": "hexoverpowered:get_personal_media_max",
+			"anchor": "hexoverpowered:get_personal_media_max",
+			"input": "",
+			"output": "list",
+			"text": "book.descrip.hexoverpowered:get_personal_media_max"
+		},
+		{
+			"type": "hexcasting:pattern",
+			"op_id": "hexoverpowered:mind_patterns",
+			"anchor": "hexoverpowered:mind_patterns",
+			"input": "",
+			"output": "list",
+			"text": "book.descrip.hexoverpowered:mind_patterns"
+		},
+		{
+			"type": "hexcasting:pattern",
+			"op_id": "hexoverpowered:mind_stack/pop",
+			"anchor": "hexoverpowered:mind_stack/pop",
+			"input": "",
+			"output": "any",
+			"text": "book.descrip.hexoverpowered:mind_stack/pop"
+		},
+		{
+			"type": "hexcasting:pattern",
+			"op_id": "hexoverpowered:mind_stack/push",
+			"anchor": "hexoverpowered:mind_stack/push",
+			"input": "any",
+			"output": "",
+			"text": "book.descrip.hexoverpowered:mind_stack/push"
+		},
+		{
+			"type": "hexcasting:pattern",
+			"op_id": "hexoverpowered:mind_stack/size",
+			"anchor": "hexoverpowered:mind_stack/size",
+			"input": "",
+			"output": "num",
+			"text": "book.descrip.hexoverpowered:mind_stack/size"
+		}
+	]
+}
