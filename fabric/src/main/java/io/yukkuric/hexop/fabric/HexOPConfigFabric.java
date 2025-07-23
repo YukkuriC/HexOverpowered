@@ -32,6 +32,8 @@ public class HexOPConfigFabric implements ConfigData {
         private boolean EnablesTeleportVehicles = true;
         @Comment(desc_EnablesChargeMediaAction)
         private boolean EnablesChargeMediaAction = true;
+        @Comment(desc_EnablesMindEnvActions)
+        private boolean EnablesMindEnvActions = true;
         @Comment(desc_EnablesPersonalMediaPool)
         private boolean EnablesPersonalMediaPool = true;
         @Comment(desc_PersonalMediaMax)
@@ -61,6 +63,9 @@ public class HexOPConfigFabric implements ConfigData {
         }
         public boolean EnablesChargeMediaAction() {
             return EnablesChargeMediaAction;
+        }
+        public boolean EnablesMindEnvActions() {
+            return EnablesMindEnvActions;
         }
         public boolean EnablesPersonalMediaPool() {
             return EnablesPersonalMediaPool;

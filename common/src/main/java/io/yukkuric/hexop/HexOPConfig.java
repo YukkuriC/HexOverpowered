@@ -25,6 +25,9 @@ public class HexOPConfig {
     public static boolean EnablesChargeMediaAction() {
         return imp.EnablesChargeMediaAction();
     }
+    public static boolean EnablesMindEnvActions() {
+        return imp.EnablesMindEnvActions();
+    }
     public static boolean EnablesPersonalMediaPool() {
         return imp.EnablesPersonalMediaPool();
     }
@@ -52,6 +55,7 @@ public class HexOPConfig {
         String desc_EnablesMishapNoYeet = "<Mishap>\nMishaps won't drop items anymore";
         String desc_EnablesTeleportVehicles = "<Mishap>\nTeleporting riding entities no longer do mishaps";
         String desc_EnablesChargeMediaAction = "<Pattern>\nif not, the `YJSP's Charge Media` pattern becomes YJSP's roar";
+        String desc_EnablesMindEnvActions = "<Pattern>\nif not, mind environment series patterns will be disabled";
         String desc_EnablesPersonalMediaPool = "<Personal Media>\nEnables player's personal media pool";
         String desc_PersonalMediaMax = "<Personal Media>\nMax media (in 0.0001 dust) for personal pool";
         String desc_PersonalMediaRegenStep = "<Personal Media>\nHow many media points (in 0.0001 dust) personal pool regenerates each time";
@@ -65,6 +69,7 @@ public class HexOPConfig {
         boolean EnablesMishapNoYeet();
         boolean EnablesTeleportVehicles();
         boolean EnablesChargeMediaAction();
+        boolean EnablesMindEnvActions();
         boolean EnablesPersonalMediaPool();
         int PersonalMediaMax();
         int PersonalMediaRegenStep();
