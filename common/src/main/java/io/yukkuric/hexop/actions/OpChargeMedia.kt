@@ -6,6 +6,7 @@ import at.petrak.hexcasting.api.casting.eval.env.CircleCastEnv
 import at.petrak.hexcasting.api.casting.eval.env.PackagedItemCastEnv
 import at.petrak.hexcasting.api.casting.eval.env.PlayerBasedCastEnv
 import at.petrak.hexcasting.api.casting.iota.Iota
+import at.petrak.hexcasting.api.casting.mishaps.MishapDisallowedSpell
 import at.petrak.hexcasting.api.item.MediaHolderItem
 import at.petrak.hexcasting.api.misc.MediaConstants
 import io.yukkuric.hexop.HexOPConfig
@@ -54,7 +55,8 @@ object OpChargeMedia : BaseSelectAction(
 
         override fun execute(args: List<Iota>, env: CastingEnvironment): List<Iota> {
             // TODO: play sound
-            return listOf()
+            // return listOf()
+            throw MishapDisallowedSpell()
         }
     }
 }
