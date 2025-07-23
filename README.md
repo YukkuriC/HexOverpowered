@@ -14,8 +14,13 @@ _note: all features that currently can't be turned off are marked with `☆`_
 -   displays spell inside casting items (ItemPackagedHex)
 -   disables item dropping of certain mishaps
 -   re-enable TP for various limited entities
+-   a set of spells manipulating player's staff environment (mind stack)
+    -   pushing/poping iota between current context and mind stack
+    -   getting the size of mind stack
+    -   getting all patterns drawn inside the staff canvas
 -   extra player mana(media) bar
     -   `☆` has max priority
+    -   `☆` a pair of patterns to query player's current/max personal media amount
     -   configurable max value & regeneration
     -   attribute driven, can be adjusted by modifiers, commands, etc.
     -   active after player is enlightened, or any time, depends on config
