@@ -4,7 +4,6 @@ import at.petrak.hexcasting.api.HexAPI
 import at.petrak.hexcasting.api.addldata.ADMediaHolder
 import io.yukkuric.hexop.HexOPAttributes
 import io.yukkuric.hexop.HexOPConfig
-import net.minecraft.client.player.LocalPlayer
 import net.minecraft.network.chat.Component
 import net.minecraft.server.level.ServerPlayer
 import net.minecraft.world.entity.player.Player
@@ -65,7 +64,7 @@ class PersonalManaHolder private constructor(val player: Player) : ADMediaHolder
         @JvmStatic
         fun get(player: Player?): PersonalManaHolder? = if (player == null) {
             null
-        } else if (player is LocalPlayer) {
+        } else if (player.isLocalPlayer) { // why import client class??
             LOCAL_MAP.computeIfAbsent(player, ::PersonalManaHolder)
         } else {
             MAP.computeIfAbsent(player, ::PersonalManaHolder)
