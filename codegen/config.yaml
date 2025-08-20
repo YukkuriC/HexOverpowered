@@ -8,6 +8,11 @@
   default: 'true'
   descrip: <Mote>\nEnables 'A Glance of Mote Chest' (a simple chest GUI) on right click
   side: common
+- name: TrueNameCrossDimension
+  type: boolean
+  default: 'true'
+  descrip: <Misc>\nPlayer references are always valid even in another dimension
+  side: common
 - name: EnablesMishapNoYeet
   type: boolean
   default: 'true'

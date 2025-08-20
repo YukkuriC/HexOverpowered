@@ -14,6 +14,7 @@ _note: all features that currently can't be turned off are marked with `☆`_
 -   displays spell inside casting items (ItemPackagedHex)
 -   disables item dropping of certain mishaps
 -   re-enable TP for various limited entities
+-   Player entity iota (true name) keeps valid even if the player not inside current dimension
 -   a set of spells manipulating player's staff environment (mind stack)
     -   pushing/poping iota between current context and mind stack
     -   getting the size of mind stack

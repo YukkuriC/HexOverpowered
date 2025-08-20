@@ -21,6 +21,9 @@ public class HexOPConfigForge implements API {
     public boolean EnablesMoteChestGUI() {
         return cfg_EnablesMoteChestGUI.get();
     }
+    public boolean TrueNameCrossDimension() {
+        return cfg_TrueNameCrossDimension.get();
+    }
     public boolean EnablesMishapNoYeet() {
         return cfg_EnablesMishapNoYeet.get();
     }
@@ -67,6 +70,7 @@ public class HexOPConfigForge implements API {
     public ForgeConfigSpec.BooleanValue
             cfg_RevealsHexInsideCastingItems,
             cfg_EnablesMoteChestGUI,
+            cfg_TrueNameCrossDimension,
             cfg_EnablesMishapNoYeet,
             cfg_EnablesTeleportVehicles,
             cfg_EnablesChargeMediaAction,
@@ -88,6 +92,7 @@ public class HexOPConfigForge implements API {
     public HexOPConfigForge(ForgeConfigSpec.Builder builder) {
         cfg_RevealsHexInsideCastingItems = builder.comment(desc_RevealsHexInsideCastingItems).define("RevealsHexInsideCastingItems", true);
         cfg_EnablesMoteChestGUI = builder.comment(desc_EnablesMoteChestGUI).define("EnablesMoteChestGUI", true);
+        cfg_TrueNameCrossDimension = builder.comment(desc_TrueNameCrossDimension).define("TrueNameCrossDimension", true);
         cfg_EnablesMishapNoYeet = builder.comment(desc_EnablesMishapNoYeet).define("EnablesMishapNoYeet", true);
         cfg_EnablesTeleportVehicles = builder.comment(desc_EnablesTeleportVehicles).define("EnablesTeleportVehicles", true);
         cfg_EnablesChargeMediaAction = builder.comment(desc_EnablesChargeMediaAction).define("EnablesChargeMediaAction", true);

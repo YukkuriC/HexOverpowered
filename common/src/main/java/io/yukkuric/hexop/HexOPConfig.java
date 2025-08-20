@@ -16,6 +16,9 @@ public class HexOPConfig {
     public static boolean EnablesMoteChestGUI() {
         return imp.EnablesMoteChestGUI();
     }
+    public static boolean TrueNameCrossDimension() {
+        return imp.TrueNameCrossDimension();
+    }
     public static boolean EnablesMishapNoYeet() {
         return imp.EnablesMishapNoYeet();
     }
@@ -61,6 +64,7 @@ public class HexOPConfig {
     public interface API {
         String desc_RevealsHexInsideCastingItems = "<Display>\nDisplays the hex inside readonly casting items; working client-side";
         String desc_EnablesMoteChestGUI = "<Mote>\nEnables 'A Glance of Mote Chest' (a simple chest GUI) on right click";
+        String desc_TrueNameCrossDimension = "<Misc>\nPlayer references are always valid even in another dimension";
         String desc_EnablesMishapNoYeet = "<Mishap>\nMishaps won't drop items anymore";
         String desc_EnablesTeleportVehicles = "<Mishap>\nTeleporting riding entities no longer do mishaps";
         String desc_EnablesChargeMediaAction = "<Pattern>\nif not, the `YJSP's Charge Media` pattern will be disabled";
@@ -78,6 +82,7 @@ public class HexOPConfig {
 
         boolean RevealsHexInsideCastingItems();
         boolean EnablesMoteChestGUI();
+        boolean TrueNameCrossDimension();
         boolean EnablesMishapNoYeet();
         boolean EnablesTeleportVehicles();
         boolean EnablesChargeMediaAction();
