@@ -26,6 +26,8 @@ public class HexOPConfigFabric implements ConfigData {
         private boolean RevealsHexInsideCastingItems = true;
         @Comment(desc_EnablesMoteChestGUI)
         private boolean EnablesMoteChestGUI = true;
+        @Comment(desc_TrueNameCrossDimension)
+        private boolean TrueNameCrossDimension = true;
         @Comment(desc_EnablesMishapNoYeet)
         private boolean EnablesMishapNoYeet = true;
         @Comment(desc_EnablesTeleportVehicles)
@@ -54,6 +56,9 @@ public class HexOPConfigFabric implements ConfigData {
         }
         public boolean EnablesMoteChestGUI() {
             return EnablesMoteChestGUI;
+        }
+        public boolean TrueNameCrossDimension() {
+            return TrueNameCrossDimension;
         }
         public boolean EnablesMishapNoYeet() {
             return EnablesMishapNoYeet;
