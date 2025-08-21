@@ -40,7 +40,7 @@ subprojects {
         flatDir { dir "../libs/$minecraft_version" }
     }
 
-    var nameForRef = project.name.equals("common") ? "fabric" : project.name
+    var nameForRef = project.name.equals("common") ? "forge" : project.name
     dependencies {
         compileOnly(annotationProcessor("io.github.llamalad7:mixinextras-common:0.4.1"))
         if (project.name == 'forge')
