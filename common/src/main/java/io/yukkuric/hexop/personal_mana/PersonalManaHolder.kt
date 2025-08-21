@@ -4,13 +4,13 @@ import at.petrak.hexcasting.api.HexAPI
 import at.petrak.hexcasting.api.addldata.ADMediaHolder
 import io.yukkuric.hexop.HexOPAttributes
 import io.yukkuric.hexop.HexOPConfig
+import net.minecraft.advancements.Advancement
 import net.minecraft.network.chat.Component
 import net.minecraft.server.level.ServerPlayer
 import net.minecraft.world.entity.player.Player
-import java.util.*
 
 
-class PersonalManaHolder private constructor(val player: Player) : ADMediaHolder {
+class PersonalManaHolder(val player: Player) : ADMediaHolder {
     override fun getMedia() = player.getAttributeBaseValue(HexOPAttributes.PERSONAL_MEDIA).toInt()
     override fun getMaxMedia() = player.getAttributeValue(HexOPAttributes.PERSONAL_MEDIA_MAX).toInt()
     override fun setMedia(value: Int) {
@@ -58,17 +58,12 @@ class PersonalManaHolder private constructor(val player: Player) : ADMediaHolder
     override fun canConstructBattery() = true // try it lol
 
     companion object {
-        private val MAP = WeakHashMap<Player, PersonalManaHolder>()
-        private val LOCAL_MAP = WeakHashMap<Player, PersonalManaHolder>()
+        private var cachedAdvancement: Advancement? = null
 
         @JvmStatic
-        fun get(player: Player?): PersonalManaHolder? = if (player == null) {
-            null
-        } else if (player.isLocalPlayer) { // why import client class??
-            LOCAL_MAP.computeIfAbsent(player, ::PersonalManaHolder)
-        } else {
-            MAP.computeIfAbsent(player, ::PersonalManaHolder)
-        }
+        fun get(player: Player?): PersonalManaHolder? =
+            if (player == null) null
+            else (player as PlayerHolder).getPersonalMediaHolder()
 
         @JvmStatic
         fun enablesManaForPlayer(player: Player): Boolean {
@@ -76,8 +71,13 @@ class PersonalManaHolder private constructor(val player: Player) : ADMediaHolder
             if (player !is ServerPlayer) return false
             if (!HexOPConfig.PersonalMediaAfterEnlightened()) return true
             // https://github.com/FallingColors/HexMod/blob/main/Common/src/main/java/at/petrak/hexcasting/api/casting/eval/CastingEnvironment.java#L232
-            val adv = player.server.advancements.getAdvancement(HexAPI.modLoc("enlightenment")) ?: return false
-            return player.advancements.getOrStartProgress(adv).isDone
+            if (cachedAdvancement == null) cachedAdvancement =
+                player.server.advancements.getAdvancement(HexAPI.modLoc("enlightenment")) ?: return false
+            return player.advancements.getOrStartProgress(cachedAdvancement).isDone
         }
+    }
+
+    interface PlayerHolder {
+        fun getPersonalMediaHolder(): PersonalManaHolder
     }
 }

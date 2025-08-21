@@ -13,7 +13,8 @@
     "hexal.MixinMoteContainer",
     "hexal.MixinMoteMenu",
     "personal_mana.MixinManaFetcher",
-    "personal_mana.MixinManaRegen"
+    "personal_mana.MixinManaRegen",
+    "personal_mana.MixinPlayerMediaHolderCache"
   ],
   "injectors": {
     "defaultRequire": 1
