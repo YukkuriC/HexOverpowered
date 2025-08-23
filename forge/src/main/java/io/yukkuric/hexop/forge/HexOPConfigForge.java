@@ -18,6 +18,9 @@ public class HexOPConfigForge implements API {
     public boolean RevealsHexInsideCastingItems() {
         return cfg_RevealsHexInsideCastingItems.get();
     }
+    public boolean EnablesMoteItemHandler() {
+        return cfg_EnablesMoteItemHandler.get();
+    }
     public boolean EnablesMoteChestGUI() {
         return cfg_EnablesMoteChestGUI.get();
     }
@@ -60,6 +63,7 @@ public class HexOPConfigForge implements API {
 
     public ForgeConfigSpec.BooleanValue
             cfg_RevealsHexInsideCastingItems,
+            cfg_EnablesMoteItemHandler,
             cfg_EnablesMoteChestGUI,
             cfg_TrueNameCrossDimension,
             cfg_EnablesMishapNoYeet,
@@ -79,6 +83,7 @@ public class HexOPConfigForge implements API {
 
     public HexOPConfigForge(ForgeConfigSpec.Builder builder) {
         cfg_RevealsHexInsideCastingItems = builder.comment(desc_RevealsHexInsideCastingItems).define("RevealsHexInsideCastingItems", true);
+        cfg_EnablesMoteItemHandler = builder.comment(desc_EnablesMoteItemHandler).define("EnablesMoteItemHandler", true);
         cfg_EnablesMoteChestGUI = builder.comment(desc_EnablesMoteChestGUI).define("EnablesMoteChestGUI", true);
         cfg_TrueNameCrossDimension = builder.comment(desc_TrueNameCrossDimension).define("TrueNameCrossDimension", true);
         cfg_EnablesMishapNoYeet = builder.comment(desc_EnablesMishapNoYeet).define("EnablesMishapNoYeet", true);

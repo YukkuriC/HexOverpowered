@@ -46,7 +46,7 @@ public abstract class MixinMoteMenu extends BlockBehaviour {
     @Override
     public @NotNull InteractionResult use(BlockState blockState, Level level, BlockPos blockPos, Player player, InteractionHand interactionHand, BlockHitResult blockHitResult) {
         if (level.isClientSide) return InteractionResult.SUCCESS;
-        if (!HexOPConfig.EnablesMoteChestGUI()) return InteractionResult.PASS;
+        if (!HexOPConfig.EnablesMoteChestGUI() || !HexOPConfig.EnablesMoteItemHandler()) return InteractionResult.PASS;
 
         MenuProvider menuProvider = this.getMenuProvider(blockState, level, blockPos);
         if (menuProvider != null) {

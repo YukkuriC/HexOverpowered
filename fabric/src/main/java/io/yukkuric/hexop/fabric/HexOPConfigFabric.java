@@ -24,6 +24,8 @@ public class HexOPConfigFabric implements ConfigData {
     public static class Common implements API, ConfigData {
         @Comment(desc_RevealsHexInsideCastingItems)
         private boolean RevealsHexInsideCastingItems = true;
+        @Comment(desc_EnablesMoteItemHandler)
+        private boolean EnablesMoteItemHandler = true;
         @Comment(desc_EnablesMoteChestGUI)
         private boolean EnablesMoteChestGUI = true;
         @Comment(desc_TrueNameCrossDimension)
@@ -53,6 +55,9 @@ public class HexOPConfigFabric implements ConfigData {
 
         public boolean RevealsHexInsideCastingItems() {
             return RevealsHexInsideCastingItems;
+        }
+        public boolean EnablesMoteItemHandler() {
+            return EnablesMoteItemHandler;
         }
         public boolean EnablesMoteChestGUI() {
             return EnablesMoteChestGUI;
