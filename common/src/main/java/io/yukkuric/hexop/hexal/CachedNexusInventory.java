@@ -1,5 +1,6 @@
 package io.yukkuric.hexop.hexal;
 
+import io.yukkuric.hexop.HexOPConfig;
 import net.minecraft.world.item.ItemStack;
 import org.jetbrains.annotations.NotNull;
 import ram.talia.hexal.api.config.HexalConfig;
@@ -110,7 +111,7 @@ public class CachedNexusInventory implements AutoCloseable {
     }
 
     public @NotNull ItemStack insertItem(int slot, @NotNull ItemStack stack, boolean simulate) {
-        if (slot >= maxTypes || stack.isEmpty()) return stack;
+        if (slot >= maxTypes || stack.isEmpty() || !HexOPConfig.EnablesMoteItemHandler()) return stack;
         var record = get(slot);
         if (record == null) {
             if (!simulate) {
@@ -133,7 +134,7 @@ public class CachedNexusInventory implements AutoCloseable {
     }
 
     public @NotNull ItemStack extractItem(int slot, int count, boolean simulate) {
-        if (slot >= maxTypes) return ItemStack.EMPTY;
+        if (slot >= maxTypes || !HexOPConfig.EnablesMoteItemHandler()) return ItemStack.EMPTY;
         var record = get(slot);
         if (record == null) return ItemStack.EMPTY;
         count = (int) Math.min(count, record.getCount());
@@ -162,13 +163,13 @@ public class CachedNexusInventory implements AutoCloseable {
     }
 
     public boolean isItemValid(int slot, @NotNull ItemStack stack) {
-        if (slot >= maxTypes) return false;
+        if (slot >= maxTypes || !HexOPConfig.EnablesMoteItemHandler()) return false;
         var record = get(slot);
         return record == null || matches(record, stack);
     }
 
     public void setStackInSlot(int slot, @NotNull ItemStack stack) {
-        if (slot >= maxTypes) return;
+        if (slot >= maxTypes || !HexOPConfig.EnablesMoteItemHandler()) return;
         refreshCache();
         synchronized (srcMap) {
             if (stack.isEmpty()) {
@@ -184,6 +185,7 @@ public class CachedNexusInventory implements AutoCloseable {
     // ========== Container API Support ==========
 
     public void clearContent() {
+        if (!HexOPConfig.EnablesMoteItemHandler()) return;
         try (var self = checkEmptyChange()) {
             srcMap.clear();
         }

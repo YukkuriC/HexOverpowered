@@ -3,10 +3,15 @@
   default: 'true'
   descrip: <Display>\nDisplays the hex inside readonly casting items; working client-side
   side: common
+- name: EnablesMoteItemHandler
+  type: boolean
+  default: 'true'
+  descrip: <Mote>\nEnables item IO without casting patterns
+  side: common
 - name: EnablesMoteChestGUI
   type: boolean
   default: 'true'
-  descrip: <Mote>\nEnables 'A Glance of Mote Chest' (a simple chest GUI) on right click
+  descrip: <Mote>\nEnables 'A Glance of Mote Chest' (a simple chest GUI) on right click\ndisables if `EnablesMoteItemHandler` is off
   side: common
 - name: TrueNameCrossDimension
   type: boolean

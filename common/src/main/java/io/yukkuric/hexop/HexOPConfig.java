@@ -13,6 +13,9 @@ public class HexOPConfig {
     public static boolean RevealsHexInsideCastingItems() {
         return imp.RevealsHexInsideCastingItems();
     }
+    public static boolean EnablesMoteItemHandler() {
+        return imp.EnablesMoteItemHandler();
+    }
     public static boolean EnablesMoteChestGUI() {
         return imp.EnablesMoteChestGUI();
     }
@@ -63,7 +66,8 @@ public class HexOPConfig {
     }
     public interface API {
         String desc_RevealsHexInsideCastingItems = "<Display>\nDisplays the hex inside readonly casting items; working client-side";
-        String desc_EnablesMoteChestGUI = "<Mote>\nEnables 'A Glance of Mote Chest' (a simple chest GUI) on right click";
+        String desc_EnablesMoteItemHandler = "<Mote>\nEnables item IO without casting patterns";
+        String desc_EnablesMoteChestGUI = "<Mote>\nEnables 'A Glance of Mote Chest' (a simple chest GUI) on right click\ndisables if `EnablesMoteItemHandler` is off";
         String desc_TrueNameCrossDimension = "<Misc>\nPlayer references are always valid even in another dimension";
         String desc_EnablesMishapNoYeet = "<Mishap>\nMishaps won't drop items anymore";
         String desc_EnablesTeleportVehicles = "<Mishap>\nTeleporting riding entities no longer do mishaps";
@@ -81,6 +85,7 @@ public class HexOPConfig {
         String desc_AmethystCircleFullPowerLevel = "<Amethyst Circle>\nmax possible charging level of the wave: growth strength = min(this, wave total media / single cost)";
 
         boolean RevealsHexInsideCastingItems();
+        boolean EnablesMoteItemHandler();
         boolean EnablesMoteChestGUI();
         boolean TrueNameCrossDimension();
         boolean EnablesMishapNoYeet();
