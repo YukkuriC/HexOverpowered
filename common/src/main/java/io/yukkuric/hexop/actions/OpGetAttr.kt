@@ -7,16 +7,17 @@ import at.petrak.hexcasting.api.spell.iota.Iota
 import io.yukkuric.hexop.HexOPAttributes
 import net.minecraft.world.entity.ai.attributes.Attribute
 
-class OpGetAttr(private val attr: Attribute) : ConstMediaAction {
+class OpGetAttr(attr: () -> Attribute) : ConstMediaAction {
     override val argc = 0
+    private val attrGetter = lazy(attr)
 
     override fun execute(args: List<Iota>, ctx: CastingContext): List<Iota> {
         val caster = ctx.caster
-        return listOf(DoubleIota(caster.getAttributeValue(attr)))
+        return listOf(DoubleIota(caster.getAttributeValue(attrGetter.value)))
     }
 
     companion object {
-        val GetMana = OpGetAttr(HexOPAttributes.PERSONAL_MEDIA)
-        val GetMaxMana = OpGetAttr(HexOPAttributes.PERSONAL_MEDIA_MAX)
+        val GetMana = OpGetAttr { HexOPAttributes.PERSONAL_MEDIA }
+        val GetMaxMana = OpGetAttr { HexOPAttributes.PERSONAL_MEDIA_MAX }
     }
 }
