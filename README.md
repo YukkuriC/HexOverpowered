@@ -5,6 +5,8 @@
 
 as the name reveals, this mod contains some OP stuff for Hex Casting
 
+[Online HexBook](https://yukkuric.github.io/HexOverpowered)
+
 ### WARNING: All features enabled by default, turn off those unwanted before playing, or create feature request issues [HERE](https://github.com/YukkuriC/HexOverpowered/issues) if not configurable
 
 ## General
