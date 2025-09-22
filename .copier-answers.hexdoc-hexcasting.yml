@@ -1,0 +1,27 @@
+# Changes here will be overwritten by Copier. NEVER EDIT MANUALLY
+# See: https://copier.readthedocs.io/en/stable/configuring/#the-copier-answersyml-file
+_commit: f634156
+_src_path: gh:YukkuriC/hexdoc-hexcasting-template
+author: YukkuriC
+book_id: hexcasting:thehexbook
+default_branch: main
+github_repo: HexOverpowered
+gradle_mod_version_key: mod_version_base
+hexdoc_mod_plugin_classname: HexOverpoweredModPlugin
+hexdoc_plugin_classname: HexOverpoweredPlugin
+java_lang:
+    ext: kt
+    src: java
+java_package: io/yukkuric/hexop
+mod_display_name: HexOverpowered
+modid: hexoverpowered
+multiloader: true
+package_export_root: doc/src/hexdoc_hexoverpowered/_export
+package_name: hexdoc-hexoverpowered
+package_slug: hexdoc_hexoverpowered
+package_src: doc/src/hexdoc_hexoverpowered
+pages_url: https://yukkuric.github.io/HexOverpowered/
+pattern_regex:
+    per_world_value: 'true'
+    regex: wrap\(\s*"(?P<name>[a-zA-Z0-9_\/]+)",\s*"(?P<signature>[aqweds]+)",\s*HexDir.(?P<startdir>\w+)
+pattern_registry: actions/HexOPActions.kt
