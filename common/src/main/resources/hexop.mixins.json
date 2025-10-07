@@ -13,6 +13,7 @@
     "circle.AmethystCircle",
     "hexal.MixinMoteContainer",
     "hexal.MixinMoteMenu",
+    "hexcellular.ExecutableProperty",
     "personal_mana.MixinManaFetcher",
     "personal_mana.MixinManaRegen",
     "personal_mana.MixinPlayerMediaHolderCache"
