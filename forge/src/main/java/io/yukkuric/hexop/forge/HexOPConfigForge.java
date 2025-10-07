@@ -69,6 +69,9 @@ public class HexOPConfigForge implements API {
     public int AmethystCircleFullPowerLevel() {
         return cfg_AmethystCircleFullPowerLevel.get();
     }
+    public boolean ExecutablePropertyIota() {
+        return cfg_ExecutablePropertyIota.get();
+    }
 
     public ForgeConfigSpec.BooleanValue
             cfg_RevealsHexInsideCastingItems,
@@ -83,7 +86,8 @@ public class HexOPConfigForge implements API {
             cfg_FakePlayerDontRegenMedia,
             cfg_PersonalMediaAfterEnlightened,
             cfg_FiresPersonalMediaEvents,
-            cfg_EnablesAmethystCircle;
+            cfg_EnablesAmethystCircle,
+            cfg_ExecutablePropertyIota;
     public ForgeConfigSpec.IntValue
             cfg_PersonalMediaMax,
             cfg_PersonalMediaRegenStep,
@@ -112,6 +116,7 @@ public class HexOPConfigForge implements API {
         cfg_EnablesAmethystCircle = builder.comment(desc_EnablesAmethystCircle).define("EnablesAmethystCircle", true);
         cfg_AmethystCircleSingleChargeCost = builder.comment(desc_AmethystCircleSingleChargeCost).defineInRange("AmethystCircleSingleChargeCost", 100000, 0, (int) 1e10);
         cfg_AmethystCircleFullPowerLevel = builder.comment(desc_AmethystCircleFullPowerLevel).defineInRange("AmethystCircleFullPowerLevel", 15, 1, 30);
+        cfg_ExecutablePropertyIota = builder.comment(desc_ExecutablePropertyIota).define("ExecutablePropertyIota", true);
         cfg_MekasuitConversionRatio = builder.comment(desc_MekasuitConversionRatio).defineInRange("MekasuitConversionRatio", 1, 0, 1e10);
 
         INSTANCE = this;

@@ -58,6 +58,8 @@ public class HexOPConfigFabric implements ConfigData {
         private int AmethystCircleSingleChargeCost = 100000;
         @Comment(desc_AmethystCircleFullPowerLevel)
         private int AmethystCircleFullPowerLevel = 15;
+        @Comment(desc_ExecutablePropertyIota)
+        private boolean ExecutablePropertyIota = true;
 
         public boolean RevealsHexInsideCastingItems() {
             return RevealsHexInsideCastingItems;
@@ -112,6 +114,9 @@ public class HexOPConfigFabric implements ConfigData {
         }
         public int AmethystCircleFullPowerLevel() {
             return AmethystCircleFullPowerLevel;
+        }
+        public boolean ExecutablePropertyIota() {
+            return ExecutablePropertyIota;
         }
     }
 }
