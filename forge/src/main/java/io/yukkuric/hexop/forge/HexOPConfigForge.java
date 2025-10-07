@@ -60,6 +60,9 @@ public class HexOPConfigForge implements API {
     public boolean FiresPersonalMediaEvents() {
         return cfg_FiresPersonalMediaEvents.get();
     }
+    public boolean ExecutablePropertyIota() {
+        return cfg_ExecutablePropertyIota.get();
+    }
 
     public ForgeConfigSpec.BooleanValue
             cfg_RevealsHexInsideCastingItems,
@@ -73,7 +76,8 @@ public class HexOPConfigForge implements API {
             cfg_EnablesPersonalMediaPool,
             cfg_FakePlayerDontRegenMedia,
             cfg_PersonalMediaAfterEnlightened,
-            cfg_FiresPersonalMediaEvents;
+            cfg_FiresPersonalMediaEvents,
+            cfg_ExecutablePropertyIota;
     public ForgeConfigSpec.IntValue
             cfg_PersonalMediaMax,
             cfg_PersonalMediaRegenStep,
@@ -97,6 +101,7 @@ public class HexOPConfigForge implements API {
         cfg_FakePlayerDontRegenMedia = builder.comment(desc_FakePlayerDontRegenMedia).define("FakePlayerDontRegenMedia", true);
         cfg_PersonalMediaAfterEnlightened = builder.comment(desc_PersonalMediaAfterEnlightened).define("PersonalMediaAfterEnlightened", true);
         cfg_FiresPersonalMediaEvents = builder.comment(desc_FiresPersonalMediaEvents).define("FiresPersonalMediaEvents", true);
+        cfg_ExecutablePropertyIota = builder.comment(desc_ExecutablePropertyIota).define("ExecutablePropertyIota", true);
         cfg_MekasuitConversionRatio = builder.comment(desc_MekasuitConversionRatio).defineInRange("MekasuitConversionRatio", 1, 0, 1e10);
 
         INSTANCE = this;

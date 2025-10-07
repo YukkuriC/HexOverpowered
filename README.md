@@ -43,6 +43,8 @@ _note: all features that currently can't be turned off are marked with `☆`_
 
 ---
 
+-   Hexcellular interop
+    -   executable PropertyIota
 -   Hexal interop
     -   `☆` item handler for mote nexus
         -   supports interaction with hoppers, AE/RS, etc.

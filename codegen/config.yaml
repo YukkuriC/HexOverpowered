@@ -73,6 +73,11 @@
   default: 'true'
   descrip: <Personal Media>\nTriggers events when personal media pool changed
   side: common
+- name: ExecutablePropertyIota
+  type: boolean
+  default: 'true'
+  descrip: "<Property>\\nmaking property iotas directly execute what's inside when themselves executed"
+  side: common
 - name: MekasuitConversionRatio
   type: double
   default: 1, 0, 1e10

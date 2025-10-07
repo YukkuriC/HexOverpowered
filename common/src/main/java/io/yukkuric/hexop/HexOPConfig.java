@@ -55,6 +55,9 @@ public class HexOPConfig {
     public static boolean FiresPersonalMediaEvents() {
         return imp.FiresPersonalMediaEvents();
     }
+    public static boolean ExecutablePropertyIota() {
+        return imp.ExecutablePropertyIota();
+    }
     public interface API {
         String desc_RevealsHexInsideCastingItems = "<Display>\nDisplays the hex inside readonly casting items; working client-side";
         String desc_EnablesMoteItemHandler = "<Mote>\nEnables item IO without casting patterns";
@@ -71,6 +74,7 @@ public class HexOPConfig {
         String desc_FakePlayerDontRegenMedia = "<Personal Media>\nFake players (for example, Deployer from Create) won't regenerate their media pool";
         String desc_PersonalMediaAfterEnlightened = "<Personal Media>\nOnly activates personal media bar after enlightened";
         String desc_FiresPersonalMediaEvents = "<Personal Media>\nTriggers events when personal media pool changed";
+        String desc_ExecutablePropertyIota = "<Property>\nmaking property iotas directly execute what's inside when themselves executed";
 
         boolean RevealsHexInsideCastingItems();
         boolean EnablesMoteItemHandler();
@@ -87,5 +91,6 @@ public class HexOPConfig {
         boolean FakePlayerDontRegenMedia();
         boolean PersonalMediaAfterEnlightened();
         boolean FiresPersonalMediaEvents();
+        boolean ExecutablePropertyIota();
     }
 }

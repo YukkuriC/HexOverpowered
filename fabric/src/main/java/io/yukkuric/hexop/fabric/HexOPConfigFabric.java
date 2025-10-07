@@ -52,6 +52,8 @@ public class HexOPConfigFabric implements ConfigData {
         private boolean PersonalMediaAfterEnlightened = true;
         @Comment(desc_FiresPersonalMediaEvents)
         private boolean FiresPersonalMediaEvents = true;
+        @Comment(desc_ExecutablePropertyIota)
+        private boolean ExecutablePropertyIota = true;
 
         public boolean RevealsHexInsideCastingItems() {
             return RevealsHexInsideCastingItems;
@@ -97,6 +99,9 @@ public class HexOPConfigFabric implements ConfigData {
         }
         public boolean FiresPersonalMediaEvents() {
             return FiresPersonalMediaEvents;
+        }
+        public boolean ExecutablePropertyIota() {
+            return ExecutablePropertyIota;
         }
     }
 }
