@@ -12,6 +12,7 @@
     "VisiblePackagedHex",
     "hexal.MixinMoteContainer",
     "hexal.MixinMoteMenu",
+    "hexcellular.MixinEvaluatableJudge",
     "hexcellular.MixinHarnessExecuteProperty",
     "personal_mana.MixinManaFetcher",
     "personal_mana.MixinManaRegen",

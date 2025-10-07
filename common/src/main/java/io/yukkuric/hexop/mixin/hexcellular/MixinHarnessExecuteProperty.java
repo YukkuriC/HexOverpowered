@@ -10,9 +10,7 @@ import at.petrak.hexcasting.api.spell.iota.ListIota;
 import at.petrak.hexcasting.api.spell.mishaps.MishapUnescapedValue;
 import at.petrak.hexcasting.common.lib.hex.HexEvalSounds;
 import io.yukkuric.hexop.HexOPConfig;
-import io.yukkuric.hexop.HexOverpowered;
-import kotlin.Lazy;
-import kotlin.LazyKt;
+import io.yukkuric.hexop.HexOPInteropEntries;
 import miyucomics.hexcellular.PropertyIota;
 import miyucomics.hexcellular.StateStorage;
 import net.minecraft.server.level.ServerLevel;
@@ -23,13 +21,12 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import java.util.List;
 
+
 @Mixin(CastingHarness.class)
 public class MixinHarnessExecuteProperty {
-    private static final Lazy<Boolean> cellularLoaded = LazyKt.lazy(() -> HexOverpowered.IsModLoaded("hexcellular"));
-
     @Inject(method = "getUpdate", at = @At("RETURN"), remap = false, cancellable = true)
     void hookExecutePattern(Iota iota, ServerLevel world, SpellContinuation continuation, CallbackInfoReturnable<CastingHarness.CastResult> cir) {
-        if (!cellularLoaded.getValue() || !HexOPConfig.ExecutablePropertyIota()) return;
+        if (!HexOPInteropEntries.getHexcellularLoaded().getValue() || !HexOPConfig.ExecutablePropertyIota()) return;
         if (!(iota instanceof PropertyIota prop)) return;
         var oldResult = cir.getReturnValue();
         // not working if no mishap
