@@ -2,6 +2,7 @@
 requires = [
     "hatchling",
     "hatch-gradle-version>=0.8.0",
+    "pydantic<2.12",
 ]
 build-backend = "hatchling.build"
 
