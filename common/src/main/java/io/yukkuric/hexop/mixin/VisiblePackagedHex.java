@@ -1,8 +1,7 @@
 package io.yukkuric.hexop.mixin;
 
 import at.petrak.hexcasting.api.casting.iota.ListIota;
-import at.petrak.hexcasting.common.items.magic.ItemMediaHolder;
-import at.petrak.hexcasting.common.items.magic.ItemPackagedHex;
+import at.petrak.hexcasting.common.items.magic.*;
 import io.yukkuric.hexop.HexOPConfig;
 import net.minecraft.nbt.Tag;
 import net.minecraft.network.chat.Component;
@@ -19,6 +18,16 @@ import static at.petrak.hexcasting.common.items.magic.ItemPackagedHex.TAG_PROGRA
 
 @Mixin(ItemPackagedHex.class)
 public abstract class VisiblePackagedHex extends ItemMediaHolder {
+    private static Class<?> ANCIENT_CYPHER_CLASS;
+
+    static {
+        try {
+            ANCIENT_CYPHER_CLASS = Class.forName("at.petrak.hexcasting.common.items.magic.ItemAncientCypher");
+        } catch (Throwable e) {
+            ANCIENT_CYPHER_CLASS = null;
+        }
+    }
+
     @Shadow
     public abstract boolean hasHex(ItemStack stack);
 
@@ -30,6 +39,7 @@ public abstract class VisiblePackagedHex extends ItemMediaHolder {
     public void appendHoverText(ItemStack pStack, @Nullable Level pLevel, List<Component> pTooltipComponents, TooltipFlag pIsAdvanced) {
         super.appendHoverText(pStack, pLevel, pTooltipComponents, pIsAdvanced);
         if (!hasHex(pStack) || !HexOPConfig.RevealsHexInsideCastingItems()) return;
+        if (ANCIENT_CYPHER_CLASS != null && ANCIENT_CYPHER_CLASS.isInstance(this)) return;
         pTooltipComponents.add(Component.translatable("hexcasting.spelldata.onitem", ListIota.TYPE.display(pStack.getTag().getList(TAG_PROGRAM, Tag.TAG_COMPOUND))));
     }
 }

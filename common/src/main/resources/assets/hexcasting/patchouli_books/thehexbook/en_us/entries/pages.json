@@ -75,7 +75,7 @@
 			"anchor": "hexoverpowered:mind_env/running_code",
 			"input": "",
 			"output": "list/null",
-			"text": "book.descrip.yc:mind_env/running_code"
+			"text": "book.descrip.hexoverpowered:mind_env/running_code"
 		}
 	]
 }
