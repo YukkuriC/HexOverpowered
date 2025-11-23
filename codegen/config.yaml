@@ -26,7 +26,7 @@
 - name: EnablesTeleportVehicles
   type: boolean
   default: 'true'
-  descrip: <Mishap>\nTeleporting riding entities no longer do mishaps
+  descrip: <Mishap>\n(DEPRECATED after HexCasting 0.11.3 because there's no limit anymore)\nTeleporting riding entities no longer do mishaps
   side: common
 - name: EnablesChargeMediaAction
   type: boolean

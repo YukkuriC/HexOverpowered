@@ -10,7 +10,7 @@ import org.spongepowered.asm.mixin.injection.At;
 
 @Mixin(OpTeleport.class)
 public class TeleportVehicles {
-    @WrapOperation(method = "execute", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/Entity;canChangeDimensions()Z"))
+    @WrapOperation(method = "execute", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/Entity;canChangeDimensions()Z"), require = 0)
     boolean doTeleport(Entity instance, Operation<Boolean> original) {
         if (HexOPConfig.EnablesTeleportVehicles()) return true;
         return original.call(instance);
