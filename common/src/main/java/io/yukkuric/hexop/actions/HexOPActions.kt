@@ -6,9 +6,7 @@ import at.petrak.hexcasting.api.casting.math.HexDir
 import at.petrak.hexcasting.api.casting.math.HexPattern
 import at.petrak.hexcasting.common.lib.hex.HexActions
 import io.yukkuric.hexop.HexOverpowered.opModLoc
-import io.yukkuric.hexop.actions.mind_env.OpMindPatterns
-import io.yukkuric.hexop.actions.mind_env.OpMindStackEdit
-import io.yukkuric.hexop.actions.mind_env.OpMindStackSize
+import io.yukkuric.hexop.actions.mind_env.*
 import net.minecraft.core.Registry
 import net.minecraft.resources.ResourceLocation
 
@@ -25,6 +23,8 @@ class HexOPActions {
             wrap("mind_stack/pop", "wqaqwweeeee", HexDir.SOUTH_WEST, OpMindStackEdit.POP)
             wrap("mind_stack/size", "waawweeeeewaa", HexDir.SOUTH_WEST, OpMindStackSize)
             wrap("mind_patterns", "waawweeeeaaeaeaeaeaw", HexDir.SOUTH_WEST, OpMindPatterns)
+            wrap("mind_env/schedule", "waawedaqqqqdeaqq", HexDir.SOUTH_WEST, OpScheduleCall)
+            wrap("mind_env/running_code", "wqaqwweeeeeqdeaqq", HexDir.SOUTH_WEST, OpScheduledCode)
         }
 
         @JvmStatic

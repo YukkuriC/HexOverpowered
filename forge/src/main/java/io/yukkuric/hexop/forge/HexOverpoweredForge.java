@@ -6,6 +6,7 @@ import at.petrak.hexcasting.forge.cap.HexCapabilities;
 import io.yukkuric.hexop.HexOPAttributes;
 import io.yukkuric.hexop.HexOverpowered;
 import io.yukkuric.hexop.actions.HexOPActions;
+import io.yukkuric.hexop.actions.mind_env.OpScheduleCall;
 import io.yukkuric.hexop.forge.hexal.NexusItemCap;
 import io.yukkuric.hexop.forge.mekanism.MekTooltip;
 import io.yukkuric.hexop.forge.mekanism.MekasuitMediaHolder;
@@ -16,6 +17,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
+import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.EntityAttributeModificationEvent;
 import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.ModLoadingContext;
@@ -28,6 +30,7 @@ import ram.talia.hexal.common.blocks.entity.BlockEntityMediafiedStorage;
 public final class HexOverpoweredForge extends HexOverpowered {
     public HexOverpoweredForge() {
         var evBus = MinecraftForge.EVENT_BUS;
+        evBus.addListener((TickEvent.ServerTickEvent event) -> OpScheduleCall.ProcessQueue(event.getServer()));
 
         if (isModLoaded("hexal")) {
             evBus.addGenericListener(BlockEntity.class, (AttachCapabilitiesEvent<BlockEntity> e) -> {
