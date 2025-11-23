@@ -21,7 +21,6 @@ _note: all features that currently can't be turned off are marked with `☆`_
     -   pushing/poping iota between current context and mind stack
     -   getting the size of mind stack
     -   getting all patterns drawn inside the staff canvas
-    -   schedule code to be called in certain ticks later
 -   extra player mana(media) bar
     -   `☆` has max priority
     -   `☆` a pair of patterns to query player's current/max personal media amount
@@ -37,6 +36,10 @@ _note: all features that currently can't be turned off are marked with `☆`_
     -   configurable cost, required base media & max accelerate power
 
 ---
+
+-   OP spells:
+
+    -   schedule code to be called in certain ticks later
 
 -   OP great spells:
     -   `YJSP's Charge Media`: recharges casting item / circle / wisp / personal media pool to 114514 dust
