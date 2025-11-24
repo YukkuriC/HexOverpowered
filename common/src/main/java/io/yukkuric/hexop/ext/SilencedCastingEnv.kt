@@ -16,6 +16,7 @@ class SilencedCastingEnv(val master: PlayerBasedCastEnv) :
 
     companion object {
         fun from(env: CastingEnvironment): CastingEnvironment {
+            if (env is SilencedCastingEnv) return env
             if (env is PlayerBasedCastEnv) return SilencedCastingEnv(env)
             return env
         }
