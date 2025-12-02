@@ -37,6 +37,10 @@ _note: all features that currently can't be turned off are marked with `☆`_
 
 ---
 
+-   OP spells:
+
+    -   schedule code to be called in certain ticks later
+
 -   OP great spells:
     -   `YJSP's Charge Media`: recharges casting item / circle / wisp / personal media pool to 114514 dust
         -   (id: `hexoverpowered:yjsp_media`, could be set forbidden in base Hex's config)

@@ -5,9 +5,7 @@ import at.petrak.hexcasting.api.spell.Action
 import at.petrak.hexcasting.api.spell.math.HexDir
 import at.petrak.hexcasting.api.spell.math.HexPattern
 import io.yukkuric.hexop.HexOverpowered.opModLoc
-import io.yukkuric.hexop.actions.mind_env.OpMindPatterns
-import io.yukkuric.hexop.actions.mind_env.OpMindStackEdit
-import io.yukkuric.hexop.actions.mind_env.OpMindStackSize
+import io.yukkuric.hexop.actions.mind_env.*
 
 class HexOPActions {
     companion object {
@@ -20,6 +18,8 @@ class HexOPActions {
             wrap("mind_stack/pop", "wqaqwweeeee", HexDir.SOUTH_WEST, OpMindStackEdit.POP)
             wrap("mind_stack/size", "waawweeeeewaa", HexDir.SOUTH_WEST, OpMindStackSize)
             wrap("mind_patterns", "waawweeeeaaeaeaeaeaw", HexDir.SOUTH_WEST, OpMindPatterns)
+            wrap("mind_env/schedule", "waawedaqqqqdeaqq", HexDir.SOUTH_WEST, OpScheduleCall)
+            wrap("mind_env/running_code", "wqaqwweeeeeqdeaqq", HexDir.SOUTH_WEST, OpScheduledCode)
         }
 
         private fun wrap(name: String, signature: String, dir: HexDir, action: Action, isGreat: Boolean = false) {

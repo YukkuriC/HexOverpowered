@@ -59,6 +59,23 @@
 			"input": "",
 			"output": "num",
 			"text": "book.descrip.hexoverpowered:mind_stack/size"
+		},
+		{
+			"type": "hexcasting:pattern",
+			"op_id": "hexoverpowered:mind_env/schedule",
+			"anchor": "hexoverpowered:mind_env/schedule",
+			"input": "list, num",
+			"output": "",
+			"text": "book.descrip.hexoverpowered:mind_env/schedule"
+		},
+		"book.descrip.hexoverpowered:mind_env/schedule.2",
+		{
+			"type": "hexcasting:pattern",
+			"op_id": "hexoverpowered:mind_env/running_code",
+			"anchor": "hexoverpowered:mind_env/running_code",
+			"input": "",
+			"output": "list/null",
+			"text": "book.descrip.hexoverpowered:mind_env/running_code"
 		}
 	]
 }

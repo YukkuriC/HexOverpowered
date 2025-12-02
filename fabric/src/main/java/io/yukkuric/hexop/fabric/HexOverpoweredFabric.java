@@ -2,12 +2,15 @@ package io.yukkuric.hexop.fabric;
 
 import io.yukkuric.hexop.HexOPAttributes;
 import io.yukkuric.hexop.HexOverpowered;
+import io.yukkuric.hexop.actions.mind_env.OpScheduleCall;
 import net.fabricmc.api.ModInitializer;
+import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
 import net.fabricmc.loader.api.FabricLoader;
 
 public final class HexOverpoweredFabric extends HexOverpowered implements ModInitializer {
     @Override
     public void onInitialize() {
+        ServerTickEvents.END_SERVER_TICK.register(OpScheduleCall::ProcessQueue);
     }
 
     @Override

@@ -6,6 +6,8 @@
   "hexcasting.spell.hexoverpowered:mind_patterns": "象形之精思",
   "hexcasting.spell.hexoverpowered:get_personal_media": "法力之精思",
   "hexcasting.spell.hexoverpowered:get_personal_media_max": "奥术之精思",
+  "hexcasting.spell.hexoverpowered:mind_env/running_code": "拖延之精思",
+  "hexcasting.spell.hexoverpowered:mind_env/schedule": "拖延之策略",
   "hexop.mote.chest.title": "物元箱一瞥",
   "hexoverpowered.attr.personal_media": "个人媒质",
   "hexoverpowered.attr.personal_media_max": "最大个人媒质",
@@ -18,5 +20,8 @@
   "book.descrip.hexoverpowered:mind_stack/push": "弹出当前栈顶的元素，放入玩家法杖空间栈顶。",
   "book.descrip.hexoverpowered:mind_stack/size": "获取玩家法杖空间栈的元素总数。",
   "book.descrip.hexoverpowered:get_personal_media": "获取我的个人媒质条中有多少媒质（以 $(bold)$(item)0.0001$() 粉为单位）。",
-  "book.descrip.hexoverpowered:get_personal_media_max": "获取我的个人媒质条最多可容纳多少媒质（以 $(bold)$(item)0.0001$() 粉为单位）。"
+  "book.descrip.hexoverpowered:get_personal_media_max": "获取我的个人媒质条最多可容纳多少媒质（以 $(bold)$(item)0.0001$() 粉为单位）。",
+  "book.descrip.hexoverpowered:mind_env/running_code": "获取当前环境上一次延时执行的图案列表。",
+  "book.descrip.hexoverpowered:mind_env/schedule": "将给定iota列表延迟给定时间（tick数）后执行；每种执行途径同时最多只能有一个延时，发起新延时将取消已有延时动作。若延时不大于0，则法术将立刻执行。",
+  "book.descrip.hexoverpowered:mind_env/schedule.2": "每种执行途径同时最多只能有一个延时，发起新延时将取消已有延时动作。作为分割施法环境的代价，延时法术不能向施法者发送任何信息，包括揭示和事故。"
 }
