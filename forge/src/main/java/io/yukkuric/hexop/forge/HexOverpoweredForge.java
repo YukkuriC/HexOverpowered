@@ -19,6 +19,7 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.EntityAttributeModificationEvent;
+import net.minecraftforge.event.server.ServerStartingEvent;
 import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
@@ -30,7 +31,10 @@ import ram.talia.hexal.common.blocks.entity.BlockEntityMediafiedStorage;
 public final class HexOverpoweredForge extends HexOverpowered {
     public HexOverpoweredForge() {
         var evBus = MinecraftForge.EVENT_BUS;
-        evBus.addListener((TickEvent.ServerTickEvent event) -> OpScheduleCall.ProcessQueue(event.getServer()));
+        evBus.addListener((TickEvent.ServerTickEvent event) -> {
+            if (event.phase == TickEvent.Phase.START) OpScheduleCall.ProcessQueue(event.getServer());
+        });
+        evBus.addListener((ServerStartingEvent event) -> OpScheduleCall.ProcessQueue(event.getServer()));
 
         if (isModLoaded("hexal")) {
             evBus.addGenericListener(BlockEntity.class, (AttachCapabilitiesEvent<BlockEntity> e) -> {

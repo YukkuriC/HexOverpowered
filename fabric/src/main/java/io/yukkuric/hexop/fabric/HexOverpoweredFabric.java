@@ -5,6 +5,7 @@ import io.yukkuric.hexop.HexOverpowered;
 import io.yukkuric.hexop.actions.HexOPActions;
 import io.yukkuric.hexop.actions.mind_env.OpScheduleCall;
 import net.fabricmc.api.ModInitializer;
+import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
 import net.fabricmc.loader.api.FabricLoader;
 
@@ -12,7 +13,8 @@ public final class HexOverpoweredFabric extends HexOverpowered implements ModIni
     @Override
     public void onInitialize() {
         HexOPActions.registerActions();
-        ServerTickEvents.END_SERVER_TICK.register(OpScheduleCall::ProcessQueue);
+        ServerTickEvents.START_SERVER_TICK.register(OpScheduleCall::ProcessQueue);
+        ServerLifecycleEvents.SERVER_STARTING.register(OpScheduleCall::ResetQueue);
     }
 
     @Override
