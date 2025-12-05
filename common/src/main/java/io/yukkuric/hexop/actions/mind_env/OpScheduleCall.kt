@@ -42,7 +42,7 @@ object OpScheduleCall : ConstMediaAction {
     }
 
     private val SignalMap = WeakHashMap<Any?, Signal>()
-    private val TaskQueue = LinkedList<Task>()
+    private val TaskQueue = PriorityQueue<Task>({ ta, tb -> ta.myAge - tb.myAge })
 
     override val argc = 2
     override fun execute(args: List<Iota>, ctx: CastingContext): List<Iota> {
@@ -64,7 +64,7 @@ object OpScheduleCall : ConstMediaAction {
         oldSignal?.cancelled = true
 
         val server = env.world.server
-        TaskQueue.addLast(Task(delay + server.tickCount, env, signal, action))
+        TaskQueue.add(Task(delay + server.tickCount, env, signal, action))
         return listOf()
     }
 
@@ -73,10 +73,12 @@ object OpScheduleCall : ConstMediaAction {
     @JvmStatic
     fun ProcessQueue(server: MinecraftServer) {
         while (!TaskQueue.isEmpty()) {
-            if (TaskQueue.first.execute(server.tickCount)) TaskQueue.removeFirst()
+            if (TaskQueue.peek().execute(server.tickCount)) TaskQueue.remove()
             else break
         }
     }
+    @JvmStatic
+    fun ResetQueue(server: MinecraftServer) = TaskQueue.clear()
 
     fun QueryScheduledCode(env: CastingContext): SpellList? {
         val key = pickKeyFrom(env)
