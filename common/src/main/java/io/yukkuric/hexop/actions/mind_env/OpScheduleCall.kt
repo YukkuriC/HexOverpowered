@@ -11,6 +11,7 @@ import at.petrak.hexcasting.api.spell.math.HexDir
 import at.petrak.hexcasting.api.spell.math.HexPattern
 import at.petrak.hexcasting.api.spell.mishaps.Mishap
 import at.petrak.hexcasting.api.spell.mishaps.MishapError
+import at.petrak.hexcasting.api.spell.mishaps.MishapEvalTooDeep
 import net.minecraft.server.MinecraftServer
 import java.util.*
 
@@ -42,7 +43,7 @@ object OpScheduleCall : ConstMediaAction {
     }
 
     private val SignalMap = WeakHashMap<Any?, Signal>()
-    private val TaskQueue = PriorityQueue<Task>({ ta, tb -> ta.myAge - tb.myAge })
+    private val TaskQueue = PriorityQueue<Task> { ta, tb -> ta.myAge - tb.myAge }
 
     override val argc = 2
     override fun execute(args: List<Iota>, ctx: CastingContext): List<Iota> {
@@ -54,14 +55,17 @@ object OpScheduleCall : ConstMediaAction {
             vm.executeIotas(code.toList(), env.world)
         }
         if (delay <= 0) {
-            action.run()
+            try {
+                action.run()
+            } catch (e: StackOverflowError) {
+                throw MishapEvalTooDeep()
+            }
             return listOf()
         }
 
         val key = pickKeyFrom(env)
         val signal = Signal(code)
-        val oldSignal = SignalMap.put(key, signal)
-        oldSignal?.cancelled = true
+        SignalMap.put(key, signal)?.cancelled = true
 
         val server = env.world.server
         TaskQueue.add(Task(delay + server.tickCount, env, signal, action))

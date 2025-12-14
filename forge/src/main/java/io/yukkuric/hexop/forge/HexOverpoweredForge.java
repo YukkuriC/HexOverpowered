@@ -4,7 +4,6 @@ import at.petrak.hexcasting.forge.cap.ForgeCapabilityHandler;
 import at.petrak.hexcasting.forge.cap.HexCapabilities;
 import io.yukkuric.hexop.HexOPAttributes;
 import io.yukkuric.hexop.HexOverpowered;
-import io.yukkuric.hexop.actions.HexOPActions;
 import io.yukkuric.hexop.actions.mind_env.OpScheduleCall;
 import io.yukkuric.hexop.forge.hexal.NexusItemCap;
 import io.yukkuric.hexop.forge.mekanism.MekTooltip;
@@ -40,7 +39,7 @@ public final class HexOverpoweredForge extends HexOverpowered {
         evBus.addListener((TickEvent.ServerTickEvent event) -> {
             if (event.phase == TickEvent.Phase.START) OpScheduleCall.ProcessQueue(event.getServer());
         });
-        evBus.addListener((ServerStartingEvent event) -> OpScheduleCall.ProcessQueue(event.getServer()));
+        evBus.addListener((ServerStartingEvent event) -> OpScheduleCall.ResetQueue(event.getServer()));
 
         if (isModLoaded("hexal")) {
             evBus.addGenericListener(BlockEntity.class, (AttachCapabilitiesEvent<BlockEntity> e) -> {
