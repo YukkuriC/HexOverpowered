@@ -9,6 +9,7 @@ import at.petrak.hexcasting.api.casting.getInt
 import at.petrak.hexcasting.api.casting.getList
 import at.petrak.hexcasting.api.casting.iota.Iota
 import at.petrak.hexcasting.api.casting.mishaps.Mishap
+import at.petrak.hexcasting.api.casting.mishaps.MishapEvalTooMuch
 import at.petrak.hexcasting.api.casting.mishaps.MishapInternalException
 import io.yukkuric.hexop.ext.SilencedCastingEnv
 import net.minecraft.server.MinecraftServer
@@ -50,7 +51,11 @@ object OpScheduleCall : ConstMediaAction {
             vm.queueExecuteAndWrapIotas(code.toList(), env.world)
         }
         if (delay <= 0) {
-            action.run()
+            try {
+                action.run()
+            } catch (e: StackOverflowError) {
+                throw MishapEvalTooMuch()
+            }
             return listOf()
         }
 
