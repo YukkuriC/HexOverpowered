@@ -5,8 +5,7 @@ import io.yukkuric.hexop.HexOverpowered;
 import io.yukkuric.hexop.actions.HexOPActions;
 import io.yukkuric.hexop.actions.mind_env.OpScheduleCall;
 import net.fabricmc.api.ModInitializer;
-import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
-import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
+import net.fabricmc.fabric.api.event.lifecycle.v1.*;
 import net.fabricmc.loader.api.FabricLoader;
 
 public final class HexOverpoweredFabric extends HexOverpowered implements ModInitializer {
@@ -15,6 +14,7 @@ public final class HexOverpoweredFabric extends HexOverpowered implements ModIni
         HexOPActions.registerActions();
         ServerTickEvents.START_SERVER_TICK.register(OpScheduleCall::ProcessQueue);
         ServerLifecycleEvents.SERVER_STARTING.register(OpScheduleCall::ResetQueue);
+        ServerEntityEvents.ENTITY_LOAD.register(HexOPAttributes::applyDefaultValues);
     }
 
     @Override

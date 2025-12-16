@@ -19,6 +19,7 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.EntityAttributeModificationEvent;
+import net.minecraftforge.event.entity.EntityJoinLevelEvent;
 import net.minecraftforge.event.server.ServerStartingEvent;
 import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.ModLoadingContext;
@@ -66,6 +67,7 @@ public final class HexOverpoweredForge extends HexOverpowered {
             for (var attr : HexOPAttributes.getAll())
                 e.add(EntityType.PLAYER, attr);
         });
+        evBus.addListener((EntityJoinLevelEvent e) -> HexOPAttributes.applyDefaultValues(e.getEntity(), e.getLevel()));
 
         var ctx = ModLoadingContext.get();
         HexOPConfigForge.register(ctx);

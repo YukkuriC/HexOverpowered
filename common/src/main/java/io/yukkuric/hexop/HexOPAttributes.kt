@@ -5,8 +5,10 @@ import io.yukkuric.hexop.HexOverpowered.opModLoc
 import net.minecraft.core.Registry
 import net.minecraft.core.registries.BuiltInRegistries
 import net.minecraft.resources.ResourceLocation
+import net.minecraft.server.level.ServerPlayer
+import net.minecraft.world.entity.Entity
 import net.minecraft.world.entity.ai.attributes.Attribute
-import net.minecraft.world.entity.ai.attributes.RangedAttribute
+import net.minecraft.world.level.Level
 
 class HexOPAttributes {
     companion object {
@@ -20,13 +22,14 @@ class HexOPAttributes {
         val PERSONAL_MEDIA_REGEN: Attribute
             get() = _personal_media_regen
 
-        private lateinit var _personal_media: Attribute
-        private lateinit var _personal_media_max: Attribute
-        private lateinit var _personal_media_regen: Attribute
         private val MAP = HashMap<ResourceLocation, Attribute>()
+        private var _personal_media = make("personal_media") { 0.0 }
+        private var _personal_media_max = make("personal_media_max") { HexOPConfig.PersonalMediaMax().toDouble() }
+        private var _personal_media_regen =
+            make("personal_media_regen") { HexOPConfig.PersonalMediaRegenStep().toDouble() }
 
-        private fun makeRanged(id: String, default: Double): Attribute {
-            val attr = RangedAttribute("$MOD_ID.attr.$id", default, 0.0, Int.MAX_VALUE.toDouble()).setSyncable(true)
+        private fun make(id: String, getDefault: () -> Double): Attribute {
+            val attr = DynamicAttr("$MOD_ID.attr.$id", getDefault).setSyncable(true)
             MAP[opModLoc(id)] = attr
             return attr
         }
@@ -38,13 +41,20 @@ class HexOPAttributes {
 
         @JvmStatic
         fun registerSelf() {
-            if (!HexOPConfig.loaded()) throw RuntimeException("should init after config loaded!")
-            // build
-            _personal_media = makeRanged("personal_media", 0.0)
-            _personal_media_max = makeRanged("personal_media_max", HexOPConfig.PersonalMediaMax().toDouble())
-            _personal_media_regen = makeRanged("personal_media_regen", HexOPConfig.PersonalMediaRegenStep().toDouble())
-            // register
             for (pair in MAP.entries) Registry.register(BuiltInRegistries.ATTRIBUTE, pair.key, pair.value)
         }
+
+        @JvmStatic
+        fun applyDefaultValues(entity: Entity, level: Level) {
+            if (level.isClientSide || entity !is ServerPlayer) return
+            val attrMap = entity.attributes
+            for (attr in getAll()) {
+                attrMap.getInstance(attr)?.baseValue = attr.defaultValue
+            }
+        }
+    }
+
+    class DynamicAttr(id: String, private val getDefault: () -> Double) : Attribute(id, 114514.0) {
+        override fun getDefaultValue() = getDefault()
     }
 }
