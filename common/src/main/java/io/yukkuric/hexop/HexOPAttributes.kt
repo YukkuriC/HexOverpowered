@@ -40,8 +40,8 @@ class HexOPAttributes {
         }
 
         @JvmStatic
-        fun registerSelf() {
-            for (pair in MAP.entries) Registry.register(BuiltInRegistries.ATTRIBUTE, pair.key, pair.value)
+        fun registerSelf(handler: java.util.function.BiConsumer<ResourceLocation, Attribute>) {
+            for (pair in MAP.entries) handler.accept(pair.key, pair.value)
         }
 
         @JvmStatic

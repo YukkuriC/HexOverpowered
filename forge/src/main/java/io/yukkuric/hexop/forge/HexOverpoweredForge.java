@@ -57,9 +57,9 @@ public final class HexOverpoweredForge extends HexOverpowered {
         modBus.addListener((RegisterEvent event) -> {
             var key = event.getRegistryKey();
             if (key.equals(HexRegistries.ACTION)) {
-                HexOPActions.registerActions();
+                HexOPActions.registerActions((k, v) -> event.register(HexRegistries.ACTION, k, () -> v));
             } else if (key.equals(Registries.ATTRIBUTE)) {
-                HexOPAttributes.registerSelf();
+                HexOPAttributes.registerSelf((k, v) -> event.register(Registries.ATTRIBUTE, k, () -> v));
             }
         });
 
