@@ -4,6 +4,7 @@ os.chdir(os.path.dirname(__file__))
 
 spells = [
     'yjsp_media',
+    'factor_cut',
 ]
 
 if 'prepare':
@@ -14,7 +15,7 @@ if 'prepare':
     tags = ['../common/src/main/resources/data/hexcasting/tags/' + x for x in tags]
 
 if 'gen':
-    body = json.dumps({"values": spells}, separators=',:')
+    body = json.dumps({"values": spells}, separators=',:', indent=2)
     for t in tags:
         os.makedirs(os.path.dirname(t), exist_ok=1)
         with open(t, 'w', encoding='utf-8') as f:

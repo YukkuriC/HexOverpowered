@@ -8,6 +8,7 @@
   "hexcasting.action.hexoverpowered:get_personal_media_max": "奥术之精思",
   "hexcasting.action.hexoverpowered:mind_env/running_code": "拖延之精思",
   "hexcasting.action.hexoverpowered:mind_env/schedule": "拖延之策略",
+  "hexcasting.mishap.invalid_value.entity_or_int": "一个实体或整数",
   "hexop.mote.chest.title": "物元箱一瞥",
   "hexoverpowered.attr.personal_media": "个人媒质",
   "hexoverpowered.attr.personal_media_max": "最大个人媒质",

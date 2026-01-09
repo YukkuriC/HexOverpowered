@@ -8,6 +8,7 @@
   "hexcasting.action.hexoverpowered:get_personal_media_max": "Arcane Reflection",
   "hexcasting.action.hexoverpowered:mind_env/running_code": "Delay's Reflection",
   "hexcasting.action.hexoverpowered:mind_env/schedule": "Delay's Gambit",
+  "hexcasting.mishap.invalid_value.entity_or_int": "an entity or an integer",
   "hexop.mote.chest.title": "A Glance of the Mote Chest",
   "hexoverpowered.attr.personal_media": "Personal Media",
   "hexoverpowered.attr.personal_media_max": "Max Personal Media",
