@@ -10,8 +10,11 @@ import at.petrak.hexcasting.api.casting.getLivingEntityButNotArmorStand
 import at.petrak.hexcasting.api.casting.iota.DoubleIota
 import at.petrak.hexcasting.api.casting.iota.EntityIota
 import at.petrak.hexcasting.api.casting.iota.Iota
+import at.petrak.hexcasting.api.casting.mishaps.MishapDisallowedSpell
 import at.petrak.hexcasting.api.casting.mishaps.MishapInvalidIota
 import at.petrak.hexcasting.api.casting.mishaps.MishapNotEnoughArgs
+import at.petrak.hexcasting.api.casting.mishaps.MishapNotEnoughMedia
+import io.yukkuric.hexop.HexOPConfig
 import io.yukkuric.hexop.helpers.AttackToTargetHealth
 import io.yukkuric.hexop.helpers.PrimeChecker
 
@@ -28,6 +31,7 @@ object OpFactorCut : ConstMediaAction {
         image: CastingImage,
         continuation: SpellContinuation
     ): OperationResult {
+        if (!HexOPConfig.EnablesFactorCutSpell()) throw MishapDisallowedSpell()
         if (image.stack.isEmpty()) throw MishapNotEnoughArgs(1, 0)
         val first = image.stack[0]
         if (first is EntityIota) argcPreCheck = 1
@@ -55,11 +59,18 @@ object OpFactorCut : ConstMediaAction {
         } else if (factor > 1 && healthAsInt % factor == 0) {
             newHealth = healthAsInt / factor
             val isPrime = PrimeChecker.isPrime(factor)
-            // TODO prime factor cost less
+            mediaCostResult =
+                if (isPrime) HexOPConfig.FactorCutPrimeCost()
+                else HexOPConfig.FactorCutNonPrimeCostScale() * factor
         } else {
             newHealth--
-            // TODO cost for attack 1
+            mediaCostResult = HexOPConfig.FactorCutFallbackCost()
         }
+        // random reduction
+        if (HexOPConfig.FactorCutRandomMode() && Math.random() < 0.5) newHealth--
+
+        // check first, execute later like spell actions
+        if (env.extractMedia(mediaCost, true) > 0) throw MishapNotEnoughMedia(mediaCost)
         AttackToTargetHealth(target, newHealth.toFloat(), env.castingEntity)
         return listOf()
     }
