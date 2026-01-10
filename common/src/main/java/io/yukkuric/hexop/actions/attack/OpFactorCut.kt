@@ -33,7 +33,7 @@ object OpFactorCut : ConstMediaAction {
     ): OperationResult {
         if (!HexOPConfig.EnablesFactorCutSpell()) throw MishapDisallowedSpell()
         if (image.stack.isEmpty()) throw MishapNotEnoughArgs(1, 0)
-        val first = image.stack[0]
+        val first = image.stack.last()
         if (first is EntityIota) argcPreCheck = 1
         else if (first is DoubleIota) argcPreCheck = 2
         else throw MishapInvalidIota.of(first, 0, "entity_or_int")
@@ -41,17 +41,16 @@ object OpFactorCut : ConstMediaAction {
     }
 
     override fun execute(args: List<Iota>, env: CastingEnvironment): List<Iota> {
-        val entityIdx = args.size - 1
-        val target = args.getLivingEntityButNotArmorStand(args.size - 1)
+        val target = args.getLivingEntityButNotArmorStand(0)
         val healthAsInt = target.health.toInt()
 
         // query health
-        if (entityIdx == 0) {
+        if (args.size == 1) {
             return listOf(DoubleIota(healthAsInt.toDouble()))
         }
 
         // health cut
-        val factor = args.getInt(0)
+        val factor = args.getInt(1)
         var newHealth: Int = healthAsInt
         if (healthAsInt <= 1) {
             newHealth = 0
