@@ -10,7 +10,7 @@ import static io.yukkuric.hexop.HexOPConfig.*;
 
 public class HexOPConfigForge implements API {
     public static HexOPConfigForge INSTANCE;
-    private static final String desc_MekasuitConversionRatio = "<MekaSuit>\nHow many media points each FE point equals";
+    private static final String desc_MekasuitConversionRatio = "How many media points each FE point equals";
     public static double MekasuitConversionRatio() {
         return INSTANCE.cfg_MekasuitConversionRatio.get();
     }
@@ -122,12 +122,25 @@ public class HexOPConfigForge implements API {
             cfg_MekasuitConversionRatio;
 
     public HexOPConfigForge(ForgeConfigSpec.Builder builder) {
+        builder.push("Display");
         cfg_RevealsHexInsideCastingItems = builder.comment(desc_RevealsHexInsideCastingItems).define("RevealsHexInsideCastingItems", true);
+        builder.pop();
+
+        builder.push("Mote");
         cfg_EnablesMoteItemHandler = builder.comment(desc_EnablesMoteItemHandler).define("EnablesMoteItemHandler", true);
         cfg_EnablesMoteChestGUI = builder.comment(desc_EnablesMoteChestGUI).define("EnablesMoteChestGUI", true);
+        builder.pop();
+
+        builder.push("Misc");
         cfg_TrueNameCrossDimension = builder.comment(desc_TrueNameCrossDimension).define("TrueNameCrossDimension", true);
+        builder.pop();
+
+        builder.push("Mishap");
         cfg_EnablesMishapNoYeet = builder.comment(desc_EnablesMishapNoYeet).define("EnablesMishapNoYeet", true);
         cfg_EnablesTeleportVehicles = builder.comment(desc_EnablesTeleportVehicles).define("EnablesTeleportVehicles", true);
+        builder.pop();
+
+        builder.push("Pattern");
         cfg_EnablesChargeMediaAction = builder.comment(desc_EnablesChargeMediaAction).define("EnablesChargeMediaAction", true);
         cfg_EnablesMindEnvActions = builder.comment(desc_EnablesMindEnvActions).define("EnablesMindEnvActions", true);
         cfg_TrulyHurtLevel = builder.comment(desc_TrulyHurtLevel).defineInRange("TrulyHurtLevel", 1, 0, 1);
@@ -136,6 +149,9 @@ public class HexOPConfigForge implements API {
         cfg_FactorCutNonPrimeCostScale = builder.comment(desc_FactorCutNonPrimeCostScale).defineInRange("FactorCutNonPrimeCostScale", 50000, 0, Integer.MAX_VALUE);
         cfg_FactorCutFallbackCost = builder.comment(desc_FactorCutFallbackCost).defineInRange("FactorCutFallbackCost", 50001, 0, Integer.MAX_VALUE);
         cfg_FactorCutRandomMode = builder.comment(desc_FactorCutRandomMode).define("FactorCutRandomMode", false);
+        builder.pop();
+
+        builder.push("Personal Media");
         cfg_EnablesPersonalMediaPool = builder.comment(desc_EnablesPersonalMediaPool).define("EnablesPersonalMediaPool", true);
         cfg_PersonalMediaMax = builder.comment(desc_PersonalMediaMax).defineInRange("PersonalMediaMax", HexOverpowered.DEFAULTS.MANA_MAX, 0, (int) 1e10);
         cfg_PersonalMediaRegenStep = builder.comment(desc_PersonalMediaRegenStep).defineInRange("PersonalMediaRegenStep", HexOverpowered.DEFAULTS.MANA_REGEN, 0, (int) 1e10);
@@ -143,11 +159,21 @@ public class HexOPConfigForge implements API {
         cfg_FakePlayerDontRegenMedia = builder.comment(desc_FakePlayerDontRegenMedia).define("FakePlayerDontRegenMedia", true);
         cfg_PersonalMediaAfterEnlightened = builder.comment(desc_PersonalMediaAfterEnlightened).define("PersonalMediaAfterEnlightened", true);
         cfg_FiresPersonalMediaEvents = builder.comment(desc_FiresPersonalMediaEvents).define("FiresPersonalMediaEvents", true);
+        builder.pop();
+
+        builder.push("Amethyst Circle");
         cfg_EnablesAmethystCircle = builder.comment(desc_EnablesAmethystCircle).define("EnablesAmethystCircle", true);
         cfg_AmethystCircleSingleChargeCost = builder.comment(desc_AmethystCircleSingleChargeCost).defineInRange("AmethystCircleSingleChargeCost", 100000, 0, (int) 1e10);
         cfg_AmethystCircleFullPowerLevel = builder.comment(desc_AmethystCircleFullPowerLevel).defineInRange("AmethystCircleFullPowerLevel", 15, 1, 30);
+        builder.pop();
+
+        builder.push("Property");
         cfg_ExecutablePropertyIota = builder.comment(desc_ExecutablePropertyIota).define("ExecutablePropertyIota", true);
+        builder.pop();
+
+        builder.push("MekaSuit");
         cfg_MekasuitConversionRatio = builder.comment(desc_MekasuitConversionRatio).defineInRange("MekasuitConversionRatio", 1, 0, 1e10);
+        builder.pop();
 
         INSTANCE = this;
     }
