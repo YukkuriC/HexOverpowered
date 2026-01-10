@@ -16,10 +16,11 @@
 			"type": "hexcasting:pattern",
 			"op_id": "hexoverpowered:factor_cut",
 			"anchor": "hexoverpowered:factor_cut",
-			"input": "",
-			"output": "",
+			"input": "living | living, int",
+			"output": "int",
 			"text": "book.descrip.hexoverpowered:factor_cut"
 		},
+		"book.descrip.hexoverpowered:factor_cut.2",
 		{
 			"type": "hexcasting:pattern",
 			"op_id": "hexoverpowered:get_personal_media",

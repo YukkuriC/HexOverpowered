@@ -1,5 +1,6 @@
 {
   "hexcasting.action.hexoverpowered:yjsp_media": "沼气驱动",
+  "hexcasting.action.hexoverpowered:factor_cut": "因数切割",
   "hexcasting.action.hexoverpowered:mind_stack/push": "入脑之策略",
   "hexcasting.action.hexoverpowered:mind_stack/pop": "出脑之策略",
   "hexcasting.action.hexoverpowered:mind_stack/size": "脑深之精思",
@@ -15,6 +16,8 @@
   "hexoverpowered.attr.personal_media_regen": "个人媒质回复",
   "hexoverpowered.hexbook.entry": "HexOverpowered的图案",
   "book.descrip.hexoverpowered:yjsp_media": "充能当前施法环境至等量于$(bold)$(item)114514$()紫水晶粉的媒质。",
+  "book.descrip.hexoverpowered:factor_cut": "将敌人的生命值视为整数，使用输入整数进行因数分解，质因数拥有更高效率。用法1：$(bold)living -> int/$ 读取实体生命值等效的待分解正整数；$(br)用法2：$(bold)living, int -> int/$ 将实体生命值使用给定因数相除，返回除后的结果，有多种边界情况：...",
+  "book.descrip.hexoverpowered:factor_cut.2": "... $(li)特别地：免费摧毁生命值 $(bold)<= 1/$ 的目标；$(li)若不可整除，产生1点类似意识剥离事故的伤害，消耗媒质但不中止程序流；$(li)质因数拥有固定消耗，非质因数消耗随因数大小线性增加。",
   "book.descrip.hexoverpowered:mind_patterns": "获取当前法杖画布内所有图案列表，按绘制先后顺序返回。",
   "book.descrip.hexoverpowered:mind_patterns/clear": "清除法杖画布内所有图案。",
   "book.descrip.hexoverpowered:mind_stack/pop": "弹出玩家法杖空间栈顶的元素，放入当前栈顶。",
