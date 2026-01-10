@@ -38,6 +38,11 @@
   default: 'true'
   descrip: <Pattern>\nif not, mind environment series patterns will be disabled
   side: common
+- name: TrulyHurtLevel
+  type: int
+  default: 1, 0, 1
+  descrip: <Pattern>\nlevel 1 enables extra `setHealth` method call
+  side: common
 - name: EnablesFactorCutSpell
   type: boolean
   default: 'true'

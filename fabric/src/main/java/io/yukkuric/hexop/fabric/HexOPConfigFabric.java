@@ -38,6 +38,8 @@ public class HexOPConfigFabric implements ConfigData {
         private boolean EnablesChargeMediaAction = true;
         @Comment(desc_EnablesMindEnvActions)
         private boolean EnablesMindEnvActions = true;
+        @Comment(desc_TrulyHurtLevel)
+        private int TrulyHurtLevel = 1;
         @Comment(desc_EnablesFactorCutSpell)
         private boolean EnablesFactorCutSpell = true;
         @Comment(desc_FactorCutPrimeCost)
@@ -94,6 +96,9 @@ public class HexOPConfigFabric implements ConfigData {
         }
         public boolean EnablesMindEnvActions() {
             return EnablesMindEnvActions;
+        }
+        public int TrulyHurtLevel() {
+            return TrulyHurtLevel;
         }
         public boolean EnablesFactorCutSpell() {
             return EnablesFactorCutSpell;

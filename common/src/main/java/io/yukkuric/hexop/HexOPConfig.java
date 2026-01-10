@@ -34,6 +34,9 @@ public class HexOPConfig {
     public static boolean EnablesMindEnvActions() {
         return imp.EnablesMindEnvActions();
     }
+    public static int TrulyHurtLevel() {
+        return imp.TrulyHurtLevel();
+    }
     public static boolean EnablesFactorCutSpell() {
         return imp.EnablesFactorCutSpell();
     }
@@ -91,6 +94,7 @@ public class HexOPConfig {
         String desc_EnablesTeleportVehicles = "<Mishap>\n(DEPRECATED after HexCasting 0.11.3 because there's no limit anymore)\nTeleporting riding entities no longer do mishaps";
         String desc_EnablesChargeMediaAction = "<Pattern>\nif not, the `YJSP's Charge Media` pattern will be disabled";
         String desc_EnablesMindEnvActions = "<Pattern>\nif not, mind environment series patterns will be disabled";
+        String desc_TrulyHurtLevel = "<Pattern>\nlevel 1 enables extra `setHealth` function call";
         String desc_EnablesFactorCutSpell = "<Pattern>\nif not, Factor Cut pattern will be disabled";
         String desc_FactorCutPrimeCost = "<Pattern>\nconst cost for prime factors (in 1e-4 dust)";
         String desc_FactorCutNonPrimeCostScale = "<Pattern>\nconst cost for non-prime factors (multiplied by the factor itself, in 1e-4 dust)";
@@ -116,6 +120,7 @@ public class HexOPConfig {
         boolean EnablesTeleportVehicles();
         boolean EnablesChargeMediaAction();
         boolean EnablesMindEnvActions();
+        int TrulyHurtLevel();
         boolean EnablesFactorCutSpell();
         int FactorCutPrimeCost();
         int FactorCutNonPrimeCostScale();

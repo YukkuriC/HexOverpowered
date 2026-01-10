@@ -39,6 +39,9 @@ public class HexOPConfigForge implements API {
     public boolean EnablesMindEnvActions() {
         return cfg_EnablesMindEnvActions.get();
     }
+    public int TrulyHurtLevel() {
+        return cfg_TrulyHurtLevel.get();
+    }
     public boolean EnablesFactorCutSpell() {
         return cfg_EnablesFactorCutSpell.get();
     }
@@ -106,6 +109,7 @@ public class HexOPConfigForge implements API {
             cfg_EnablesAmethystCircle,
             cfg_ExecutablePropertyIota;
     public ForgeConfigSpec.IntValue
+            cfg_TrulyHurtLevel,
             cfg_FactorCutPrimeCost,
             cfg_FactorCutNonPrimeCostScale,
             cfg_FactorCutFallbackCost,
@@ -126,6 +130,7 @@ public class HexOPConfigForge implements API {
         cfg_EnablesTeleportVehicles = builder.comment(desc_EnablesTeleportVehicles).define("EnablesTeleportVehicles", true);
         cfg_EnablesChargeMediaAction = builder.comment(desc_EnablesChargeMediaAction).define("EnablesChargeMediaAction", true);
         cfg_EnablesMindEnvActions = builder.comment(desc_EnablesMindEnvActions).define("EnablesMindEnvActions", true);
+        cfg_TrulyHurtLevel = builder.comment(desc_TrulyHurtLevel).defineInRange("TrulyHurtLevel", 1, 0, 1);
         cfg_EnablesFactorCutSpell = builder.comment(desc_EnablesFactorCutSpell).define("EnablesFactorCutSpell", true);
         cfg_FactorCutPrimeCost = builder.comment(desc_FactorCutPrimeCost).defineInRange("FactorCutPrimeCost", 10000, 0, Integer.MAX_VALUE);
         cfg_FactorCutNonPrimeCostScale = builder.comment(desc_FactorCutNonPrimeCostScale).defineInRange("FactorCutNonPrimeCostScale", 50000, 0, Integer.MAX_VALUE);
