@@ -45,7 +45,7 @@ public class HexOPConfigFabric implements ConfigData {
         @Comment(desc_FactorCutNonPrimeCostScale)
         private int FactorCutNonPrimeCostScale = 50000;
         @Comment(desc_FactorCutFallbackCost)
-        private int FactorCutFallbackCost = 30001;
+        private int FactorCutFallbackCost = 50001;
         @Comment(desc_FactorCutRandomMode)
         private boolean FactorCutRandomMode = false;
         @Comment(desc_EnablesPersonalMediaPool)

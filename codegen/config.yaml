@@ -55,7 +55,7 @@
   side: common
 - name: FactorCutFallbackCost
   type: int
-  default: 30001, 0, Integer.MAX_VALUE
+  default: 50001, 0, Integer.MAX_VALUE
   descrip: <Pattern>\ncost for the fallback hurt-1 action (in 1e-4 dust)
   side: common
 - name: FactorCutRandomMode

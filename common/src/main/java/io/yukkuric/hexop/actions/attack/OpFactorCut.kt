@@ -41,7 +41,7 @@ object OpFactorCut : ConstMediaAction {
     }
 
     override fun execute(args: List<Iota>, env: CastingEnvironment): List<Iota> {
-        val target = args.getLivingEntityButNotArmorStand(0)
+        val target = args.getLivingEntityButNotArmorStand(0, args.size)
         val healthAsInt = target.health.toInt()
 
         // query health
@@ -50,7 +50,7 @@ object OpFactorCut : ConstMediaAction {
         }
 
         // health cut
-        val factor = args.getInt(1)
+        val factor = args.getInt(1, args.size)
         var newHealth: Int = healthAsInt
         if (healthAsInt <= 1) {
             newHealth = 0
@@ -61,16 +61,17 @@ object OpFactorCut : ConstMediaAction {
             mediaCostResult =
                 if (isPrime) HexOPConfig.FactorCutPrimeCost()
                 else HexOPConfig.FactorCutNonPrimeCostScale() * factor
-        } else {
+        } else if (factor == 1) {
             newHealth--
             mediaCostResult = HexOPConfig.FactorCutFallbackCost()
-        }
+        } else throw MishapInvalidIota.of(args[1], 0, "divisor")
         // random reduction
         if (HexOPConfig.FactorCutRandomMode() && Math.random() < 0.5) newHealth--
 
         // check first, execute later like spell actions
         if (env.extractMedia(mediaCost, true) > 0) throw MishapNotEnoughMedia(mediaCost)
-        AttackToTargetHealth(target, newHealth.toFloat(), env.castingEntity)
-        return listOf()
+        if (newHealth != healthAsInt)
+            AttackToTargetHealth(target, newHealth.toFloat(), env.castingEntity)
+        return listOf(DoubleIota(newHealth.toDouble()))
     }
 }

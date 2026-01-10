@@ -129,7 +129,7 @@ public class HexOPConfigForge implements API {
         cfg_EnablesFactorCutSpell = builder.comment(desc_EnablesFactorCutSpell).define("EnablesFactorCutSpell", true);
         cfg_FactorCutPrimeCost = builder.comment(desc_FactorCutPrimeCost).defineInRange("FactorCutPrimeCost", 10000, 0, Integer.MAX_VALUE);
         cfg_FactorCutNonPrimeCostScale = builder.comment(desc_FactorCutNonPrimeCostScale).defineInRange("FactorCutNonPrimeCostScale", 50000, 0, Integer.MAX_VALUE);
-        cfg_FactorCutFallbackCost = builder.comment(desc_FactorCutFallbackCost).defineInRange("FactorCutFallbackCost", 30001, 0, Integer.MAX_VALUE);
+        cfg_FactorCutFallbackCost = builder.comment(desc_FactorCutFallbackCost).defineInRange("FactorCutFallbackCost", 50001, 0, Integer.MAX_VALUE);
         cfg_FactorCutRandomMode = builder.comment(desc_FactorCutRandomMode).define("FactorCutRandomMode", false);
         cfg_EnablesPersonalMediaPool = builder.comment(desc_EnablesPersonalMediaPool).define("EnablesPersonalMediaPool", true);
         cfg_PersonalMediaMax = builder.comment(desc_PersonalMediaMax).defineInRange("PersonalMediaMax", HexOverpowered.DEFAULTS.MANA_MAX, 0, (int) 1e10);
