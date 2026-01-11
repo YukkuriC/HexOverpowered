@@ -11,6 +11,7 @@
     "TeleportVehicles",
     "VisiblePackagedHex",
     "accessor.AccessorDamageSources",
+    "accessor.AccessorMishap",
     "hexal.MixinMoteContainer",
     "hexal.MixinMoteMenu",
     "hexcellular.MixinEvaluatableJudge",

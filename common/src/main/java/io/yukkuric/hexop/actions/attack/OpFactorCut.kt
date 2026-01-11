@@ -1,11 +1,9 @@
 package io.yukkuric.hexop.actions.attack
 
-import at.petrak.hexcasting.api.spell.ConstMediaAction
-import at.petrak.hexcasting.api.spell.OperationResult
+import at.petrak.hexcasting.api.misc.FrozenColorizer
+import at.petrak.hexcasting.api.spell.*
 import at.petrak.hexcasting.api.spell.casting.CastingContext
 import at.petrak.hexcasting.api.spell.casting.eval.SpellContinuation
-import at.petrak.hexcasting.api.spell.getInt
-import at.petrak.hexcasting.api.spell.getLivingEntityButNotArmorStand
 import at.petrak.hexcasting.api.spell.iota.DoubleIota
 import at.petrak.hexcasting.api.spell.iota.EntityIota
 import at.petrak.hexcasting.api.spell.iota.Iota
@@ -14,7 +12,13 @@ import at.petrak.hexcasting.api.spell.mishaps.MishapInvalidIota
 import at.petrak.hexcasting.api.spell.mishaps.MishapNotEnoughArgs
 import io.yukkuric.hexop.HexOPConfig
 import io.yukkuric.hexop.helpers.AttackToTargetHealth
+import io.yukkuric.hexop.helpers.GetPigment
 import io.yukkuric.hexop.helpers.PrimeChecker
+import net.minecraft.world.item.DyeColor
+import net.minecraft.world.phys.Vec3
+import kotlin.math.acos
+import kotlin.math.cos
+import kotlin.math.sin
 
 object OpFactorCut : ConstMediaAction {
     override val argc
@@ -39,6 +43,7 @@ object OpFactorCut : ConstMediaAction {
         return super.operate(continuation, stack, ravenmind, ctx)
     }
 
+    private val sprayDirections = listOf(1.5, -1.0)
     override fun execute(args: List<Iota>, ctx: CastingContext): List<Iota> {
         val env = ctx
         val target = args.getLivingEntityButNotArmorStand(0, args.size)
@@ -52,26 +57,59 @@ object OpFactorCut : ConstMediaAction {
         // health cut
         val factor = args.getInt(1, args.size)
         var newHealth: Int = healthAsInt
+        val sprays = mutableListOf<Pair<ParticleSpray, FrozenColorizer>>()
+        val srcPos = target.position()
+        val centerPos = target.position().add(0.0, target.boundingBox.ysize / 2, 0.0)
+        // pick random dir
+        val theta = acos(2 * Math.random() - 1)
+        val phi = 2 * Math.PI * Math.random()
+        val deltaVec = Vec3(sin(theta) * cos(phi), sin(theta) * sin(phi), cos(theta))
         if (healthAsInt <= 1) {
             newHealth = 0
             mediaCostResult = 0
+            for (scale in sprayDirections) {
+                sprays.add(
+                    Pair(
+                        ParticleSpray(centerPos, deltaVec.scale(scale * 1.2), 0.3, 1.0, 20),
+                        GetPigment(DyeColor.PURPLE)
+                    )
+                )
+            }
+            sprays.add(Pair(ParticleSpray.burst(centerPos, 1.0, 30), GetPigment(DyeColor.RED)))
         } else if (factor > 1 && healthAsInt % factor == 0) {
             newHealth = healthAsInt / factor
             val isPrime = PrimeChecker.isPrime(factor)
-            mediaCostResult =
-                if (isPrime) HexOPConfig.FactorCutPrimeCost()
-                else HexOPConfig.FactorCutNonPrimeCostScale() * factor
+            mediaCostResult = if (isPrime) HexOPConfig.FactorCutPrimeCost()
+            else HexOPConfig.FactorCutNonPrimeCostScale() * factor
+            for (scale in sprayDirections) {
+                sprays.add(
+                    Pair(
+                        ParticleSpray(centerPos, deltaVec.scale(scale * 2), 0.2, 0.3, 20),
+                        GetPigment(DyeColor.GREEN)
+                    )
+                )
+            }
         } else if (factor == 1) {
             newHealth--
             mediaCostResult = HexOPConfig.FactorCutFallbackCost()
+            for (scale in sprayDirections) {
+                sprays.add(
+                    Pair(
+                        ParticleSpray(centerPos, deltaVec.scale(scale), 0.3, 1.0, 10),
+                        GetPigment(DyeColor.YELLOW)
+                    )
+                )
+            }
         } else throw MishapInvalidIota.of(args[1], 0, "divisor")
         // random reduction
         if (HexOPConfig.FactorCutRandomMode() && Math.random() < 0.5) newHealth--
 
         // nope, 1.19 has no "simulate" drain
         // if (env.extractMedia(mediaCost, true) > 0) throw MishapNotEnoughMedia(mediaCost)
-        if (newHealth != healthAsInt)
-            AttackToTargetHealth(target, newHealth.toFloat(), env.caster)
+        AttackToTargetHealth(target, newHealth.toFloat(), env.caster)
+        for (pair in sprays) {
+            pair.first.sprayParticles(env.world, pair.second)
+        }
         return listOf(DoubleIota(newHealth.toDouble()))
     }
 }
