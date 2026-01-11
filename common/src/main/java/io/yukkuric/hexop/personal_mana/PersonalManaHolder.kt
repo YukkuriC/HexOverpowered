@@ -8,13 +8,26 @@ import net.minecraft.advancements.Advancement
 import net.minecraft.network.chat.Component
 import net.minecraft.server.level.ServerPlayer
 import net.minecraft.world.entity.player.Player
+import java.util.*
 
 
 class PersonalManaHolder(val player: Player) : ADMediaHolder {
-    override fun getMedia() = player.getAttributeBaseValue(HexOPAttributes.PERSONAL_MEDIA).toLong()
+    override fun getMedia(): Long {
+        tryContinue()
+        return player.getAttributeBaseValue(HexOPAttributes.PERSONAL_MEDIA).toLong()
+    }
+
     override fun getMaxMedia() = player.getAttributeValue(HexOPAttributes.PERSONAL_MEDIA_MAX).toLong()
     override fun setMedia(value: Long) {
-        player.getAttribute(HexOPAttributes.PERSONAL_MEDIA)?.baseValue = value.coerceAtLeast(0).toDouble()
+        val target = value.coerceAtLeast(0).toDouble()
+        player.getAttribute(HexOPAttributes.PERSONAL_MEDIA)?.baseValue = target
+        CachedPlayerMediaMap[player.uuid] = target
+    }
+
+    fun tryContinue() {
+        var attr = player.getAttribute(HexOPAttributes.PERSONAL_MEDIA) ?: return
+        if (attr.baseValue != HexOPAttributes.INIT_MEDIA_MARKER) return
+        attr.baseValue = CachedPlayerMediaMap[player.uuid] ?: 0.0
     }
 
     private var triggersEvent = true
@@ -58,6 +71,7 @@ class PersonalManaHolder(val player: Player) : ADMediaHolder {
     override fun canConstructBattery() = true // try it lol
 
     companion object {
+        private val CachedPlayerMediaMap = HashMap<UUID, Double>()
         private var cachedAdvancement: Advancement? = null
 
         @JvmStatic
