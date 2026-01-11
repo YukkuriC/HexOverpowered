@@ -38,6 +38,18 @@ public class HexOPConfigFabric implements ConfigData {
         private boolean EnablesChargeMediaAction = true;
         @Comment(desc_EnablesMindEnvActions)
         private boolean EnablesMindEnvActions = true;
+        @Comment(desc_TrulyHurtLevel)
+        private int TrulyHurtLevel = 1;
+        @Comment(desc_EnablesFactorCutSpell)
+        private boolean EnablesFactorCutSpell = true;
+        @Comment(desc_FactorCutPrimeCost)
+        private int FactorCutPrimeCost = 10000;
+        @Comment(desc_FactorCutNonPrimeCostScale)
+        private int FactorCutNonPrimeCostScale = 50000;
+        @Comment(desc_FactorCutFallbackCost)
+        private int FactorCutFallbackCost = 50001;
+        @Comment(desc_FactorCutRandomMode)
+        private boolean FactorCutRandomMode = false;
         @Comment(desc_EnablesPersonalMediaPool)
         private boolean EnablesPersonalMediaPool = true;
         @Comment(desc_PersonalMediaMax)
@@ -78,6 +90,24 @@ public class HexOPConfigFabric implements ConfigData {
         }
         public boolean EnablesMindEnvActions() {
             return EnablesMindEnvActions;
+        }
+        public int TrulyHurtLevel() {
+            return TrulyHurtLevel;
+        }
+        public boolean EnablesFactorCutSpell() {
+            return EnablesFactorCutSpell;
+        }
+        public int FactorCutPrimeCost() {
+            return FactorCutPrimeCost;
+        }
+        public int FactorCutNonPrimeCostScale() {
+            return FactorCutNonPrimeCostScale;
+        }
+        public int FactorCutFallbackCost() {
+            return FactorCutFallbackCost;
+        }
+        public boolean FactorCutRandomMode() {
+            return FactorCutRandomMode;
         }
         public boolean EnablesPersonalMediaPool() {
             return EnablesPersonalMediaPool;

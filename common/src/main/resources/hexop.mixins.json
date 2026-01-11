@@ -10,6 +10,7 @@
     "SuperPlayerIota",
     "TeleportVehicles",
     "VisiblePackagedHex",
+    "accessor.AccessorDamageSources",
     "hexal.MixinMoteContainer",
     "hexal.MixinMoteMenu",
     "hexcellular.MixinEvaluatableJudge",

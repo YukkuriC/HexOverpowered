@@ -44,6 +44,13 @@ _note: all features that currently can't be turned off are marked with `☆`_
 -   OP great spells:
     -   `YJSP's Charge Media`: recharges casting item / circle / wisp / personal media pool to 114514 dust
         -   (id: `hexoverpowered:yjsp_media`, could be set forbidden in base Hex's config)
+    -   `Factor Cut`: a pattern to factorize enemy's health as integer with input number, with higher efficiency using prime factors
+        -   Usage 1: `living -> int` reads a living entity's health as an integer to be factorized and divided
+            -   with no cost `:3`
+        -   Usage 2: `living, int -> int` divides it's health with given factor and returns the divided result, with various edge cases
+            -   specially destroys target with `<= 1` health for free
+            -   if not divisible, attack 1 like a brainsweep mishap with cost without program flow break
+            -   prime divisor has constant cost while non-prime has linear scaled cost
 
 ---
 

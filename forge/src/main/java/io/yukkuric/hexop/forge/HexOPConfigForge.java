@@ -10,7 +10,7 @@ import static io.yukkuric.hexop.HexOPConfig.*;
 
 public class HexOPConfigForge implements API {
     public static HexOPConfigForge INSTANCE;
-    private static final String desc_MekasuitConversionRatio = "<MekaSuit>\nHow many media points each FE point equals";
+    private static final String desc_MekasuitConversionRatio = "How many media points each FE point equals";
     public static double MekasuitConversionRatio() {
         return INSTANCE.cfg_MekasuitConversionRatio.get();
     }
@@ -38,6 +38,24 @@ public class HexOPConfigForge implements API {
     }
     public boolean EnablesMindEnvActions() {
         return cfg_EnablesMindEnvActions.get();
+    }
+    public int TrulyHurtLevel() {
+        return cfg_TrulyHurtLevel.get();
+    }
+    public boolean EnablesFactorCutSpell() {
+        return cfg_EnablesFactorCutSpell.get();
+    }
+    public int FactorCutPrimeCost() {
+        return cfg_FactorCutPrimeCost.get();
+    }
+    public int FactorCutNonPrimeCostScale() {
+        return cfg_FactorCutNonPrimeCostScale.get();
+    }
+    public int FactorCutFallbackCost() {
+        return cfg_FactorCutFallbackCost.get();
+    }
+    public boolean FactorCutRandomMode() {
+        return cfg_FactorCutRandomMode.get();
     }
     public boolean EnablesPersonalMediaPool() {
         return cfg_EnablesPersonalMediaPool.get();
@@ -73,12 +91,18 @@ public class HexOPConfigForge implements API {
             cfg_EnablesTeleportVehicles,
             cfg_EnablesChargeMediaAction,
             cfg_EnablesMindEnvActions,
+            cfg_EnablesFactorCutSpell,
+            cfg_FactorCutRandomMode,
             cfg_EnablesPersonalMediaPool,
             cfg_FakePlayerDontRegenMedia,
             cfg_PersonalMediaAfterEnlightened,
             cfg_FiresPersonalMediaEvents,
             cfg_ExecutablePropertyIota;
     public ForgeConfigSpec.IntValue
+            cfg_TrulyHurtLevel,
+            cfg_FactorCutPrimeCost,
+            cfg_FactorCutNonPrimeCostScale,
+            cfg_FactorCutFallbackCost,
             cfg_PersonalMediaMax,
             cfg_PersonalMediaRegenStep,
             cfg_PersonalMediaRegenInterval;
@@ -86,14 +110,36 @@ public class HexOPConfigForge implements API {
             cfg_MekasuitConversionRatio;
 
     public HexOPConfigForge(ForgeConfigSpec.Builder builder) {
+        builder.push("Display");
         cfg_RevealsHexInsideCastingItems = builder.comment(desc_RevealsHexInsideCastingItems).define("RevealsHexInsideCastingItems", true);
+        builder.pop();
+
+        builder.push("Mote");
         cfg_EnablesMoteItemHandler = builder.comment(desc_EnablesMoteItemHandler).define("EnablesMoteItemHandler", true);
         cfg_EnablesMoteChestGUI = builder.comment(desc_EnablesMoteChestGUI).define("EnablesMoteChestGUI", true);
+        builder.pop();
+
+        builder.push("Misc");
         cfg_TrueNameCrossDimension = builder.comment(desc_TrueNameCrossDimension).define("TrueNameCrossDimension", true);
+        builder.pop();
+
+        builder.push("Mishap");
         cfg_EnablesMishapNoYeet = builder.comment(desc_EnablesMishapNoYeet).define("EnablesMishapNoYeet", true);
         cfg_EnablesTeleportVehicles = builder.comment(desc_EnablesTeleportVehicles).define("EnablesTeleportVehicles", true);
+        builder.pop();
+
+        builder.push("Pattern");
         cfg_EnablesChargeMediaAction = builder.comment(desc_EnablesChargeMediaAction).define("EnablesChargeMediaAction", true);
         cfg_EnablesMindEnvActions = builder.comment(desc_EnablesMindEnvActions).define("EnablesMindEnvActions", true);
+        cfg_TrulyHurtLevel = builder.comment(desc_TrulyHurtLevel).defineInRange("TrulyHurtLevel", 1, 0, 1);
+        cfg_EnablesFactorCutSpell = builder.comment(desc_EnablesFactorCutSpell).define("EnablesFactorCutSpell", true);
+        cfg_FactorCutPrimeCost = builder.comment(desc_FactorCutPrimeCost).defineInRange("FactorCutPrimeCost", 10000, 0, Integer.MAX_VALUE);
+        cfg_FactorCutNonPrimeCostScale = builder.comment(desc_FactorCutNonPrimeCostScale).defineInRange("FactorCutNonPrimeCostScale", 50000, 0, Integer.MAX_VALUE);
+        cfg_FactorCutFallbackCost = builder.comment(desc_FactorCutFallbackCost).defineInRange("FactorCutFallbackCost", 50001, 0, Integer.MAX_VALUE);
+        cfg_FactorCutRandomMode = builder.comment(desc_FactorCutRandomMode).define("FactorCutRandomMode", false);
+        builder.pop();
+
+        builder.push("Personal Media");
         cfg_EnablesPersonalMediaPool = builder.comment(desc_EnablesPersonalMediaPool).define("EnablesPersonalMediaPool", true);
         cfg_PersonalMediaMax = builder.comment(desc_PersonalMediaMax).defineInRange("PersonalMediaMax", HexOverpowered.DEFAULTS.MANA_MAX, 0, (int) 1e10);
         cfg_PersonalMediaRegenStep = builder.comment(desc_PersonalMediaRegenStep).defineInRange("PersonalMediaRegenStep", HexOverpowered.DEFAULTS.MANA_REGEN, 0, (int) 1e10);
@@ -101,8 +147,15 @@ public class HexOPConfigForge implements API {
         cfg_FakePlayerDontRegenMedia = builder.comment(desc_FakePlayerDontRegenMedia).define("FakePlayerDontRegenMedia", true);
         cfg_PersonalMediaAfterEnlightened = builder.comment(desc_PersonalMediaAfterEnlightened).define("PersonalMediaAfterEnlightened", true);
         cfg_FiresPersonalMediaEvents = builder.comment(desc_FiresPersonalMediaEvents).define("FiresPersonalMediaEvents", true);
+        builder.pop();
+
+        builder.push("Property");
         cfg_ExecutablePropertyIota = builder.comment(desc_ExecutablePropertyIota).define("ExecutablePropertyIota", true);
+        builder.pop();
+
+        builder.push("MekaSuit");
         cfg_MekasuitConversionRatio = builder.comment(desc_MekasuitConversionRatio).defineInRange("MekasuitConversionRatio", 1, 0, 1e10);
+        builder.pop();
 
         INSTANCE = this;
     }

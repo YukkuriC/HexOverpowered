@@ -10,8 +10,10 @@ import at.petrak.hexcasting.api.spell.iota.Iota
 import at.petrak.hexcasting.api.spell.math.HexDir
 import at.petrak.hexcasting.api.spell.math.HexPattern
 import at.petrak.hexcasting.api.spell.mishaps.Mishap
+import at.petrak.hexcasting.api.spell.mishaps.MishapDisallowedSpell
 import at.petrak.hexcasting.api.spell.mishaps.MishapError
 import at.petrak.hexcasting.api.spell.mishaps.MishapEvalTooDeep
+import io.yukkuric.hexop.HexOPConfig
 import net.minecraft.server.MinecraftServer
 import java.util.*
 
@@ -47,6 +49,7 @@ object OpScheduleCall : ConstMediaAction {
 
     override val argc = 2
     override fun execute(args: List<Iota>, ctx: CastingContext): List<Iota> {
+        if (!HexOPConfig.EnablesMindEnvActions()) throw MishapDisallowedSpell()
         val env = ctx
         val code = args.getList(0)
         val delay = args.getInt(1)

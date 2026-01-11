@@ -33,9 +33,13 @@ public class HexOPConfigForge implements API {
     {%- endfor %}
 
     public HexOPConfigForge(ForgeConfigSpec.Builder builder) {
-        {%- for line in data %}
+        {%- for grp,lines in group_val(data,'category') %}
+        builder.push("{{grp}}");
+        {%- for line in lines %}
         cfg_{{line.name}} = builder.comment(desc_{{line.name}}) {{-''-}}
                 .define{% if line.type == 'boolean' %}{% else %}InRange{% endif %}("{{line.name}}", {{line.default}});
+        {%- endfor %}
+        builder.pop();{% if not loop.last %}{{'\n'}}{% endif %}
         {%- endfor %}
 
         INSTANCE = this;

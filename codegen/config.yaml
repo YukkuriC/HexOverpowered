@@ -1,85 +1,138 @@
 - name: RevealsHexInsideCastingItems
   type: boolean
   default: 'true'
-  descrip: <Display>\nDisplays the hex inside readonly casting items; working client-side
+  category: Display
+  descrip: Displays the hex inside readonly casting items; working client-side
   side: common
 - name: EnablesMoteItemHandler
   type: boolean
   default: 'true'
-  descrip: <Mote>\nEnables item IO without casting patterns
+  category: Mote
+  descrip: Enables item IO without casting patterns
   side: common
 - name: EnablesMoteChestGUI
   type: boolean
   default: 'true'
-  descrip: <Mote>\nEnables 'A Glance of Mote Chest' (a simple chest GUI) on right click\ndisables if `EnablesMoteItemHandler` is off
+  category: Mote
+  descrip: Enables 'A Glance of Mote Chest' (a simple chest GUI) on right click\ndisables if `EnablesMoteItemHandler` is off
   side: common
 - name: TrueNameCrossDimension
   type: boolean
   default: 'true'
-  descrip: <Misc>\nPlayer references are always valid even in another dimension
+  category: Misc
+  descrip: Player references are always valid even in another dimension
   side: common
 - name: EnablesMishapNoYeet
   type: boolean
   default: 'true'
-  descrip: <Mishap>\nMishaps won't drop items anymore
+  category: Mishap
+  descrip: Mishaps won't drop items anymore
   side: common
 - name: EnablesTeleportVehicles
   type: boolean
   default: 'true'
-  descrip: <Mishap>\nTeleporting riding entities no longer do mishaps
+  category: Mishap
+  descrip: Teleporting riding entities no longer do mishaps
   side: common
 - name: EnablesChargeMediaAction
   type: boolean
   default: 'true'
-  descrip: <Pattern>\nif not, the `YJSP's Charge Media` pattern will be disabled
+  category: Pattern
+  descrip: if not, the `YJSP's Charge Media` pattern will be disabled
   side: common
 - name: EnablesMindEnvActions
   type: boolean
   default: 'true'
-  descrip: <Pattern>\nif not, mind environment series patterns will be disabled
+  category: Pattern
+  descrip: if not, mind environment series patterns will be disabled
+  side: common
+- name: TrulyHurtLevel
+  type: int
+  default: 1, 0, 1
+  category: Pattern
+  descrip: level 1 enables extra `setHealth` method call
+  side: common
+- name: EnablesFactorCutSpell
+  type: boolean
+  default: 'true'
+  category: Pattern
+  descrip: if not, Factor Cut pattern will be disabled
+  side: common
+- name: FactorCutPrimeCost
+  type: int
+  default: 10000, 0, Integer.MAX_VALUE
+  category: Pattern
+  descrip: const cost for prime factors (in 1e-4 dust)
+  side: common
+- name: FactorCutNonPrimeCostScale
+  type: int
+  default: 50000, 0, Integer.MAX_VALUE
+  category: Pattern
+  descrip: const cost for non-prime factors (multiplied by the factor itself, in 1e-4 dust)
+  side: common
+- name: FactorCutFallbackCost
+  type: int
+  default: 50001, 0, Integer.MAX_VALUE
+  category: Pattern
+  descrip: cost for the fallback hurt-1 action (in 1e-4 dust)
+  side: common
+- name: FactorCutRandomMode
+  type: boolean
+  default: 'false'
+  category: Pattern
+  descrip: target's health gets extra random reduction after each successful division
   side: common
 - name: EnablesPersonalMediaPool
   type: boolean
   default: 'true'
-  descrip: <Personal Media>\nEnables player's personal media pool
+  category: Personal Media
+  descrip: Enables player's personal media pool
   side: common
 - name: PersonalMediaMax
   type: int
   default: HexOverpowered.DEFAULTS.MANA_MAX, 0, (int) 1e10
-  descrip: <Personal Media>\nMax media (in 0.0001 dust) for personal pool
+  category: Personal Media
+  descrip: Max media (in 0.0001 dust) for personal pool
   side: common
 - name: PersonalMediaRegenStep
   type: int
   default: HexOverpowered.DEFAULTS.MANA_REGEN, 0, (int) 1e10
-  descrip: <Personal Media>\nHow many media points (in 0.0001 dust) personal pool regenerates each time
+  category: Personal Media
+  descrip: How many media points (in 0.0001 dust) personal pool regenerates each time
   side: common
 - name: PersonalMediaRegenInterval
   type: int
   default: HexOverpowered.DEFAULTS.MANA_REGEN_INTERVAL, 0, (int) 1e10
-  descrip: <Personal Media>\nFor every X ticks personal pool regenerate once
+  category: Personal Media
+  descrip: For every X ticks personal pool regenerate once
   side: common
 - name: FakePlayerDontRegenMedia
   type: boolean
   default: 'true'
-  descrip: <Personal Media>\nFake players (for example, Deployer from Create) won't regenerate their media pool
+  category: Personal Media
+  descrip: Fake players (for example, Deployer from Create) won't regenerate their media pool
   side: common
 - name: PersonalMediaAfterEnlightened
   type: boolean
   default: 'true'
-  descrip: <Personal Media>\nOnly activates personal media bar after enlightened
+  category: Personal Media
+  descrip: Only activates personal media bar after enlightened
   side: common
 - name: FiresPersonalMediaEvents
   type: boolean
   default: 'true'
-  descrip: <Personal Media>\nTriggers events when personal media pool changed
+  category: Personal Media
+  descrip: Triggers events when personal media pool changed
   side: common
 - name: ExecutablePropertyIota
   type: boolean
   default: 'true'
-  descrip: "<Property>\\nmaking property iotas directly execute what's inside when themselves executed"
+  category: Property
+  descrip: "making property iotas directly execute what's inside when themselves executed"
   side: common
 - name: MekasuitConversionRatio
   type: double
   default: 1, 0, 1e10
-  descrip: <MekaSuit>\nHow many media points each FE point equals
+  category: MekaSuit
+  descrip: How many media points each FE point equals
   side: forge
