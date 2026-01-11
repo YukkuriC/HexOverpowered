@@ -11,6 +11,7 @@
     "TeleportVehicles",
     "VisiblePackagedHex",
     "accessor.AccessorDamageSources",
+    "accessor.AccessorMishap",
     "circle.AmethystCircle",
     "hexal.MixinMoteContainer",
     "hexal.MixinMoteMenu",
