@@ -22,9 +22,11 @@ class HexOPAttributes {
         @JvmStatic
         val PERSONAL_MEDIA_REGEN: Attribute
             get() = _personal_media_regen
+        @JvmStatic
+        val INIT_MEDIA_MARKER = -1919810.0
 
         private val MAP = HashMap<ResourceLocation, Attribute>()
-        private var _personal_media = make("personal_media") { 0.0 }
+        private var _personal_media = make("personal_media") { INIT_MEDIA_MARKER }
         private var _personal_media_max = make("personal_media_max") { HexOPConfig.PersonalMediaMax().toDouble() }
         private var _personal_media_regen =
             make("personal_media_regen") { HexOPConfig.PersonalMediaRegenStep().toDouble() }
