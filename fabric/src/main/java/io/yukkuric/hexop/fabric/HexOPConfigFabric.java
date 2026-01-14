@@ -39,7 +39,7 @@ public class HexOPConfigFabric implements ConfigData {
         @Comment(desc_EnablesMindEnvActions)
         private boolean EnablesMindEnvActions = true;
         @Comment(desc_TrulyHurtLevel)
-        private int TrulyHurtLevel = 1;
+        private int TrulyHurtLevel = 2;
         @Comment(desc_EnablesFactorCutSpell)
         private boolean EnablesFactorCutSpell = true;
         @Comment(desc_FactorCutPrimeCost)

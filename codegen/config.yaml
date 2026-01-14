@@ -48,9 +48,9 @@
   side: common
 - name: TrulyHurtLevel
   type: int
-  default: 1, 0, 1
+  default: 2, 0, 2
   category: Pattern
-  descrip: level 1 enables extra `setHealth` method call
+  descrip: level 1 enables extra `setHealth` method call;\nlevel 2 adds saved data searching & replacing if lv.1 failed
   side: common
 - name: EnablesFactorCutSpell
   type: boolean

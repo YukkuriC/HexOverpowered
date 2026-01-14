@@ -143,7 +143,7 @@ public class HexOPConfigForge implements API {
         builder.push("Pattern");
         cfg_EnablesChargeMediaAction = builder.comment(desc_EnablesChargeMediaAction).define("EnablesChargeMediaAction", true);
         cfg_EnablesMindEnvActions = builder.comment(desc_EnablesMindEnvActions).define("EnablesMindEnvActions", true);
-        cfg_TrulyHurtLevel = builder.comment(desc_TrulyHurtLevel).defineInRange("TrulyHurtLevel", 1, 0, 1);
+        cfg_TrulyHurtLevel = builder.comment(desc_TrulyHurtLevel).defineInRange("TrulyHurtLevel", 2, 0, 2);
         cfg_EnablesFactorCutSpell = builder.comment(desc_EnablesFactorCutSpell).define("EnablesFactorCutSpell", true);
         cfg_FactorCutPrimeCost = builder.comment(desc_FactorCutPrimeCost).defineInRange("FactorCutPrimeCost", 10000, 0, Integer.MAX_VALUE);
         cfg_FactorCutNonPrimeCostScale = builder.comment(desc_FactorCutNonPrimeCostScale).defineInRange("FactorCutNonPrimeCostScale", 50000, 0, Integer.MAX_VALUE);

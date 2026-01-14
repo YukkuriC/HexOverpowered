@@ -94,7 +94,7 @@ public class HexOPConfig {
         String desc_EnablesTeleportVehicles = "(DEPRECATED after HexCasting 0.11.3 because there's no limit anymore)\nTeleporting riding entities no longer do mishaps";
         String desc_EnablesChargeMediaAction = "if not, the `YJSP's Charge Media` pattern will be disabled";
         String desc_EnablesMindEnvActions = "if not, mind environment series patterns will be disabled";
-        String desc_TrulyHurtLevel = "level 1 enables extra `setHealth` method call";
+        String desc_TrulyHurtLevel = "level 1 enables extra `setHealth` method call;\nlevel 2 adds saved data searching & replacing if lv.1 failed";
         String desc_EnablesFactorCutSpell = "if not, Factor Cut pattern will be disabled";
         String desc_FactorCutPrimeCost = "const cost for prime factors (in 1e-4 dust)";
         String desc_FactorCutNonPrimeCostScale = "const cost for non-prime factors (multiplied by the factor itself, in 1e-4 dust)";
