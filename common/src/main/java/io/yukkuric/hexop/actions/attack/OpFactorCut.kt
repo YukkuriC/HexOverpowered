@@ -6,8 +6,8 @@ import at.petrak.hexcasting.api.casting.eval.CastingEnvironment
 import at.petrak.hexcasting.api.casting.eval.OperationResult
 import at.petrak.hexcasting.api.casting.eval.vm.CastingImage
 import at.petrak.hexcasting.api.casting.eval.vm.SpellContinuation
+import at.petrak.hexcasting.api.casting.getEntity
 import at.petrak.hexcasting.api.casting.getInt
-import at.petrak.hexcasting.api.casting.getLivingEntityButNotArmorStand
 import at.petrak.hexcasting.api.casting.iota.DoubleIota
 import at.petrak.hexcasting.api.casting.iota.EntityIota
 import at.petrak.hexcasting.api.casting.iota.Iota
@@ -17,9 +17,9 @@ import at.petrak.hexcasting.api.casting.mishaps.MishapNotEnoughArgs
 import at.petrak.hexcasting.api.casting.mishaps.MishapNotEnoughMedia
 import at.petrak.hexcasting.api.pigment.FrozenPigment
 import io.yukkuric.hexop.HexOPConfig
-import io.yukkuric.hexop.helpers.AttackToTargetHealth
 import io.yukkuric.hexop.helpers.GetPigment
 import io.yukkuric.hexop.helpers.PrimeChecker
+import io.yukkuric.hexop.helpers.attack.EntityHealthAccessors
 import net.minecraft.world.item.DyeColor
 import net.minecraft.world.phys.Vec3
 import kotlin.math.acos
@@ -48,8 +48,10 @@ object OpFactorCut : ConstMediaAction {
 
     private val sprayDirections = listOf(1.5, -1.0)
     override fun execute(args: List<Iota>, env: CastingEnvironment): List<Iota> {
-        val target = args.getLivingEntityButNotArmorStand(0, args.size)
-        val healthAsInt = target.health.toInt()
+        val target = args.getEntity(0, args.size)
+        if (!EntityHealthAccessors.validate(target))
+            throw MishapInvalidIota.ofType(args[0], args.size - 1, "entity.living")
+        val healthAsInt = EntityHealthAccessors.getHealth(target).toInt()
 
         // query health
         if (args.size == 1) {
@@ -60,7 +62,6 @@ object OpFactorCut : ConstMediaAction {
         val factor = args.getInt(1, args.size)
         var newHealth: Int = healthAsInt
         val sprays = mutableListOf<Pair<ParticleSpray, FrozenPigment>>()
-        val srcPos = target.position()
         val centerPos = target.position().add(0.0, target.boundingBox.ysize / 2, 0.0)
         // pick random dir
         val theta = acos(2 * Math.random() - 1)
@@ -108,7 +109,7 @@ object OpFactorCut : ConstMediaAction {
 
         // check first, execute later like spell actions
         if (env.extractMedia(mediaCost, true) > 0) throw MishapNotEnoughMedia(mediaCost)
-        AttackToTargetHealth(target, newHealth.toFloat(), env.castingEntity)
+        EntityHealthAccessors.setHealth(target, newHealth.toFloat(), env.castingEntity)
         for (pair in sprays) {
             pair.first.sprayParticles(env.world, pair.second)
         }
