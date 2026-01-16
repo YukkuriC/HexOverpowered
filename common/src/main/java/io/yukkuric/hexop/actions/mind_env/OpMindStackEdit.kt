@@ -18,7 +18,7 @@ enum class OpMindStackEdit(override val argc: Int, val stackOp: BiFunction<List<
     }),
     POP(0, { _, stack ->
         if (stack.isEmpty()) throw MishapNotEnoughArgs(1, 0)
-        listOf(stack.removeLast())
+        listOf(stack.removeAt(stack.size - 1))
     });
 
     override fun execute(args: List<Iota>, env: CastingEnvironment): List<Iota> {
