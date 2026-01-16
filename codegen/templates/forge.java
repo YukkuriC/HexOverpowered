@@ -34,14 +34,18 @@ public class HexOPConfigForge implements API {
 
     public HexOPConfigForge(ForgeConfigSpec.Builder builder) {
         {%- for grp,lines in group_val(data,'category') %}
-        builder.push("{{grp}}");
+        {%- set grp_pieces = grp.split('.') -%}
+        {%- for piece in grp_pieces %}
+        builder.push("{{piece}}");
+        {%- endfor %}
         {%- for line in lines %}
         cfg_{{line.name}} = builder.comment(desc_{{line.name}}) {{-''-}}
                 .define{% if line.type == 'boolean' %}{% else %}InRange{% endif %}("{{line.name}}", {{line.default}});
         {%- endfor %}
-        builder.pop();{% if not loop.last %}{{'\n'}}{% endif %}
+        {%- for piece in grp_pieces %}
+        builder.pop();
+        {%- endfor %}{{'\n'}}
         {%- endfor %}
-
         INSTANCE = this;
     }
 

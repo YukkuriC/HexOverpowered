@@ -22,55 +22,59 @@ public class HexOPConfigFabric implements ConfigData {
     }
 
     public static class Common implements API, ConfigData {
-        @Comment(desc_RevealsHexInsideCastingItems)
+        @Comment("<Display> " + desc_RevealsHexInsideCastingItems)
         private boolean RevealsHexInsideCastingItems = true;
-        @Comment(desc_EnablesMoteItemHandler)
+        @Comment("<Mote> " + desc_EnablesMoteItemHandler)
         private boolean EnablesMoteItemHandler = true;
-        @Comment(desc_EnablesMoteChestGUI)
+        @Comment("<Mote> " + desc_EnablesMoteChestGUI)
         private boolean EnablesMoteChestGUI = true;
-        @Comment(desc_TrueNameCrossDimension)
+        @Comment("<Misc> " + desc_TrueNameCrossDimension)
         private boolean TrueNameCrossDimension = true;
-        @Comment(desc_EnablesMishapNoYeet)
+        @Comment("<Mishap> " + desc_EnablesMishapNoYeet)
         private boolean EnablesMishapNoYeet = true;
-        @Comment(desc_EnablesTeleportVehicles)
+        @Comment("<Mishap> " + desc_EnablesTeleportVehicles)
         private boolean EnablesTeleportVehicles = true;
-        @Comment(desc_EnablesChargeMediaAction)
+        @Comment("<Pattern> " + desc_EnablesChargeMediaAction)
         private boolean EnablesChargeMediaAction = true;
-        @Comment(desc_EnablesMindEnvActions)
+        @Comment("<Pattern> " + desc_EnablesMindEnvActions)
         private boolean EnablesMindEnvActions = true;
-        @Comment(desc_TrulyHurtLevel)
+        @Comment("<Pattern> " + desc_TrulyHurtLevel)
         private int TrulyHurtLevel = 2;
-        @Comment(desc_EnablesFactorCutSpell)
+        @Comment("<Pattern.FactorCut> " + desc_EnablesFactorCutSpell)
         private boolean EnablesFactorCutSpell = true;
-        @Comment(desc_FactorCutPrimeCost)
+        @Comment("<Pattern.FactorCut> " + desc_FactorCutPrimeCost)
         private int FactorCutPrimeCost = 10000;
-        @Comment(desc_FactorCutNonPrimeCostScale)
+        @Comment("<Pattern.FactorCut> " + desc_FactorCutNonPrimeCostScale)
         private int FactorCutNonPrimeCostScale = 50000;
-        @Comment(desc_FactorCutFallbackCost)
+        @Comment("<Pattern.FactorCut> " + desc_FactorCutFallbackCost)
         private int FactorCutFallbackCost = 50001;
-        @Comment(desc_FactorCutRandomMode)
+        @Comment("<Pattern.FactorCut> " + desc_FactorCutRandomMode)
         private boolean FactorCutRandomMode = false;
-        @Comment(desc_EnablesPersonalMediaPool)
+        @Comment("<Pattern.FactorCut> " + desc_FactorCutMinimumFactor)
+        private int FactorCutMinimumFactor = 2;
+        @Comment("<Pattern.FactorCut> " + desc_FactorCutKillingBlowLine)
+        private int FactorCutKillingBlowLine = 1;
+        @Comment("<Personal Media> " + desc_EnablesPersonalMediaPool)
         private boolean EnablesPersonalMediaPool = true;
-        @Comment(desc_PersonalMediaMax)
+        @Comment("<Personal Media> " + desc_PersonalMediaMax)
         private int PersonalMediaMax = HexOverpowered.DEFAULTS.MANA_MAX;
-        @Comment(desc_PersonalMediaRegenStep)
+        @Comment("<Personal Media> " + desc_PersonalMediaRegenStep)
         private int PersonalMediaRegenStep = HexOverpowered.DEFAULTS.MANA_REGEN;
-        @Comment(desc_PersonalMediaRegenInterval)
+        @Comment("<Personal Media> " + desc_PersonalMediaRegenInterval)
         private int PersonalMediaRegenInterval = HexOverpowered.DEFAULTS.MANA_REGEN_INTERVAL;
-        @Comment(desc_FakePlayerDontRegenMedia)
+        @Comment("<Personal Media> " + desc_FakePlayerDontRegenMedia)
         private boolean FakePlayerDontRegenMedia = true;
-        @Comment(desc_PersonalMediaAfterEnlightened)
+        @Comment("<Personal Media> " + desc_PersonalMediaAfterEnlightened)
         private boolean PersonalMediaAfterEnlightened = true;
-        @Comment(desc_FiresPersonalMediaEvents)
+        @Comment("<Personal Media> " + desc_FiresPersonalMediaEvents)
         private boolean FiresPersonalMediaEvents = true;
-        @Comment(desc_EnablesAmethystCircle)
+        @Comment("<Amethyst Circle> " + desc_EnablesAmethystCircle)
         private boolean EnablesAmethystCircle = true;
-        @Comment(desc_AmethystCircleSingleChargeCost)
+        @Comment("<Amethyst Circle> " + desc_AmethystCircleSingleChargeCost)
         private int AmethystCircleSingleChargeCost = 100000;
-        @Comment(desc_AmethystCircleFullPowerLevel)
+        @Comment("<Amethyst Circle> " + desc_AmethystCircleFullPowerLevel)
         private int AmethystCircleFullPowerLevel = 15;
-        @Comment(desc_ExecutablePropertyIota)
+        @Comment("<Property> " + desc_ExecutablePropertyIota)
         private boolean ExecutablePropertyIota = true;
 
         public boolean RevealsHexInsideCastingItems() {
@@ -114,6 +118,12 @@ public class HexOPConfigFabric implements ConfigData {
         }
         public boolean FactorCutRandomMode() {
             return FactorCutRandomMode;
+        }
+        public int FactorCutMinimumFactor() {
+            return FactorCutMinimumFactor;
+        }
+        public int FactorCutKillingBlowLine() {
+            return FactorCutKillingBlowLine;
         }
         public boolean EnablesPersonalMediaPool() {
             return EnablesPersonalMediaPool;

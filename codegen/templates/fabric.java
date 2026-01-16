@@ -24,7 +24,7 @@ public class HexOPConfigFabric implements ConfigData {
 
     public static class Common implements API, ConfigData {
         {%- for line in data_common %}
-        @Comment(desc_{{line.name}})
+        @Comment("<{{line.category}}> " + desc_{{line.name}})
         private {{line.type}} {{line.name}} = {{line.default.split(',').0}};
         {%- endfor %}{{'\n'}}
         {%- for line in data_common %}

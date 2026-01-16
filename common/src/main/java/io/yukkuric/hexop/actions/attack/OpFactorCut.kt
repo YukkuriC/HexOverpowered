@@ -67,7 +67,7 @@ object OpFactorCut : ConstMediaAction {
         val theta = acos(2 * Math.random() - 1)
         val phi = 2 * Math.PI * Math.random()
         val deltaVec = Vec3(sin(theta) * cos(phi), sin(theta) * sin(phi), cos(theta))
-        if (healthAsInt <= 1) {
+        if (healthAsInt <= HexOPConfig.FactorCutKillingBlowLine()) {
             newHealth = 0
             mediaCostResult = 0
             for (scale in sprayDirections) {
@@ -80,6 +80,9 @@ object OpFactorCut : ConstMediaAction {
             }
             sprays.add(Pair(ParticleSpray.burst(centerPos, 1.0, 30), GetPigment(DyeColor.RED)))
         } else if (factor > 1 && healthAsInt % factor == 0) {
+            if (factor < HexOPConfig.FactorCutMinimumFactor() && factor != healthAsInt) {
+                throw MishapInvalidIota.of(args[1], 0, "big_factor", HexOPConfig.FactorCutMinimumFactor())
+            }
             newHealth = healthAsInt / factor
             val isPrime = PrimeChecker.isPrime(factor)
             mediaCostResult = if (isPrime) HexOPConfig.FactorCutPrimeCost()
