@@ -12,12 +12,14 @@ import net.minecraft.world.entity.vehicle.AbstractMinecart
 import net.minecraft.world.entity.vehicle.Boat
 
 object EntityHealthAccessors : IEntityHealthAccessor<Entity> {
+    private const val CONTACT_ME = "contact the author for further TrulyHurt support :3"
+
     val SUBS = mutableListOf<IEntityHealthAccessor<*>>(
         LIVING,
         MINECART_BOAT,
     )
     private lateinit var _selected: IEntityHealthAccessor<*>
-    private lateinit var _target: Entity
+    private var _target: Entity? = null
 
     override fun validate(target: Entity): Boolean {
         if (target == _target) return true
@@ -32,13 +34,13 @@ object EntityHealthAccessors : IEntityHealthAccessor<Entity> {
     @Synchronized
     override fun getHealth(target: Entity): Float {
         if (!validate(target)) return Float.NaN
-        return _selected.getHealth(_target)
+        return _selected.getHealthT(target)
     }
 
     @Synchronized
     override fun setHealth(target: Entity, newHealth: Float, caster: LivingEntity?) {
         if (!validate(target)) return
-        return _selected.setHealth(target, newHealth, caster)
+        return _selected.setHealthT(target, newHealth, caster)
     }
 
     // ==================== sub entities ====================
@@ -52,8 +54,12 @@ object EntityHealthAccessors : IEntityHealthAccessor<Entity> {
                 target.health - newHealth
             )
             if (target.health == newHealth || HexOPConfig.TrulyHurtLevel() < 1) return
+
+            // lv.1: setHealth
             target.health = newHealth
             if (target.health == newHealth || HexOPConfig.TrulyHurtLevel() < 2) return
+
+            // lv.2: simple replace nbt
             val nbt = CompoundTag()
             target.save(nbt)
             for (key in ArrayList(nbt.allKeys)) {
@@ -66,9 +72,15 @@ object EntityHealthAccessors : IEntityHealthAccessor<Entity> {
                 if (tagHealth == target.health) {
                     if (sub is DoubleTag) nbt.putDouble(key, newHealth.toDouble())
                     else nbt.putFloat(key, newHealth)
+                    target.readAdditionalSaveData(nbt)
+                    if (target.health == newHealth) break
+                    else nbt.put(key, sub)
                 }
             }
-            target.load(nbt)
+            if (target.health == newHealth || HexOPConfig.TrulyHurtLevel() < 3) return
+
+            // lv.4: coming soon
+            throw RuntimeException("Living entity ${target}(class=${target.javaClass.name}) bypasses all mechanics; $CONTACT_ME")
         }
     }
 
@@ -83,10 +95,11 @@ object EntityHealthAccessors : IEntityHealthAccessor<Entity> {
         }
 
         override fun setHealth(target: Entity, newHealth: Float, caster: LivingEntity?) {
-            val deltaDamage = (getHealth(target) - newHealth) / DMG_SCALE + EXTRA_DMG_FOR_BREAK
+            var deltaDamage = (getHealthT(target) - newHealth) / DMG_SCALE
+            if (newHealth <= 0) deltaDamage += EXTRA_DMG_FOR_BREAK
             target.hurt(GetOvercastSource(target, caster), deltaDamage)
-            if (getHealth(target) <= newHealth || HexOPConfig.TrulyHurtLevel() < 1) return
-            throw RuntimeException("Vehicle entity ${target}(class=${target.javaClass.name}) immune to overcast damage; contact the author for further TrulyHurt support :3")
+            if (getHealthT(target) <= newHealth || HexOPConfig.TrulyHurtLevel() < 1) return
+            throw RuntimeException("Vehicle entity ${target}(class=${target.javaClass.name}) immune to overcast damage; $CONTACT_ME")
         }
     }
 }

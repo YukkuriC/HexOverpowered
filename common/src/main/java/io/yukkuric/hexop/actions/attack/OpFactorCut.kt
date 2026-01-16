@@ -51,7 +51,7 @@ object OpFactorCut : ConstMediaAction {
         val target = args.getEntity(0, args.size)
         if (!EntityHealthAccessors.validate(target))
             throw MishapInvalidIota.ofType(args[0], args.size - 1, "entity.living")
-        val healthAsInt = EntityHealthAccessors.getHealth(target).toInt()
+        val healthAsInt = EntityHealthAccessors.getHealthT(target).toInt()
 
         // query health
         if (args.size == 1) {
@@ -109,7 +109,8 @@ object OpFactorCut : ConstMediaAction {
 
         // check first, execute later like spell actions
         if (env.extractMedia(mediaCost, true) > 0) throw MishapNotEnoughMedia(mediaCost)
-        EntityHealthAccessors.setHealth(target, newHealth.toFloat(), env.castingEntity)
+        EntityHealthAccessors.setHealthT(target, newHealth.toFloat(), env.castingEntity)
+        newHealth = EntityHealthAccessors.getHealthT(target).toInt()
         for (pair in sprays) {
             pair.first.sprayParticles(env.world, pair.second)
         }
