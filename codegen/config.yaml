@@ -48,39 +48,51 @@
   side: common
 - name: TrulyHurtLevel
   type: int
-  default: 1, 0, 1
+  default: 2, 0, 2
   category: Pattern
-  descrip: level 1 enables extra `setHealth` method call
+  descrip: level 1 enables extra `setHealth` method call;\nlevel 2 adds saved data searching & replacing if lv.1 failed
   side: common
 - name: EnablesFactorCutSpell
   type: boolean
   default: 'true'
-  category: Pattern
+  category: Pattern.FactorCut
   descrip: if not, Factor Cut pattern will be disabled
   side: common
 - name: FactorCutPrimeCost
   type: int
   default: 10000, 0, Integer.MAX_VALUE
-  category: Pattern
+  category: Pattern.FactorCut
   descrip: const cost for prime factors (in 1e-4 dust)
   side: common
 - name: FactorCutNonPrimeCostScale
   type: int
   default: 50000, 0, Integer.MAX_VALUE
-  category: Pattern
+  category: Pattern.FactorCut
   descrip: const cost for non-prime factors (multiplied by the factor itself, in 1e-4 dust)
   side: common
 - name: FactorCutFallbackCost
   type: int
   default: 50001, 0, Integer.MAX_VALUE
-  category: Pattern
+  category: Pattern.FactorCut
   descrip: cost for the fallback hurt-1 action (in 1e-4 dust)
   side: common
 - name: FactorCutRandomMode
   type: boolean
   default: 'false'
-  category: Pattern
+  category: Pattern.FactorCut
   descrip: target's health gets extra random reduction after each successful division
+  side: common
+- name: FactorCutMinimumFactor
+  type: int
+  default: 2, 2, Integer.MAX_VALUE
+  category: Pattern.FactorCut
+  descrip: minimum factor usable for division; factors less than this (if not equal to target health) will be denied
+  side: common
+- name: FactorCutKillingBlowLine
+  type: int
+  default: 1, 0, Integer.MAX_VALUE
+  category: Pattern.FactorCut
+  descrip: entities with health under hou many points can be wiped for free
   side: common
 - name: EnablesPersonalMediaPool
   type: boolean

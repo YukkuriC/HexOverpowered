@@ -11,9 +11,9 @@ import at.petrak.hexcasting.api.spell.mishaps.MishapDisallowedSpell
 import at.petrak.hexcasting.api.spell.mishaps.MishapInvalidIota
 import at.petrak.hexcasting.api.spell.mishaps.MishapNotEnoughArgs
 import io.yukkuric.hexop.HexOPConfig
-import io.yukkuric.hexop.helpers.AttackToTargetHealth
 import io.yukkuric.hexop.helpers.GetPigment
 import io.yukkuric.hexop.helpers.PrimeChecker
+import io.yukkuric.hexop.helpers.attack.EntityHealthAccessors
 import net.minecraft.world.item.DyeColor
 import net.minecraft.world.phys.Vec3
 import kotlin.math.acos
@@ -46,8 +46,10 @@ object OpFactorCut : ConstMediaAction {
     private val sprayDirections = listOf(1.5, -1.0)
     override fun execute(args: List<Iota>, ctx: CastingContext): List<Iota> {
         val env = ctx
-        val target = args.getLivingEntityButNotArmorStand(0, args.size)
-        val healthAsInt = target.health.toInt()
+        val target = args.getEntity(0, args.size)
+        if (!EntityHealthAccessors.validate(target))
+            throw MishapInvalidIota.ofType(args[0], args.size - 1, "entity.living")
+        val healthAsInt = EntityHealthAccessors.getHealthT(target).toInt()
 
         // query health
         if (args.size == 1) {
@@ -58,13 +60,12 @@ object OpFactorCut : ConstMediaAction {
         val factor = args.getInt(1, args.size)
         var newHealth: Int = healthAsInt
         val sprays = mutableListOf<Pair<ParticleSpray, FrozenColorizer>>()
-        val srcPos = target.position()
         val centerPos = target.position().add(0.0, target.boundingBox.ysize / 2, 0.0)
         // pick random dir
         val theta = acos(2 * Math.random() - 1)
         val phi = 2 * Math.PI * Math.random()
         val deltaVec = Vec3(sin(theta) * cos(phi), sin(theta) * sin(phi), cos(theta))
-        if (healthAsInt <= 1) {
+        if (healthAsInt <= HexOPConfig.FactorCutKillingBlowLine()) {
             newHealth = 0
             mediaCostResult = 0
             for (scale in sprayDirections) {
@@ -77,6 +78,9 @@ object OpFactorCut : ConstMediaAction {
             }
             sprays.add(Pair(ParticleSpray.burst(centerPos, 1.0, 30), GetPigment(DyeColor.RED)))
         } else if (factor > 1 && healthAsInt % factor == 0) {
+            if (factor < HexOPConfig.FactorCutMinimumFactor() && factor != healthAsInt) {
+                throw MishapInvalidIota.of(args[1], 0, "big_factor", HexOPConfig.FactorCutMinimumFactor())
+            }
             newHealth = healthAsInt / factor
             val isPrime = PrimeChecker.isPrime(factor)
             mediaCostResult = if (isPrime) HexOPConfig.FactorCutPrimeCost()
@@ -106,7 +110,8 @@ object OpFactorCut : ConstMediaAction {
 
         // nope, 1.19 has no "simulate" drain
         // if (env.extractMedia(mediaCost, true) > 0) throw MishapNotEnoughMedia(mediaCost)
-        AttackToTargetHealth(target, newHealth.toFloat(), env.caster)
+        EntityHealthAccessors.setHealthT(target, newHealth.toFloat(), env.caster)
+        newHealth = EntityHealthAccessors.getHealthT(target).toInt()
         for (pair in sprays) {
             pair.first.sprayParticles(env.world, pair.second)
         }

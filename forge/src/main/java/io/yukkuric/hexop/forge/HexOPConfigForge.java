@@ -57,6 +57,12 @@ public class HexOPConfigForge implements API {
     public boolean FactorCutRandomMode() {
         return cfg_FactorCutRandomMode.get();
     }
+    public int FactorCutMinimumFactor() {
+        return cfg_FactorCutMinimumFactor.get();
+    }
+    public int FactorCutKillingBlowLine() {
+        return cfg_FactorCutKillingBlowLine.get();
+    }
     public boolean EnablesPersonalMediaPool() {
         return cfg_EnablesPersonalMediaPool.get();
     }
@@ -103,6 +109,8 @@ public class HexOPConfigForge implements API {
             cfg_FactorCutPrimeCost,
             cfg_FactorCutNonPrimeCostScale,
             cfg_FactorCutFallbackCost,
+            cfg_FactorCutMinimumFactor,
+            cfg_FactorCutKillingBlowLine,
             cfg_PersonalMediaMax,
             cfg_PersonalMediaRegenStep,
             cfg_PersonalMediaRegenInterval;
@@ -131,12 +139,19 @@ public class HexOPConfigForge implements API {
         builder.push("Pattern");
         cfg_EnablesChargeMediaAction = builder.comment(desc_EnablesChargeMediaAction).define("EnablesChargeMediaAction", true);
         cfg_EnablesMindEnvActions = builder.comment(desc_EnablesMindEnvActions).define("EnablesMindEnvActions", true);
-        cfg_TrulyHurtLevel = builder.comment(desc_TrulyHurtLevel).defineInRange("TrulyHurtLevel", 1, 0, 1);
+        cfg_TrulyHurtLevel = builder.comment(desc_TrulyHurtLevel).defineInRange("TrulyHurtLevel", 2, 0, 2);
+        builder.pop();
+
+        builder.push("Pattern");
+        builder.push("FactorCut");
         cfg_EnablesFactorCutSpell = builder.comment(desc_EnablesFactorCutSpell).define("EnablesFactorCutSpell", true);
         cfg_FactorCutPrimeCost = builder.comment(desc_FactorCutPrimeCost).defineInRange("FactorCutPrimeCost", 10000, 0, Integer.MAX_VALUE);
         cfg_FactorCutNonPrimeCostScale = builder.comment(desc_FactorCutNonPrimeCostScale).defineInRange("FactorCutNonPrimeCostScale", 50000, 0, Integer.MAX_VALUE);
         cfg_FactorCutFallbackCost = builder.comment(desc_FactorCutFallbackCost).defineInRange("FactorCutFallbackCost", 50001, 0, Integer.MAX_VALUE);
         cfg_FactorCutRandomMode = builder.comment(desc_FactorCutRandomMode).define("FactorCutRandomMode", false);
+        cfg_FactorCutMinimumFactor = builder.comment(desc_FactorCutMinimumFactor).defineInRange("FactorCutMinimumFactor", 2, 2, Integer.MAX_VALUE);
+        cfg_FactorCutKillingBlowLine = builder.comment(desc_FactorCutKillingBlowLine).defineInRange("FactorCutKillingBlowLine", 1, 0, Integer.MAX_VALUE);
+        builder.pop();
         builder.pop();
 
         builder.push("Personal Media");
