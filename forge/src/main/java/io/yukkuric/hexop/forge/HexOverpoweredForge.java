@@ -21,7 +21,6 @@ import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.EntityAttributeModificationEvent;
 import net.minecraftforge.event.entity.EntityJoinLevelEvent;
 import net.minecraftforge.event.server.ServerStartingEvent;
-import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
@@ -37,14 +36,14 @@ public final class HexOverpoweredForge extends HexOverpowered {
         });
         evBus.addListener((ServerStartingEvent event) -> OpScheduleCall.ResetQueue(event.getServer()));
 
-        if (isModLoaded("hexal")) {
+        if (HexOverpowered.IsModLoaded("hexal")) {
             evBus.addGenericListener(BlockEntity.class, (AttachCapabilitiesEvent<BlockEntity> e) -> {
                 var o = e.getObject();
                 if (!(o instanceof BlockEntityMediafiedStorage be)) return;
                 e.addCapability(ID_NEXUS_INVENTORY, new NexusItemCap.Provider(be));
             });
         }
-        if (isModLoaded("mekanism")) {
+        if (HexOverpowered.IsModLoaded("mekanism")) {
             evBus.addGenericListener(ItemStack.class, (AttachCapabilitiesEvent<ItemStack> e) -> {
                 var stack = e.getObject();
                 if (!(stack.getItem() instanceof ItemMekaSuitArmor)) return;
@@ -71,10 +70,5 @@ public final class HexOverpoweredForge extends HexOverpowered {
 
         var ctx = ModLoadingContext.get();
         HexOPConfigForge.register(ctx);
-    }
-
-    @Override
-    protected boolean isModLoaded(String id) {
-        return ModList.get().isLoaded(id);
     }
 }
