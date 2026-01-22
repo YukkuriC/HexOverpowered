@@ -3,6 +3,7 @@
   "package": "io.yukkuric.hexop.mixin",
   "compatibilityLevel": "JAVA_17",
   "minVersion": "0.8",
+  "plugin": "io.yukkuric.hexop.mixin_interface.HexOPMixinPlugin",
   "client": [
   ],
   "mixins": [

@@ -6,7 +6,6 @@ import at.petrak.hexcasting.api.spell.iota.Iota;
 import at.petrak.hexcasting.api.spell.math.HexPattern;
 import com.mojang.datafixers.util.Either;
 import io.yukkuric.hexop.HexOPConfig;
-import io.yukkuric.hexop.HexOPInteropEntries;
 import miyucomics.hexcellular.PropertyIota;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -19,7 +18,7 @@ import java.util.List;
 public class MixinEvaluatableJudge {
     @Inject(method = "evaluatable", at = @At("HEAD"), cancellable = true, remap = false)
     private static void PropertyEvaluatable(Iota datum, int reverseIdx, CallbackInfoReturnable<Either<HexPattern, SpellList>> cir) {
-        if (!HexOPInteropEntries.getHexcellularLoaded().getValue() || !HexOPConfig.ExecutablePropertyIota()) return;
+        if (!HexOPConfig.ExecutablePropertyIota()) return;
         if (!(datum instanceof PropertyIota prop)) return;
         cir.setReturnValue(Either.right(new SpellList.LList(List.of(prop))));
     }

@@ -10,7 +10,6 @@ import at.petrak.hexcasting.api.spell.iota.ListIota;
 import at.petrak.hexcasting.api.spell.mishaps.MishapUnescapedValue;
 import at.petrak.hexcasting.common.lib.hex.HexEvalSounds;
 import io.yukkuric.hexop.HexOPConfig;
-import io.yukkuric.hexop.HexOPInteropEntries;
 import miyucomics.hexcellular.PropertyIota;
 import miyucomics.hexcellular.StateStorage;
 import net.minecraft.server.level.ServerLevel;
@@ -26,7 +25,7 @@ import java.util.List;
 public class MixinHarnessExecuteProperty {
     @Inject(method = "getUpdate", at = @At("RETURN"), remap = false, cancellable = true)
     void hookExecutePattern(Iota iota, ServerLevel world, SpellContinuation continuation, CallbackInfoReturnable<CastingHarness.CastResult> cir) {
-        if (!HexOPInteropEntries.getHexcellularLoaded().getValue() || !HexOPConfig.ExecutablePropertyIota()) return;
+        if (!HexOPConfig.ExecutablePropertyIota()) return;
         if (!(iota instanceof PropertyIota prop)) return;
         var oldResult = cir.getReturnValue();
         // not working if no mishap
