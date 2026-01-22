@@ -6,7 +6,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
 
-public abstract class HexOverpowered {
+public class HexOverpowered {
     public HexOverpowered() {
         INSTANCE = this;
         HexOPActions.keepAlive();
@@ -18,14 +18,12 @@ public abstract class HexOverpowered {
     protected static ResourceLocation ID_NEXUS_INVENTORY = new ResourceLocation("hexop:nexus_inv");
     protected static ResourceLocation ID_MEKASUIT_MEDIA_POOL = new ResourceLocation("hexop:mekasuit_media");
 
-    protected abstract boolean isModLoaded(String id);
-
     public static ResourceLocation opModLoc(String path) {
         return new ResourceLocation(MOD_ID, path);
     }
 
     public static boolean IsModLoaded(String id) {
-        return INSTANCE.isModLoaded(id);
+        return HexOPXPlat.INSTANCE.isModLoaded(id);
     }
     public static boolean IsFakePlayer(Player target) {
         // whitelist-ed
