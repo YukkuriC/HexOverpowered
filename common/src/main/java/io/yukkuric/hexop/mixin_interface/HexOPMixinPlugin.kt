@@ -1,15 +1,25 @@
 package io.yukkuric.hexop.mixin_interface
 
-import io.yukkuric.hexop.HexOverpowered
 import org.objectweb.asm.tree.ClassNode
 import org.spongepowered.asm.mixin.extensibility.IMixinConfigPlugin
 import org.spongepowered.asm.mixin.extensibility.IMixinInfo
 
 class HexOPMixinPlugin : IMixinConfigPlugin {
-    private val modCheckTargets = listOf("hexcellular", "hexal")
+    private val modCheckTargets = mapOf(
+        Pair("hexcellular", "miyucomics.hexcellular.PropertyIota"),
+        Pair("hexal", "ram.talia.hexal.common.blocks.entity.BlockEntityMediafiedStorage")
+    )
+
     override fun shouldApplyMixin(targetCls: String, mixinCls: String): Boolean {
-        for (modid in modCheckTargets) if (mixinCls.contains(modid) && !HexOverpowered.IsModLoaded(modid)) return false
+        for (modid in modCheckTargets) if (mixinCls.contains(modid.key) && !classExists(modid.value)) return false
         return true
+    }
+
+    private fun classExists(path: String): Boolean {
+        val resourcePath = path.replace('.', '/') + ".class"
+        val classLoader = Thread.currentThread().contextClassLoader
+        val resource = classLoader.getResource(resourcePath)
+        return resource != null
     }
 
     override fun getRefMapperConfig() = null
