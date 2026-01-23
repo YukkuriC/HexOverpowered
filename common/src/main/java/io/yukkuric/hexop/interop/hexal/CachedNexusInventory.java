@@ -1,4 +1,4 @@
-package io.yukkuric.hexop.hexal;
+package io.yukkuric.hexop.interop.hexal;
 
 import io.yukkuric.hexop.HexOPConfig;
 import net.minecraft.world.item.ItemStack;
@@ -11,7 +11,7 @@ import java.lang.reflect.Field;
 import java.util.List;
 import java.util.Map;
 
-import static io.yukkuric.hexop.hexal.CompressedChestMenu.UI_VISIBLE_SLOTS;
+import static io.yukkuric.hexop.interop.hexal.CompressedChestMenu.UI_VISIBLE_SLOTS;
 
 public class CachedNexusInventory implements AutoCloseable {
     protected final BlockEntityMediafiedStorage source;
