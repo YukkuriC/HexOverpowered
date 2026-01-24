@@ -91,6 +91,9 @@ public class HexOPConfig {
     public static boolean ExecutablePropertyIota() {
         return imp.ExecutablePropertyIota();
     }
+    public static boolean EnablesArtifactIO() {
+        return imp.EnablesArtifactIO();
+    }
     public interface API {
         String desc_RevealsHexInsideCastingItems = "Displays the hex inside readonly casting items; working client-side";
         String desc_EnablesMoteItemHandler = "Enables item IO without casting patterns";
@@ -119,6 +122,7 @@ public class HexOPConfig {
         String desc_AmethystCircleSingleChargeCost = "each time media reduces for crystal growth passing a budding block";
         String desc_AmethystCircleFullPowerLevel = "max possible charging level of the wave: growth strength = min(this, wave total media / single cost)";
         String desc_ExecutablePropertyIota = "making property iotas directly execute what's inside when themselves executed";
+        String desc_EnablesArtifactIO = "Makes artifacts directly read/writeable via HexParse methods; requires restart for changes to apply.";
 
         boolean RevealsHexInsideCastingItems();
         boolean EnablesMoteItemHandler();
@@ -147,5 +151,6 @@ public class HexOPConfig {
         int AmethystCircleSingleChargeCost();
         int AmethystCircleFullPowerLevel();
         boolean ExecutablePropertyIota();
+        boolean EnablesArtifactIO();
     }
 }

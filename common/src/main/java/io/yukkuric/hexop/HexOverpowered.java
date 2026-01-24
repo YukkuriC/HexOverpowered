@@ -1,17 +1,23 @@
 package io.yukkuric.hexop;
 
 import at.petrak.hexcasting.api.misc.MediaConstants;
+import com.mojang.logging.LogUtils;
+import io.yukkuric.hexop.interop.hexparse.HexParseInteropEntry;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
+import org.slf4j.Logger;
 
 public class HexOverpowered {
     public HexOverpowered() {
         INSTANCE = this;
+        // common init
+        if (IsModLoaded("hexparse")) HexParseInteropEntry.init();
     }
 
     public static final String MOD_ID = "hexoverpowered";
     public static HexOverpowered INSTANCE;
+    public static final Logger LOGGER = LogUtils.getLogger();
 
     protected static ResourceLocation ID_NEXUS_INVENTORY = new ResourceLocation("hexop:nexus_inv");
     protected static ResourceLocation ID_MEKASUIT_MEDIA_POOL = new ResourceLocation("hexop:mekasuit_media");

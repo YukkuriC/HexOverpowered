@@ -1,6 +1,6 @@
 package io.yukkuric.hexop.forge.hexal;
 
-import io.yukkuric.hexop.hexal.CachedNexusInventory;
+import io.yukkuric.hexop.interop.hexal.CachedNexusInventory;
 import net.minecraft.core.Direction;
 import net.minecraftforge.common.capabilities.*;
 import net.minecraftforge.common.util.LazyOptional;
