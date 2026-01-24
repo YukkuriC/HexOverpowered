@@ -70,6 +70,8 @@ public class HexOPConfigFabric implements ConfigData {
         private boolean FiresPersonalMediaEvents = true;
         @Comment("<Property> " + desc_ExecutablePropertyIota)
         private boolean ExecutablePropertyIota = true;
+        @Comment("<HexParse> " + desc_EnablesArtifactIO)
+        private boolean EnablesArtifactIO = true;
 
         public boolean RevealsHexInsideCastingItems() {
             return RevealsHexInsideCastingItems;
@@ -142,6 +144,9 @@ public class HexOPConfigFabric implements ConfigData {
         }
         public boolean ExecutablePropertyIota() {
             return ExecutablePropertyIota;
+        }
+        public boolean EnablesArtifactIO() {
+            return EnablesArtifactIO;
         }
     }
 }

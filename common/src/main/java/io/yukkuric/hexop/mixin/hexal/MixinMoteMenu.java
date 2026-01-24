@@ -1,8 +1,8 @@
 package io.yukkuric.hexop.mixin.hexal;
 
 import io.yukkuric.hexop.HexOPConfig;
-import io.yukkuric.hexop.hexal.CachedNexusInventory;
-import io.yukkuric.hexop.hexal.CompressedChestMenu;
+import io.yukkuric.hexop.interop.hexal.CachedNexusInventory;
+import io.yukkuric.hexop.interop.hexal.CompressedChestMenu;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.*;

@@ -1,4 +1,4 @@
-package io.yukkuric.hexop.hexal;
+package io.yukkuric.hexop.interop.hexal;
 
 import net.minecraft.world.Container;
 import net.minecraft.world.entity.player.Inventory;

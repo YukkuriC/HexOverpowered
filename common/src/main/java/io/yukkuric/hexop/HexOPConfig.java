@@ -82,6 +82,9 @@ public class HexOPConfig {
     public static boolean ExecutablePropertyIota() {
         return imp.ExecutablePropertyIota();
     }
+    public static boolean EnablesArtifactIO() {
+        return imp.EnablesArtifactIO();
+    }
     public interface API {
         String desc_RevealsHexInsideCastingItems = "Displays the hex inside readonly casting items; working client-side";
         String desc_EnablesMoteItemHandler = "Enables item IO without casting patterns";
@@ -107,6 +110,7 @@ public class HexOPConfig {
         String desc_PersonalMediaAfterEnlightened = "Only activates personal media bar after enlightened";
         String desc_FiresPersonalMediaEvents = "Triggers events when personal media pool changed";
         String desc_ExecutablePropertyIota = "making property iotas directly execute what's inside when themselves executed";
+        String desc_EnablesArtifactIO = "Makes artifacts directly read/writeable via HexParse methods; requires restart for changes to apply.";
 
         boolean RevealsHexInsideCastingItems();
         boolean EnablesMoteItemHandler();
@@ -132,5 +136,6 @@ public class HexOPConfig {
         boolean PersonalMediaAfterEnlightened();
         boolean FiresPersonalMediaEvents();
         boolean ExecutablePropertyIota();
+        boolean EnablesArtifactIO();
     }
 }

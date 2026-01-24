@@ -87,6 +87,9 @@ public class HexOPConfigForge implements API {
     public boolean ExecutablePropertyIota() {
         return cfg_ExecutablePropertyIota.get();
     }
+    public boolean EnablesArtifactIO() {
+        return cfg_EnablesArtifactIO.get();
+    }
 
     public ForgeConfigSpec.BooleanValue
             cfg_RevealsHexInsideCastingItems,
@@ -103,7 +106,8 @@ public class HexOPConfigForge implements API {
             cfg_FakePlayerDontRegenMedia,
             cfg_PersonalMediaAfterEnlightened,
             cfg_FiresPersonalMediaEvents,
-            cfg_ExecutablePropertyIota;
+            cfg_ExecutablePropertyIota,
+            cfg_EnablesArtifactIO;
     public ForgeConfigSpec.IntValue
             cfg_TrulyHurtLevel,
             cfg_FactorCutPrimeCost,
@@ -166,6 +170,10 @@ public class HexOPConfigForge implements API {
 
         builder.push("Property");
         cfg_ExecutablePropertyIota = builder.comment(desc_ExecutablePropertyIota).define("ExecutablePropertyIota", true);
+        builder.pop();
+
+        builder.push("HexParse");
+        cfg_EnablesArtifactIO = builder.comment(desc_EnablesArtifactIO).define("EnablesArtifactIO", true);
         builder.pop();
 
         builder.push("MekaSuit");

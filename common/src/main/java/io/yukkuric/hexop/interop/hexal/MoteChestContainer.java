@@ -1,10 +1,10 @@
-package io.yukkuric.hexop.hexal;
+package io.yukkuric.hexop.interop.hexal;
 
 import net.minecraft.world.Container;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 
-import static io.yukkuric.hexop.hexal.CompressedChestMenu.UI_VISIBLE_SLOTS;
+import static io.yukkuric.hexop.interop.hexal.CompressedChestMenu.UI_VISIBLE_SLOTS;
 
 public class MoteChestContainer implements Container {
     final Container parent;

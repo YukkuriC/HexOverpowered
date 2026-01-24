@@ -1,7 +1,7 @@
 package io.yukkuric.hexop.mixin.hexal;
 
-import io.yukkuric.hexop.hexal.CachedNexusInventory;
-import io.yukkuric.hexop.hexal.MoteChestContainer;
+import io.yukkuric.hexop.interop.hexal.CachedNexusInventory;
+import io.yukkuric.hexop.interop.hexal.MoteChestContainer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.Container;
 import net.minecraft.world.entity.player.Player;

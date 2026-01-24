@@ -1,4 +1,4 @@
-package io.yukkuric.hexop.forge.mekanism;
+package io.yukkuric.hexop.forge.interop.mekanism;
 
 import at.petrak.hexcasting.api.addldata.ADMediaHolder;
 import io.yukkuric.hexop.forge.HexOPConfigForge;
