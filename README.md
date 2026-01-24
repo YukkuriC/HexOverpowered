@@ -60,6 +60,8 @@ _note: all features that currently can't be turned off are marked with `☆`_
     -   `☆` item handler for mote nexus
         -   supports interaction with hoppers, AE/RS, etc.
         -   optional GUI to display (first 6x9) mote entries
+-   HexParse interop
+    -   makes artifacts read/writeable via HexParse methods
 
 ## Forge Exclusive
 

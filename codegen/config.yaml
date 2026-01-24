@@ -160,6 +160,13 @@
   category: Property
   descrip: "making property iotas directly execute what's inside when themselves executed"
   side: common
+- name: EnablesArtifactIO
+  type: boolean
+  default: 'true'
+  category: HexParse
+  descrip: Makes artifacts directly read/writeable via HexParse methods; requires restart for changes to apply.
+  side: common
+
 - name: MekasuitConversionRatio
   type: double
   default: 1, 0, 1e10
