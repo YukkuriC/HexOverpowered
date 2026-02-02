@@ -3,10 +3,12 @@ package io.yukkuric.hexop.helpers.attack
 import at.petrak.hexcasting.api.casting.mishaps.Mishap
 import io.yukkuric.hexop.HexOPConfig
 import io.yukkuric.hexop.helpers.GetOvercastSource
+import net.minecraft.advancements.CriteriaTriggers
 import net.minecraft.nbt.CompoundTag
 import net.minecraft.nbt.DoubleTag
 import net.minecraft.nbt.FloatTag
 import net.minecraft.network.chat.Component
+import net.minecraft.server.level.ServerPlayer
 import net.minecraft.world.entity.Entity
 import net.minecraft.world.entity.LivingEntity
 import net.minecraft.world.entity.vehicle.AbstractMinecart
@@ -41,7 +43,16 @@ object EntityHealthAccessors : IEntityHealthAccessor<Entity> {
     @Synchronized
     override fun setHealth(target: Entity, newHealth: Float, caster: LivingEntity?) {
         if (!validate(target)) return
-        return _selected.setHealthT(target, newHealth, caster)
+        val oldAlive = target.isAlive
+        val ret = _selected.setHealthT(target, newHealth, caster)
+        if (caster is ServerPlayer) {
+            if (oldAlive && !target.isAlive) CriteriaTriggers.PLAYER_KILLED_ENTITY.trigger(
+                caster,
+                target,
+                GetOvercastSource(target, caster)
+            )
+        }
+        return ret
     }
 
     private fun sendContactMessage(caster: LivingEntity?, message: String) {
