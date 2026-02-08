@@ -1,14 +1,15 @@
 package io.yukkuric.hexop.helpers.attack
 
-import at.petrak.hexcasting.api.casting.mishaps.Mishap
 import io.yukkuric.hexop.HexOPConfig
 import io.yukkuric.hexop.helpers.GetOvercastSource
+import io.yukkuric.hexop.mixin.accessor.AccessorLivingEntity
 import net.minecraft.advancements.CriteriaTriggers
 import net.minecraft.nbt.CompoundTag
 import net.minecraft.nbt.DoubleTag
 import net.minecraft.nbt.FloatTag
 import net.minecraft.network.chat.Component
 import net.minecraft.server.level.ServerPlayer
+import net.minecraft.world.damagesource.DamageSource
 import net.minecraft.world.entity.Entity
 import net.minecraft.world.entity.LivingEntity
 import net.minecraft.world.entity.vehicle.AbstractMinecart
@@ -43,16 +44,7 @@ object EntityHealthAccessors : IEntityHealthAccessor<Entity> {
     @Synchronized
     override fun setHealth(target: Entity, newHealth: Float, caster: LivingEntity?) {
         if (!validate(target)) return
-        val oldAlive = target.isAlive
-        val ret = _selected.setHealthT(target, newHealth, caster)
-        if (caster is ServerPlayer) {
-            if (oldAlive && !target.isAlive) CriteriaTriggers.PLAYER_KILLED_ENTITY.trigger(
-                caster,
-                target,
-                GetOvercastSource(target, caster)
-            )
-        }
-        return ret
+        return _selected.setHealthT(target, newHealth, caster)
     }
 
     private fun sendContactMessage(caster: LivingEntity?, message: String) {
@@ -64,16 +56,31 @@ object EntityHealthAccessors : IEntityHealthAccessor<Entity> {
         override fun validate(target: Entity) = target is LivingEntity
         override fun getHealth(target: LivingEntity) = target.health
         override fun setHealth(target: LivingEntity, newHealth: Float, caster: LivingEntity?) {
-            Mishap.trulyHurt(
-                target,
-                GetOvercastSource(target, caster),
-                target.health - newHealth
-            )
-            if (target.health <= newHealth || HexOPConfig.TrulyHurtLevel() < 1) return
+            val oldAlive = target.isAlive
+            val dmgSrc = GetOvercastSource(target, caster)
+            val usedLevel = setHealthInner(target, newHealth, dmgSrc)
+            if (usedLevel > 0 && oldAlive && !target.isAlive) {
+                if (caster is ServerPlayer) CriteriaTriggers.PLAYER_KILLED_ENTITY.trigger(
+                    caster,
+                    target,
+                    GetOvercastSource(target, caster)
+                )
+                (target as AccessorLivingEntity).callDropAllDeathLoot(dmgSrc);
+            }
+        }
+
+        private fun setHealthInner(
+            target: LivingEntity,
+            newHealth: Float,
+            dmgSrc: DamageSource
+        ): Int {
+            target.invulnerableTime = 0
+            target.hurt(dmgSrc, target.health - newHealth)
+            if (target.health <= newHealth || HexOPConfig.TrulyHurtLevel() < 1) return 0
 
             // lv.1: setHealth
             target.health = newHealth
-            if (target.health <= newHealth || HexOPConfig.TrulyHurtLevel() < 2) return
+            if (target.health <= newHealth || HexOPConfig.TrulyHurtLevel() < 2) return 1
 
             // lv.2: simple replace nbt
             val nbt = CompoundTag()
@@ -91,9 +98,10 @@ object EntityHealthAccessors : IEntityHealthAccessor<Entity> {
                 }
             }
             target.readAdditionalSaveData(nbt)
-            if (target.health <= newHealth || HexOPConfig.TrulyHurtLevel() < 3) return
+            if (target.health <= newHealth || HexOPConfig.TrulyHurtLevel() < 3) return 2
 
             // lv.3: coming soon
+            return 999
         }
     }
 

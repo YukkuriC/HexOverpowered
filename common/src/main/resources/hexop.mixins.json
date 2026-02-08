@@ -13,6 +13,7 @@
     "VisiblePackagedHex",
     "accessor.AccessorCastingEnvironment",
     "accessor.AccessorDamageSources",
+    "accessor.AccessorLivingEntity",
     "accessor.AccessorMishap",
     "circle.AmethystCircle",
     "hexal.MixinMoteContainer",
