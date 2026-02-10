@@ -11,7 +11,8 @@ as the name reveals, this mod contains some OP stuff for Hex Casting
 
 ## General
 
-_note: all features that currently can't be turned off are marked with `☆`_
+_note: all features that currently can't be turned off are marked with `☆`_  
+_note 2: features which are controlled by `hexoverpowered-mixin.ini` rather than `hexoverpowered-common.toml` are marked with `△`, editing which requires a full restart for changes to apply_
 
 - displays spell inside casting items (ItemPackagedHex)
 - disables item dropping of certain mishaps
@@ -58,7 +59,7 @@ _note: all features that currently can't be turned off are marked with `☆`_
 - Hexcellular interop
     - executable PropertyIota
 - Hexal interop
-    - `☆` item handler for mote nexus
+    - `△` item handler for mote nexus
         - supports interaction with hoppers, AE/RS, etc.
         - optional GUI to display (first 6x9) mote entries
 - HexParse interop
@@ -67,4 +68,4 @@ _note: all features that currently can't be turned off are marked with `☆`_
 ## Forge Exclusive
 
 - Mekanism interop
-    - `☆` use MekaSuit's battery as media provider
+    - `△` use MekaSuit's battery as media provider
