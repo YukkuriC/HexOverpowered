@@ -104,7 +104,7 @@ object OpFactorCut : ConstMediaAction {
                     )
                 )
             }
-        } else throw MishapInvalidIota.of(args[1], 0, "divisor")
+        } else throw MishapInvalidIota.of(args[1], 0, "divisor", healthAsInt)
         // random reduction
         if (HexOPConfig.FactorCutRandomMode() && Math.random() < 0.5 && newHealth > 0) newHealth--
 

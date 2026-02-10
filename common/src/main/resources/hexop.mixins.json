@@ -11,6 +11,7 @@
     "SuperPlayerIota",
     "TeleportVehicles",
     "VisiblePackagedHex",
+    "accessor.AccessorLivingEntity",
     "accessor.AccessorMishap",
     "hexal.MixinMoteContainer",
     "hexal.MixinMoteMenu",
