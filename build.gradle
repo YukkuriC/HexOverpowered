@@ -69,6 +69,10 @@ subprojects {
         it.options.release = 17
     }
 
+    kotlin {
+        jvmToolchain(17)
+    }
+
     // Configure Maven publishing.
     publishing {
         publications {
