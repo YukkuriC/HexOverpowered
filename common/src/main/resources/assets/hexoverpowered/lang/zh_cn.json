@@ -10,7 +10,7 @@
   "hexcasting.action.hexoverpowered:mind_env/running_code": "拖延之精思",
   "hexcasting.action.hexoverpowered:mind_env/schedule": "拖延之策略",
   "hexcasting.mishap.invalid_value.entity_or_int": "一个实体或整数",
-  "hexcasting.mishap.invalid_value.divisor": "一个除数",
+  "hexcasting.mishap.invalid_value.divisor": "一个%d的因数",
   "hexcasting.mishap.invalid_value.big_factor": "一个不小于%d的因数",
   "hexop.mote.chest.title": "物元箱一瞥",
   "hexoverpowered.attr.personal_media": "个人媒质",

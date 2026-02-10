@@ -11,7 +11,8 @@ as the name reveals, this mod contains some OP stuff for Hex Casting
 
 ## General
 
-_note: all features that currently can't be turned off are marked with `☆`_
+_note: all features that currently can't be turned off are marked with `☆`_  
+_note 2: features which are controlled by `hexoverpowered-mixin.ini` rather than `hexoverpowered-common.toml` are marked with `△`, editing which requires a full restart for changes to apply_
 
 - displays spell inside casting items (ItemPackagedHex)
 - disables item dropping of certain mishaps
@@ -46,23 +47,25 @@ _note: all features that currently can't be turned off are marked with `☆`_
     - `Factor Cut`: a pattern to factorize enemy's health as integer with input number, with higher efficiency using prime factors
         - Usage 1: `living -> int` reads a living entity's health as an integer to be factorized and divided
             - with no cost `:3`
+            - health values too high will be limited to `2147483647`
         - Usage 2: `living, int -> int` divides it's health with given factor and returns the divided result, with various edge cases
             - specially destroys target with `<= 1` health for free
-            - if not divisible, attack 1 like a brainsweep mishap with cost without program flow break
+            - if input 1, attack 1 like a brainsweep mishap with cost without program flow break
             - prime divisor has constant cost while non-prime has linear scaled cost
+        - Also works on targets with registered in [`EntityHealthAccessors`](https://github.com/YukkuriC/HexOverpowered/blob/main/common/src/main/java/io/yukkuric/hexop/helpers/attack/EntityHealthAccessors.kt), with an example implementation of boats/minecarts
 
 ---
 
 - Hexcellular interop
     - executable PropertyIota
 - Hexal interop
-    - `☆` item handler for mote nexus
+    - item handler for mote nexus
         - supports interaction with hoppers, AE/RS, etc.
-        - optional GUI to display (first 6x9) mote entries
+        - `△` optional GUI to display (first 6x9) mote entries
 - HexParse interop
     - makes artifacts read/writeable via HexParse methods
 
 ## Forge Exclusive
 
 - Mekanism interop
-    - `☆` use MekaSuit's battery as media provider
+    - use MekaSuit's battery as media provider
