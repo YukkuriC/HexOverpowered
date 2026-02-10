@@ -10,7 +10,7 @@
   "hexcasting.action.hexoverpowered:mind_env/running_code": "Delay's Reflection",
   "hexcasting.action.hexoverpowered:mind_env/schedule": "Delay's Gambit",
   "hexcasting.mishap.invalid_value.entity_or_int": "an entity or an integer",
-  "hexcasting.mishap.invalid_value.divisor": "a divisor",
+  "hexcasting.mishap.invalid_value.divisor": "a divisor of %d",
   "hexcasting.mishap.invalid_value.big_factor": "a factor no less than %d",
   "hexop.mote.chest.title": "A Glance of the Mote Chest",
   "hexoverpowered.attr.personal_media": "Personal Media",
