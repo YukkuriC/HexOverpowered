@@ -59,13 +59,13 @@ _note 2: features which are controlled by `hexoverpowered-mixin.ini` rather than
 - Hexcellular interop
     - executable PropertyIota
 - Hexal interop
-    - `△` item handler for mote nexus
+    - item handler for mote nexus
         - supports interaction with hoppers, AE/RS, etc.
-        - optional GUI to display (first 6x9) mote entries
+        - `△` optional GUI to display (first 6x9) mote entries
 - HexParse interop
     - makes artifacts read/writeable via HexParse methods
 
 ## Forge Exclusive
 
 - Mekanism interop
-    - `△` use MekaSuit's battery as media provider
+    - use MekaSuit's battery as media provider
