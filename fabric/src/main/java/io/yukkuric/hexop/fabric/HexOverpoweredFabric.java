@@ -12,6 +12,8 @@ public final class HexOverpoweredFabric extends HexOverpowered implements ModIni
         ServerTickEvents.START_SERVER_TICK.register(OpScheduleCall::ProcessQueue);
         ServerLifecycleEvents.SERVER_STARTING.register(OpScheduleCall::ResetQueue);
         ServerEntityEvents.ENTITY_LOAD.register(HexOPAttributes::applyDefaultValues);
+
+        HexOPXPlatFabric.init();
     }
 
     public static void initSelfHook() {

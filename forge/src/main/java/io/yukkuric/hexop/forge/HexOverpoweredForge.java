@@ -80,5 +80,7 @@ public final class HexOverpoweredForge extends HexOverpowered {
 
         var ctx = ModLoadingContext.get();
         HexOPConfigForge.register(ctx);
+
+        HexOPXPlatForge.init();
     }
 }

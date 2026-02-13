@@ -19,6 +19,8 @@ import net.minecraft.world.entity.vehicle.Boat
 object EntityHealthAccessors : IEntityHealthAccessor<Entity> {
     private const val CONTACT_ME = "contact the author for further TrulyHurt support :3"
 
+    @JvmStatic
+    fun AddSub(sub: IEntityHealthAccessor<*>) = SUBS.add(sub)
     val SUBS = mutableListOf<IEntityHealthAccessor<*>>(
         LIVING,
         MINECART_BOAT,
