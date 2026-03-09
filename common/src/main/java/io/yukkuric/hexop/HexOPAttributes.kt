@@ -55,6 +55,10 @@ class HexOPAttributes {
     }
 
     class DynamicAttr(id: String, private val getDefault: () -> Double) : Attribute(id, 114514.0) {
-        override fun getDefaultValue() = getDefault()
+        override fun getDefaultValue() = try {
+            getDefault()
+        } catch (e: Throwable) {
+            super.getDefaultValue()
+        }
     }
 }
