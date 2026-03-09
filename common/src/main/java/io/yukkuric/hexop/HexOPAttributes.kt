@@ -7,9 +7,8 @@ import net.minecraft.resources.ResourceLocation
 import net.minecraft.server.level.ServerPlayer
 import net.minecraft.world.entity.Entity
 import net.minecraft.world.entity.ai.attributes.Attribute
-import net.minecraft.world.entity.ai.attributes.RangedAttribute
-import org.apache.logging.log4j.util.BiConsumer
 import net.minecraft.world.level.Level
+import org.apache.logging.log4j.util.BiConsumer
 
 class HexOPAttributes {
     companion object {
@@ -63,6 +62,10 @@ class HexOPAttributes {
     }
 
     class DynamicAttr(id: String, private val getDefault: () -> Double) : Attribute(id, 114514.0) {
-        override fun getDefaultValue() = getDefault()
+        override fun getDefaultValue() = try {
+            getDefault()
+        } catch (e: Throwable) {
+            super.getDefaultValue()
+        }
     }
 }
