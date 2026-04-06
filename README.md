@@ -5,7 +5,8 @@
 
 as the name reveals, this mod contains some OP stuff for Hex Casting
 
-[Online HexBook](https://yukkuric.github.io/HexOverpowered)
+[<img src="https://github.com/SamsTheNerd/HexGloop/blob/73ea39b3becd/externalassets/hexdoc-badgecozy.svg?raw=true" alt="A badge for hexdoc in the style of Devins Badges" width=180>](https://yukkuric.github.io/HexOverpowered)
+[<img src="https://github.com/SamsTheNerd/HexGloop/blob/73ea39b3becd/externalassets/addon-badge-cozy.svg?raw=true" alt="A badge for addons.hexxy.media in the style of Devins Badges" width=160>](https://addons.hexxy.media)
 
 ### WARNING: All features enabled by default, turn off those unwanted before playing, or create feature request issues [HERE](https://github.com/YukkuriC/HexOverpowered/issues) if not configurable
 
