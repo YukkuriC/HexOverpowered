@@ -1,5 +1,5 @@
 modLoader = "javafml"
-loaderVersion = "[47,)"
+loaderVersion = "[1,)"
 issueTrackerURL = "https://github.com/YukkuriC/HexOverpowered/issues"
 license = "MIT"
 
@@ -16,43 +16,32 @@ updateJSONURL = "https://api.modrinth.com/updates/PkhtCPsD/forge_updates.json"
 displayURL = "https://modrinth.com/project/hexoverpowered"
 
 [[dependencies.hexoverpowered]]
-modId = "forge"
-mandatory = true
-versionRange = "[47,)"
-ordering = "NONE"
-side = "BOTH"
-
-[[dependencies.hexoverpowered]]
 modId = "minecraft"
-mandatory = true
-versionRange = "[1.20.1,)"
+type = "required"
+versionRange = "[0,)"
 ordering = "NONE"
 side = "BOTH"
 
 [[dependencies.hexoverpowered]]
 modId = "hexcasting"
-mandatory = true
+type = "required"
 versionRange = "[0,)"
 ordering = "AFTER"
 side = "BOTH"
 
 [[dependencies.hexoverpowered]]
 modId = "hexal"
-mandatory = false
+type = "optional"
 versionRange = "[0,)"
 ordering = "AFTER"
 side = "BOTH"
 
 [[dependencies.hexoverpowered]]
 modId = "mekanism"
-mandatory = false
+type = "optional"
 versionRange = "[0,)"
 ordering = "AFTER"
 side = "BOTH"
 
-[[dependencies.hexoverpowered]]
-modId = "foo" # test for not exist dep
-mandatory = false
-versionRange = "[0,)"
-ordering = "AFTER"
-side = "BOTH"
+[[mixins]]
+config = "hexop.mixins.json"
