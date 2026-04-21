@@ -8,6 +8,7 @@ import net.minecraft.nbt.CompoundTag
 import net.minecraft.nbt.DoubleTag
 import net.minecraft.nbt.FloatTag
 import net.minecraft.network.chat.Component
+import net.minecraft.server.level.ServerLevel
 import net.minecraft.server.level.ServerPlayer
 import net.minecraft.world.damagesource.DamageSource
 import net.minecraft.world.entity.Entity
@@ -65,9 +66,9 @@ object EntityHealthAccessors : IEntityHealthAccessor<Entity> {
                 if (caster is ServerPlayer) CriteriaTriggers.PLAYER_KILLED_ENTITY.trigger(
                     caster,
                     target,
-                    GetOvercastSource(target, caster)
+                    dmgSrc
                 )
-                (target as AccessorLivingEntity).callDropAllDeathLoot(dmgSrc);
+                (target as AccessorLivingEntity).callDropAllDeathLoot(target.level() as ServerLevel, dmgSrc)
             }
         }
 

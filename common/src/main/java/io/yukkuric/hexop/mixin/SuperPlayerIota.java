@@ -1,25 +1,39 @@
 package io.yukkuric.hexop.mixin;
 
-import at.petrak.hexcasting.api.casting.iota.EntityIota;
-import at.petrak.hexcasting.api.casting.iota.IotaType;
-import com.llamalad7.mixinextras.sugar.Local;
+import at.petrak.hexcasting.api.casting.iota.*;
 import io.yukkuric.hexop.HexOPConfig;
-import net.minecraft.nbt.NbtUtils;
-import net.minecraft.nbt.Tag;
 import net.minecraft.server.level.ServerLevel;
-import org.spongepowered.asm.mixin.Mixin;
+import net.minecraft.world.entity.Entity;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+import org.spongepowered.asm.mixin.*;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-@Mixin(targets = {"at.petrak.hexcasting.api.casting.iota.EntityIota$1"})
-public abstract class SuperPlayerIota extends IotaType<EntityIota> {
-    @Inject(method = "deserialize(Lnet/minecraft/nbt/Tag;Lnet/minecraft/server/level/ServerLevel;)Lat/petrak/hexcasting/api/casting/iota/EntityIota;", at = @At("RETURN"), cancellable = true)
-    void hook(Tag tag, ServerLevel world, CallbackInfoReturnable<EntityIota> cir, @Local(ordinal = 1) Tag uuidTag) {
-        if (uuidTag == null || !HexOPConfig.TrueNameCrossDimension() || cir.getReturnValue() != null) return;
-        var players = world.getServer().getPlayerList();
-        var uuid = NbtUtils.loadUUID(uuidTag);
+import java.lang.ref.WeakReference;
+import java.util.UUID;
+import java.util.function.Supplier;
+
+@Mixin(EntityIota.class)
+public abstract class SuperPlayerIota extends Iota {
+    @Shadow
+    @Final
+    private UUID entityId;
+    @Shadow
+    private @Nullable WeakReference<Entity> cachedEntity;
+    protected SuperPlayerIota(@NotNull Supplier<IotaType<? extends Iota>> type) {
+        super(type);
+    }
+    @Inject(method = "getOrFindEntity", at = @At("RETURN"), cancellable = true)
+    void hook(ServerLevel level, CallbackInfoReturnable<Entity> cir) {
+        if (!HexOPConfig.TrueNameCrossDimension() || cir.getReturnValue() != null) return;
+        var players = level.getServer().getPlayerList();
+        var uuid = entityId;
         var tryPlayer = players.getPlayer(uuid);
-        if (tryPlayer != null) cir.setReturnValue(new EntityIota(tryPlayer));
+        if (tryPlayer != null) {
+            cachedEntity = new WeakReference<>(tryPlayer);
+            cir.setReturnValue(tryPlayer);
+        }
     }
 }
