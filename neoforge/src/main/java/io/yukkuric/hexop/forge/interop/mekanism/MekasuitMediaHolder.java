@@ -3,7 +3,6 @@ package io.yukkuric.hexop.forge.interop.mekanism;
 import at.petrak.hexcasting.api.addldata.ADMediaHolder;
 import io.yukkuric.hexop.forge.HexOPConfigForge;
 import mekanism.api.energy.IEnergyContainer;
-import mekanism.api.math.FloatingLong;
 import mekanism.common.util.StorageUtils;
 import net.minecraft.world.item.ItemStack;
 
@@ -14,9 +13,9 @@ public class MekasuitMediaHolder implements ADMediaHolder {
         source = StorageUtils.getEnergyContainer(target, 0);
     }
 
-    long Joule2Media(FloatingLong raw) {
-        var FE = raw.multiply(0.4); // j -> fe
-        return FE.multiply(HexOPConfigForge.MekasuitConversionRatio()).longValue();
+    long Joule2Media(long raw) {
+        var FE = raw * 0.4; // j -> fe
+        return (long) (FE * HexOPConfigForge.MekasuitConversionRatio());
     }
 
     @Override
@@ -34,8 +33,8 @@ public class MekasuitMediaHolder implements ADMediaHolder {
         var rate = HexOPConfigForge.MekasuitConversionRatio();
         if (rate <= 0) return;
         newVal = Math.max(0, newVal);
-        var FE = FloatingLong.create(newVal / rate);
-        source.setEnergy(FE.multiply(2.5)); // fe -> j
+        var FE = newVal / rate;
+        source.setEnergy((long) (FE * 2.5)); // fe -> j
     }
 
     @Override

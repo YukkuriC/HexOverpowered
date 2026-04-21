@@ -9,8 +9,8 @@ resource_dirs = [  # top takes priority
     { path="{$_common.src}/generated/resources", required=false },
     "{$_fabric.src}/main/resources",
     { path="{$_fabric.src}/generated/resources", required=false },
-    "{$_forge.src}/main/resources",
-    { path="{$_forge.src}/generated/resources", required=false },
+    "{$_neoforge.src}/main/resources",
+    { path="{$_neoforge.src}/generated/resources", required=false },
     { modid="hexcasting" },
     { modid="minecraft" },
     { modid="hexdoc" },
@@ -51,6 +51,6 @@ package = "{src}/main/java/io/yukkuric/hexop"
 src = "../fabric/src"
 package = "{src}/main/java/io/yukkuric/hexop/fabric"
 
-[_forge]
-src = "../forge/src"
+[_neoforge]
+src = "../neoforge/src"
 package = "{src}/main/java/io/yukkuric/hexop/forge"

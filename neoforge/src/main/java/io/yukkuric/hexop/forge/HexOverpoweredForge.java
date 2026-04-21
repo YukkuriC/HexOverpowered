@@ -1,58 +1,67 @@
 package io.yukkuric.hexop.forge;
 
 import at.petrak.hexcasting.common.lib.HexRegistries;
-import at.petrak.hexcasting.forge.cap.ForgeCapabilityHandler;
 import at.petrak.hexcasting.forge.cap.HexCapabilities;
 import io.yukkuric.hexop.HexOPAttributes;
 import io.yukkuric.hexop.HexOverpowered;
 import io.yukkuric.hexop.actions.HexOPActions;
 import io.yukkuric.hexop.actions.mind_env.OpScheduleCall;
-import io.yukkuric.hexop.forge.hexal.NexusItemCap;
 import io.yukkuric.hexop.forge.interop.mekanism.MekTooltip;
 import io.yukkuric.hexop.forge.interop.mekanism.MekasuitMediaHolder;
 import mekanism.common.item.gear.ItemMekaSuitArmor;
+import mekanism.common.registries.MekanismItems;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.event.AttachCapabilitiesEvent;
-import net.minecraftforge.event.TickEvent;
-import net.minecraftforge.event.entity.EntityAttributeModificationEvent;
-import net.minecraftforge.event.entity.EntityJoinLevelEvent;
-import net.minecraftforge.event.server.ServerStartingEvent;
-import net.minecraftforge.fml.ModLoadingContext;
-import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
-import net.minecraftforge.registries.RegisterEvent;
-import ram.talia.hexal.common.blocks.entity.BlockEntityMediafiedStorage;
+import net.neoforged.fml.ModContainer;
+import net.neoforged.fml.common.Mod;
+import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
+import net.neoforged.neoforge.common.NeoForge;
+import net.neoforged.neoforge.event.entity.EntityAttributeModificationEvent;
+import net.neoforged.neoforge.event.entity.EntityJoinLevelEvent;
+import net.neoforged.neoforge.event.server.ServerStartingEvent;
+import net.neoforged.neoforge.event.tick.ServerTickEvent;
+import net.neoforged.neoforge.registries.RegisterEvent;
+import org.apache.commons.lang3.NotImplementedException;
 
 @Mod(HexOverpowered.MOD_ID)
 public final class HexOverpoweredForge extends HexOverpowered {
-    public HexOverpoweredForge() {
-        var evBus = MinecraftForge.EVENT_BUS;
-        evBus.addListener((TickEvent.ServerTickEvent event) -> {
-            if (event.phase == TickEvent.Phase.START) OpScheduleCall.ProcessQueue(event.getServer());
+    public HexOverpoweredForge(ModContainer modContainer) {
+        var evBus = NeoForge.EVENT_BUS;
+        evBus.addListener((ServerTickEvent.Pre event) -> {
+            OpScheduleCall.ProcessQueue(event.getServer());
         });
         evBus.addListener((ServerStartingEvent event) -> OpScheduleCall.ResetQueue(event.getServer()));
 
         if (HexOverpowered.IsModLoaded("hexal")) {
-            evBus.addGenericListener(BlockEntity.class, (AttachCapabilitiesEvent<BlockEntity> e) -> {
-                var o = e.getObject();
-                if (!(o instanceof BlockEntityMediafiedStorage be)) return;
-                e.addCapability(ID_NEXUS_INVENTORY, new NexusItemCap.Provider(be));
+            /*
+            evBus.addListener((RegisterCapabilitiesEvent e) -> {
+                e.registerBlockEntity(
+                        HexCapabilities.MEDIA_HANDLER.block(),
+                        BlockEntityMediafiedStorage.class,
+                        (be, direction) -> new NexusItemCap(be)
+                );
             });
+            */
+            throw new NotImplementedException("until hexal 1.21");
         }
         if (HexOverpowered.IsModLoaded("mekanism")) {
-            evBus.addGenericListener(ItemStack.class, (AttachCapabilitiesEvent<ItemStack> e) -> {
-                var stack = e.getObject();
-                if (!(stack.getItem() instanceof ItemMekaSuitArmor)) return;
-                e.addCapability(ID_MEKASUIT_MEDIA_POOL, ForgeCapabilityHandler.provide(stack, HexCapabilities.MEDIA, () -> new MekasuitMediaHolder(stack)));
+            evBus.addListener((RegisterCapabilitiesEvent e) -> {
+                e.registerItem(
+                        HexCapabilities.Item.MEDIA,
+                        (stack, ctx) -> {
+                            if (!(stack.getItem() instanceof ItemMekaSuitArmor)) return null;
+                            return new MekasuitMediaHolder(stack);
+                        },
+                        MekanismItems.MEKASUIT_HELMET,
+                        MekanismItems.MEKASUIT_BODYARMOR,
+                        MekanismItems.MEKASUIT_PANTS,
+                        MekanismItems.MEKASUIT_BOOTS
+                );
             });
             evBus.addListener(MekTooltip::handleMekasuitTooltip);
         }
 
-        var modBus = FMLJavaModLoadingContext.get().getModEventBus();
+        var modBus = modContainer.getEventBus();
         modBus.addListener((RegisterEvent event) -> {
             var key = event.getRegistryKey();
             if (key.equals(HexRegistries.ACTION)) {
@@ -63,13 +72,12 @@ public final class HexOverpoweredForge extends HexOverpowered {
         });
 
         modBus.addListener((EntityAttributeModificationEvent e) -> {
-            for (var attr : HexOPAttributes.getAll())
+            for (var attr : HexOPAttributes.getAllHolders())
                 e.add(EntityType.PLAYER, attr);
         });
         evBus.addListener((EntityJoinLevelEvent e) -> HexOPAttributes.applyDefaultValues(e.getEntity(), e.getLevel()));
 
-        var ctx = ModLoadingContext.get();
-        HexOPConfigForge.register(ctx);
+        HexOPConfigForge.register(modContainer);
 
         HexOPXPlatForge.init();
     }

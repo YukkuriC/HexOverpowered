@@ -1,10 +1,9 @@
 package io.yukkuric.hexop.forge;
 
 import io.yukkuric.hexop.HexOverpowered;
-import net.minecraftforge.common.ForgeConfigSpec;
-import net.minecraftforge.fml.ModLoadingContext;
-import net.minecraftforge.fml.config.ModConfig;
-import org.apache.commons.lang3.tuple.Pair;
+import net.neoforged.fml.ModContainer;
+import net.neoforged.fml.config.ModConfig;
+import net.neoforged.neoforge.common.ModConfigSpec;
 
 import static io.yukkuric.hexop.HexOPConfig.*;
 
@@ -100,7 +99,7 @@ public class HexOPConfigForge implements API {
         return cfg_EnablesArtifactIO.get();
     }
 
-    public ForgeConfigSpec.BooleanValue
+    public ModConfigSpec.BooleanValue
             cfg_RevealsHexInsideCastingItems,
             cfg_EnablesMoteItemHandler,
             cfg_EnablesMoteChestGUI,
@@ -118,7 +117,7 @@ public class HexOPConfigForge implements API {
             cfg_EnablesAmethystCircle,
             cfg_ExecutablePropertyIota,
             cfg_EnablesArtifactIO;
-    public ForgeConfigSpec.IntValue
+    public ModConfigSpec.IntValue
             cfg_TrulyHurtLevel,
             cfg_FactorCutPrimeCost,
             cfg_FactorCutNonPrimeCostScale,
@@ -130,10 +129,10 @@ public class HexOPConfigForge implements API {
             cfg_PersonalMediaRegenInterval,
             cfg_AmethystCircleSingleChargeCost,
             cfg_AmethystCircleFullPowerLevel;
-    public ForgeConfigSpec.DoubleValue
+    public ModConfigSpec.DoubleValue
             cfg_MekasuitConversionRatio;
 
-    public HexOPConfigForge(ForgeConfigSpec.Builder builder) {
+    public HexOPConfigForge(ModConfigSpec.Builder builder) {
         builder.push("Display");
         cfg_RevealsHexInsideCastingItems = builder.comment(desc_RevealsHexInsideCastingItems).define("RevealsHexInsideCastingItems", true);
         builder.pop();
@@ -201,14 +200,15 @@ public class HexOPConfigForge implements API {
         INSTANCE = this;
     }
 
-    private static final Pair<HexOPConfigForge, ForgeConfigSpec> CFG_REGISTRY;
+    public static final ModConfigSpec SPEC;
 
     static {
-        CFG_REGISTRY = new ForgeConfigSpec.Builder().configure(HexOPConfigForge::new);
+        var pair = new ModConfigSpec.Builder().configure(HexOPConfigForge::new);
+        SPEC = pair.getValue();
     }
 
-    public static void register(ModLoadingContext ctx) {
-        bindConfigImp(CFG_REGISTRY.getKey());
-        ctx.registerConfig(ModConfig.Type.COMMON, CFG_REGISTRY.getValue());
+    public static void register(ModContainer modContainer) {
+        bindConfigImp(INSTANCE);
+        modContainer.registerConfig(ModConfig.Type.COMMON, SPEC);
     }
 }

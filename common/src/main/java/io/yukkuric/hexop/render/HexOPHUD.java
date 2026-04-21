@@ -12,7 +12,7 @@ import org.lwjgl.opengl.GL11;
 public class HexOPHUD {
     public static final ResourceLocation imgMediaBar = HexOverpowered.opModLoc("textures/gui/media_bar.png");
 
-    public static void onDrawMediaBar(GuiGraphics gui, float partialTicks) {
+    public static void onDrawMediaBar(GuiGraphics gui) {
         var client = Minecraft.getInstance();
         var profiler = client.getProfiler();
         var player = client.player;

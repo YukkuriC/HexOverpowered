@@ -15,7 +15,7 @@ public class MixinHexOPFabricPlayer {
     private static void hex$addAttributes(CallbackInfoReturnable<AttributeSupplier.Builder> cir) {
         HexOverpoweredFabric.initSelfHook();
         var out = cir.getReturnValue();
-        for (var attr : HexOPAttributes.getAll())
+        for (var attr : HexOPAttributes.getAllHolders())
             out.add(attr);
     }
 }

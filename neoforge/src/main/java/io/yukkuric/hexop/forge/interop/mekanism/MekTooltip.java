@@ -4,7 +4,7 @@ import at.petrak.hexcasting.api.utils.MediaHelper;
 import at.petrak.hexcasting.xplat.IXplatAbstractions;
 import mekanism.common.item.gear.ItemMekaSuitArmor;
 import net.minecraft.network.chat.*;
-import net.minecraftforge.event.entity.player.ItemTooltipEvent;
+import net.neoforged.neoforge.event.entity.player.ItemTooltipEvent;
 
 import java.text.DecimalFormat;
 

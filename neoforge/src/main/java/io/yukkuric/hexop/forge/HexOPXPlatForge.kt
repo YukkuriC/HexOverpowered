@@ -5,8 +5,8 @@ import io.yukkuric.hexop.helpers.attack.EntityHealthAccessors
 import io.yukkuric.hexop.helpers.attack.IEntityHealthAccessor
 import net.minecraft.world.entity.Entity
 import net.minecraft.world.entity.LivingEntity
-import net.minecraftforge.entity.PartEntity
-import net.minecraftforge.fml.ModList
+import net.neoforged.fml.ModList
+import net.neoforged.neoforge.entity.PartEntity
 
 class HexOPXPlatForge : HexOPXPlat() {
     override fun isModLoaded(id: String?): Boolean {

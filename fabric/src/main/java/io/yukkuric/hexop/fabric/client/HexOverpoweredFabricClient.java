@@ -7,6 +7,6 @@ import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
 public final class HexOverpoweredFabricClient implements ClientModInitializer {
     @Override
     public void onInitializeClient() {
-        HudRenderCallback.EVENT.register(HexOPHUD::onDrawMediaBar);
+        HudRenderCallback.EVENT.register((gui, foo) -> HexOPHUD.onDrawMediaBar(gui));
     }
 }
