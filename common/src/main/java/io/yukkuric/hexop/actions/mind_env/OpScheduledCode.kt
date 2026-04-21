@@ -11,6 +11,6 @@ object OpScheduledCode : ConstMediaAction {
 
     override fun execute(args: List<Iota>, env: CastingEnvironment): List<Iota> {
         val data = OpScheduleCall.QueryScheduledCode(env)
-        return listOf(if (data == null) NullIota() else ListIota(data))
+        return listOf(if (data == null) NullIota.INSTANCE else ListIota(data))
     }
 }

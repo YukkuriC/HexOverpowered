@@ -17,6 +17,7 @@ import org.jetbrains.annotations.NotNull;
 import org.spongepowered.asm.mixin.*;
 
 import java.util.List;
+import java.util.function.Supplier;
 
 @Mixin(PropertyIota.class)
 public abstract class ExecutableProperty extends Iota {
@@ -24,8 +25,8 @@ public abstract class ExecutableProperty extends Iota {
     @Final
     private String name;
 
-    protected ExecutableProperty(@NotNull IotaType<?> type, @NotNull Object payload) {
-        super(type, payload);
+    protected ExecutableProperty(@NotNull Supplier<IotaType<? extends Iota>> type) {
+        super(type);
     }
 
     public boolean executable() {

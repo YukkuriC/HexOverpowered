@@ -2,6 +2,7 @@ package io.yukkuric.hexop.interop.hexal;
 
 import io.yukkuric.hexop.HexOPConfig;
 import net.minecraft.world.item.ItemStack;
+import org.apache.commons.lang3.NotImplementedException;
 import org.jetbrains.annotations.NotNull;
 import ram.talia.hexal.api.config.HexalConfig;
 import ram.talia.hexal.api.mediafieditems.ItemRecord;
@@ -74,11 +75,14 @@ public class CachedNexusInventory implements AutoCloseable {
     }
 
     protected boolean matches(ItemRecord record, ItemStack stack) {
+        /*
         if (record.getItem() != stack.getItem()) return false;
         var tag = record.getTag();
         var newTag = stack.getTag();
         if (tag == null) return newTag == null;
         return tag.equals(newTag);
+        */
+        throw new NotImplementedException("until hexal 1.21");
     }
 
     // ========== Nexus Anim Tracker ==========

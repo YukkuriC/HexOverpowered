@@ -19,11 +19,11 @@ public class HexOverpowered {
     public static HexOverpowered INSTANCE;
     public static final Logger LOGGER = LogUtils.getLogger();
 
-    protected static ResourceLocation ID_NEXUS_INVENTORY = new ResourceLocation("hexop:nexus_inv");
-    protected static ResourceLocation ID_MEKASUIT_MEDIA_POOL = new ResourceLocation("hexop:mekasuit_media");
+    protected static ResourceLocation ID_NEXUS_INVENTORY = opModLoc("nexus_inv");
+    protected static ResourceLocation ID_MEKASUIT_MEDIA_POOL = opModLoc("mekasuit_media");
 
     public static ResourceLocation opModLoc(String path) {
-        return new ResourceLocation(MOD_ID, path);
+        return ResourceLocation.tryBuild(MOD_ID, path);
     }
 
     public static boolean IsModLoaded(String id) {

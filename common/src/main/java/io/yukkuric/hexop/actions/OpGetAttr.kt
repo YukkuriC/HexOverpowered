@@ -5,9 +5,10 @@ import at.petrak.hexcasting.api.casting.eval.CastingEnvironment
 import at.petrak.hexcasting.api.casting.iota.DoubleIota
 import at.petrak.hexcasting.api.casting.iota.Iota
 import io.yukkuric.hexop.HexOPAttributes
+import net.minecraft.core.Holder
 import net.minecraft.world.entity.ai.attributes.Attribute
 
-class OpGetAttr(private val attr: Attribute) : ConstMediaAction {
+class OpGetAttr(private val attr: Holder<Attribute>) : ConstMediaAction {
     override val argc = 0
 
     override fun execute(args: List<Iota>, env: CastingEnvironment): List<Iota> {

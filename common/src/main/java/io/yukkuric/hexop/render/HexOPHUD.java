@@ -10,7 +10,7 @@ import net.minecraft.resources.ResourceLocation;
 import org.lwjgl.opengl.GL11;
 
 public class HexOPHUD {
-    public static final ResourceLocation imgMediaBar = new ResourceLocation(HexOverpowered.MOD_ID, "textures/gui/media_bar.png");
+    public static final ResourceLocation imgMediaBar = HexOverpowered.opModLoc("textures/gui/media_bar.png");
 
     public static void onDrawMediaBar(GuiGraphics gui, float partialTicks) {
         var client = Minecraft.getInstance();

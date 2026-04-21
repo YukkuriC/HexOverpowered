@@ -6,6 +6,7 @@ import at.petrak.hexcasting.api.casting.eval.vm.CastingImage;
 import at.petrak.hexcasting.api.casting.mishaps.MishapNotEnoughMedia;
 import at.petrak.hexcasting.api.casting.mishaps.circle.MishapNoSpellCircle;
 import io.yukkuric.hexop.HexOPConfig;
+import io.yukkuric.hexop.mixin.accessor.AccessorBlockBehaviour;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
@@ -60,7 +61,7 @@ public class AmethystCircle extends Block implements ICircleComponent {
 
             // grow shards
             for (var i = 0; i < growthStrength; i++) {
-                Blocks.BUDDING_AMETHYST.randomTick(state, world, pos, BUDDING_CHARGER);
+                AccessorBlockBehaviour.class.cast(Blocks.BUDDING_AMETHYST).randomTick(state, world, pos, BUDDING_CHARGER);
             }
         }
 

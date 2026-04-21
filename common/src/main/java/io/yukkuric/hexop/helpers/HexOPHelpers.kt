@@ -18,3 +18,7 @@ fun GetPigment(color: DyeColor): FrozenPigment {
     if (mishapForPick == null) mishapForPick = MishapBadCaster() as AccessorMishap
     return mishapForPick!!.callDyeColor(color)
 }
+
+fun LivingEntity.getAttribute() {
+
+}

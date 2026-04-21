@@ -4,7 +4,7 @@ import at.petrak.hexcasting.api.HexAPI
 import at.petrak.hexcasting.api.addldata.ADMediaHolder
 import io.yukkuric.hexop.HexOPAttributes
 import io.yukkuric.hexop.HexOPConfig
-import net.minecraft.advancements.Advancement
+import net.minecraft.advancements.AdvancementHolder
 import net.minecraft.network.chat.Component
 import net.minecraft.server.level.ServerPlayer
 import net.minecraft.world.entity.player.Player
@@ -72,7 +72,7 @@ class PersonalManaHolder(val player: Player) : ADMediaHolder {
 
     companion object {
         private val CachedPlayerMediaMap = HashMap<UUID, Double>()
-        private var cachedAdvancement: Advancement? = null
+        private var cachedAdvancement: AdvancementHolder? = null
 
         @JvmStatic
         fun get(player: Player?): PersonalManaHolder? =
@@ -86,7 +86,7 @@ class PersonalManaHolder(val player: Player) : ADMediaHolder {
             if (!HexOPConfig.PersonalMediaAfterEnlightened()) return true
             // https://github.com/FallingColors/HexMod/blob/main/Common/src/main/java/at/petrak/hexcasting/api/casting/eval/CastingEnvironment.java#L232
             if (cachedAdvancement == null) cachedAdvancement =
-                player.server.advancements.getAdvancement(HexAPI.modLoc("enlightenment")) ?: return false
+                player.server.advancements.get(HexAPI.modLoc("enlightenment")) ?: return false
             return player.advancements.getOrStartProgress(cachedAdvancement).isDone
         }
     }

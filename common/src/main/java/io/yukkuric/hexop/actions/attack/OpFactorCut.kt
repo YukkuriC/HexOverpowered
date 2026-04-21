@@ -48,7 +48,7 @@ object OpFactorCut : ConstMediaAction {
 
     private val sprayDirections = listOf(1.5, -1.0)
     override fun execute(args: List<Iota>, env: CastingEnvironment): List<Iota> {
-        val target = args.getEntity(0, args.size)
+        val target = args.getEntity(env.world, 0, args.size)
         if (!EntityHealthAccessors.validate(target))
             throw MishapInvalidIota.ofType(args[0], args.size - 1, "entity.living")
         val healthAsInt = EntityHealthAccessors.getHealthT(target).toInt().coerceAtLeast(0)
