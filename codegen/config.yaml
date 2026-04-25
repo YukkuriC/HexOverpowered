@@ -14,7 +14,9 @@
   type: boolean
   default: 'true'
   category: Mote
-  descrip: Enables 'A Glance of Mote Chest' (a simple chest GUI) on right click\ndisables if `EnablesMoteItemHandler` is off
+  descrip: |
+      Enables 'A Glance of Mote Chest' (a simple chest GUI) on right click
+      disables if `EnablesMoteItemHandler` is off
   side: common
 - name: TrueNameCrossDimension
   type: boolean
@@ -48,9 +50,12 @@
   side: common
 - name: TrulyHurtLevel
   type: int
-  default: 2, 0, 2
+  default: 2, 0, 3
   category: Pattern
-  descrip: level 1 enables extra `setHealth` method call;\nlevel 2 adds saved data searching & replacing if lv.1 failed
+  descrip: |
+      level 1 enables extra `setHealth` method call;
+      level 2 adds saved data searching & replacing if lv.1 failed;
+      level 3 skips all custom health logics and calls the most basic dying logic, runs if lv.2 failed and target is mob, §4§lMIGHT CAUSE SEVERE GLITCHES, USE WITH CAUTION§r
   side: common
 - name: EnablesFactorCutSpell
   type: boolean

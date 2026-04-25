@@ -7,6 +7,7 @@
   "client": [
   ],
   "mixins": [
+    "MixinMob",
     "PleaseDontYeet",
     "SuperPlayerIota",
     "TeleportVehicles",

@@ -17,7 +17,7 @@ public class HexOPConfig {
     {%- endfor %}
     public interface API {
         {%- for line in data_common %}
-        String desc_{{line.name}} = "{{line.descrip}}";
+        String desc_{{line.name}} = {{line.descrip.strip() | tojson_raw}};
         {%- endfor %}{{'\n'}}
         {%- for line in data_common %}
         {{line.type}} {{line.name}}();
