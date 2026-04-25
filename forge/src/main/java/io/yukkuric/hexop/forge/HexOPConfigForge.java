@@ -155,7 +155,7 @@ public class HexOPConfigForge implements API {
         builder.push("Pattern");
         cfg_EnablesChargeMediaAction = builder.comment(desc_EnablesChargeMediaAction).define("EnablesChargeMediaAction", true);
         cfg_EnablesMindEnvActions = builder.comment(desc_EnablesMindEnvActions).define("EnablesMindEnvActions", true);
-        cfg_TrulyHurtLevel = builder.comment(desc_TrulyHurtLevel).defineInRange("TrulyHurtLevel", 2, 0, 2);
+        cfg_TrulyHurtLevel = builder.comment(desc_TrulyHurtLevel).defineInRange("TrulyHurtLevel", 2, 0, 3);
         builder.pop();
 
         builder.push("Pattern");
