@@ -30,6 +30,7 @@ import ram.talia.hexal.common.blocks.entity.BlockEntityMediafiedStorage;
 
 import java.lang.reflect.Method;
 
+@SuppressWarnings("all")
 @Mod(HexOverpowered.MOD_ID)
 public final class HexOverpoweredForge extends HexOverpowered {
     static Method doProvide;
