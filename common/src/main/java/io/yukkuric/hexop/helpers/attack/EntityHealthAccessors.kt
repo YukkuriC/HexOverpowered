@@ -3,6 +3,7 @@ package io.yukkuric.hexop.helpers.attack
 import io.yukkuric.hexop.HexOPConfig
 import io.yukkuric.hexop.helpers.GetOvercastSource
 import io.yukkuric.hexop.mixin.accessor.AccessorLivingEntity
+import io.yukkuric.hexop.mixin_interface.MobSkipper
 import net.minecraft.advancements.CriteriaTriggers
 import net.minecraft.nbt.CompoundTag
 import net.minecraft.nbt.DoubleTag
@@ -57,17 +58,15 @@ object EntityHealthAccessors : IEntityHealthAccessor<Entity> {
     // ==================== sub entities ====================
     object LIVING : IEntityHealthAccessor<LivingEntity> {
         override fun validate(target: Entity) = target is LivingEntity
-        override fun getHealth(target: LivingEntity) = target.health
+        override fun getHealth(target: LivingEntity) =
+            if (target.isRemoved) 0f else target.health
+
         override fun setHealth(target: LivingEntity, newHealth: Float, caster: LivingEntity?) {
             val oldAlive = target.isAlive
             val dmgSrc = GetOvercastSource(target, caster)
             val usedLevel = setHealthInner(target, newHealth, dmgSrc)
             if (usedLevel > 0 && oldAlive && !target.isAlive) {
-                if (caster is ServerPlayer) CriteriaTriggers.PLAYER_KILLED_ENTITY.trigger(
-                    caster,
-                    target,
-                    dmgSrc
-                )
+                if (caster is ServerPlayer) CriteriaTriggers.PLAYER_KILLED_ENTITY.trigger(caster, target, dmgSrc)
                 (target as AccessorLivingEntity).callDropAllDeathLoot(target.level() as ServerLevel, dmgSrc)
             }
         }
@@ -77,13 +76,19 @@ object EntityHealthAccessors : IEntityHealthAccessor<Entity> {
             newHealth: Float,
             dmgSrc: DamageSource
         ): Int {
+            fun checkPass(limitLvl: Int): Boolean {
+                if (target.health <= newHealth) return true
+                if (target.isRemoved) return true
+                return HexOPConfig.TrulyHurtLevel() <= limitLvl
+            }
+
             target.invulnerableTime = 0
             target.hurt(dmgSrc, target.health - newHealth)
-            if (target.health <= newHealth || HexOPConfig.TrulyHurtLevel() < 1) return 0
+            if (checkPass(0)) return 0
 
             // lv.1: setHealth
             target.health = newHealth
-            if (target.health <= newHealth || HexOPConfig.TrulyHurtLevel() < 2) return 1
+            if (checkPass(1)) return 0
 
             // lv.2: simple replace nbt
             val nbt = CompoundTag()
@@ -101,9 +106,16 @@ object EntityHealthAccessors : IEntityHealthAccessor<Entity> {
                 }
             }
             target.readAdditionalSaveData(nbt)
-            if (target.health <= newHealth || HexOPConfig.TrulyHurtLevel() < 3) return 2
+            if (checkPass(2)) return 0
 
-            // lv.3: coming soon
+            // lv.3: force skipped
+            (target as? MobSkipper)?.let {
+                it.skip(dmgSrc)
+                return -3 // don't dupe handle killing here
+            }
+            if (checkPass(3)) return 0
+
+            // lv.4: coming soon
             return 999
         }
     }
