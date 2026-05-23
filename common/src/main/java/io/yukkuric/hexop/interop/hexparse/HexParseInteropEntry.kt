@@ -17,12 +17,12 @@ object HexParseInteropEntry {
             ItemArtifact::class.java,
             { stack: ItemStack, tag: Iota ->
                 val list = if (tag is ListIota) tag.list.toList() else listOf(tag)
-                stack.set(HexDataComponents.PATTERNS, list)
+                stack.set(HexDataComponents.HEX_HOLDER_PATTERNS, list)
                 if (!stack.has(HexDataComponents.MEDIA_MAX))
                     stack.set(HexDataComponents.MEDIA_MAX, 640_0000L)
             },
             { stack: ItemStack ->
-                val spellList = stack.get(HexDataComponents.PATTERNS) ?: return@CreateItemIOMethod null
+                val spellList = stack.get(HexDataComponents.HEX_HOLDER_PATTERNS) ?: return@CreateItemIOMethod null
                 return@CreateItemIOMethod ListIota(spellList)
             },
             114514,

@@ -37,6 +37,6 @@ public abstract class VisiblePackagedHex extends ItemMediaHolder {
         super.appendHoverText(pStack, tooltipContext, pTooltipComponents, tooltipFlag);
         if (!hasHex(pStack) || !HexOPConfig.RevealsHexInsideCastingItems()) return;
         if (ANCIENT_CYPHER_CLASS != null && ANCIENT_CYPHER_CLASS.isInstance(this)) return;
-        pTooltipComponents.add(Component.translatable("hexcasting.spelldata.onitem", new ListIota(pStack.get(HexDataComponents.PATTERNS)).display()));
+        pTooltipComponents.add(Component.translatable("hexcasting.spelldata.onitem", new ListIota(pStack.get(HexDataComponents.HEX_HOLDER_PATTERNS)).display()));
     }
 }
