@@ -58,6 +58,9 @@ public class HexOPConfig {
     public static int FactorCutKillingBlowLine() {
         return imp.FactorCutKillingBlowLine();
     }
+    public static boolean FactorCutPlayerProtection() {
+        return imp.FactorCutPlayerProtection();
+    }
     public static boolean EnablesPersonalMediaPool() {
         return imp.EnablesPersonalMediaPool();
     }
@@ -102,6 +105,7 @@ public class HexOPConfig {
         String desc_FactorCutRandomMode = "target's health gets extra random reduction after each successful division";
         String desc_FactorCutMinimumFactor = "minimum factor usable for division; factors less than this (if not equal to target health) will be denied";
         String desc_FactorCutKillingBlowLine = "entities with health under hou many points can be wiped for free";
+        String desc_FactorCutPlayerProtection = "Whether players immune to Factor Cut (throwing TrueName mishaps)";
         String desc_EnablesPersonalMediaPool = "Enables player's personal media pool";
         String desc_PersonalMediaMax = "Max media (in 0.0001 dust) for personal pool";
         String desc_PersonalMediaRegenStep = "How many media points (in 0.0001 dust) personal pool regenerates each time";
@@ -128,6 +132,7 @@ public class HexOPConfig {
         boolean FactorCutRandomMode();
         int FactorCutMinimumFactor();
         int FactorCutKillingBlowLine();
+        boolean FactorCutPlayerProtection();
         boolean EnablesPersonalMediaPool();
         int PersonalMediaMax();
         int PersonalMediaRegenStep();

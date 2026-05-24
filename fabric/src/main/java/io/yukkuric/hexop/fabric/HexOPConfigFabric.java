@@ -54,6 +54,8 @@ public class HexOPConfigFabric implements ConfigData {
         private int FactorCutMinimumFactor = 2;
         @Comment("<Pattern.FactorCut> " + desc_FactorCutKillingBlowLine)
         private int FactorCutKillingBlowLine = 1;
+        @Comment("<Pattern.FactorCut> " + desc_FactorCutPlayerProtection)
+        private boolean FactorCutPlayerProtection = true;
         @Comment("<Personal Media> " + desc_EnablesPersonalMediaPool)
         private boolean EnablesPersonalMediaPool = true;
         @Comment("<Personal Media> " + desc_PersonalMediaMax)
@@ -120,6 +122,9 @@ public class HexOPConfigFabric implements ConfigData {
         }
         public int FactorCutKillingBlowLine() {
             return FactorCutKillingBlowLine;
+        }
+        public boolean FactorCutPlayerProtection() {
+            return FactorCutPlayerProtection;
         }
         public boolean EnablesPersonalMediaPool() {
             return EnablesPersonalMediaPool;
