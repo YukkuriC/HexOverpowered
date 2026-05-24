@@ -101,6 +101,12 @@
   category: Pattern.FactorCut
   descrip: entities with health under hou many points can be wiped for free
   side: common
+- name: FactorCutPlayerProtection
+  type: boolean
+  default: 'true'
+  category: Pattern.FactorCut
+  descrip: Whether players immune to Factor Cut (throwing TrueName mishaps)
+  side: common
 - name: EnablesPersonalMediaPool
   type: boolean
   default: 'true'

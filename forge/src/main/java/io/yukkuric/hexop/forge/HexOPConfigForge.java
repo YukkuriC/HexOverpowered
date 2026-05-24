@@ -63,6 +63,9 @@ public class HexOPConfigForge implements API {
     public int FactorCutKillingBlowLine() {
         return cfg_FactorCutKillingBlowLine.get();
     }
+    public boolean FactorCutPlayerProtection() {
+        return cfg_FactorCutPlayerProtection.get();
+    }
     public boolean EnablesPersonalMediaPool() {
         return cfg_EnablesPersonalMediaPool.get();
     }
@@ -111,6 +114,7 @@ public class HexOPConfigForge implements API {
             cfg_EnablesMindEnvActions,
             cfg_EnablesFactorCutSpell,
             cfg_FactorCutRandomMode,
+            cfg_FactorCutPlayerProtection,
             cfg_EnablesPersonalMediaPool,
             cfg_FakePlayerDontRegenMedia,
             cfg_PersonalMediaAfterEnlightened,
@@ -167,6 +171,7 @@ public class HexOPConfigForge implements API {
         cfg_FactorCutRandomMode = builder.comment(desc_FactorCutRandomMode).define("FactorCutRandomMode", false);
         cfg_FactorCutMinimumFactor = builder.comment(desc_FactorCutMinimumFactor).defineInRange("FactorCutMinimumFactor", 2, 2, Integer.MAX_VALUE);
         cfg_FactorCutKillingBlowLine = builder.comment(desc_FactorCutKillingBlowLine).defineInRange("FactorCutKillingBlowLine", 1, 0, Integer.MAX_VALUE);
+        cfg_FactorCutPlayerProtection = builder.comment(desc_FactorCutPlayerProtection).define("FactorCutPlayerProtection", true);
         builder.pop();
         builder.pop();
 
