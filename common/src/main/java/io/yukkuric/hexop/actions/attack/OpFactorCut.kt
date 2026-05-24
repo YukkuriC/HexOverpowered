@@ -51,6 +51,7 @@ object OpFactorCut : ConstMediaAction {
         val target = args.getEntity(env.world, 0, args.size)
         if (!EntityHealthAccessors.validate(target))
             throw MishapInvalidIota.ofType(args[0], args.size - 1, "entity.living")
+        env.assertEntityInRange(target)
         val healthAsInt = EntityHealthAccessors.getHealthT(target).toInt().coerceAtLeast(0)
 
         // query health
