@@ -1,6 +1,5 @@
 package io.yukkuric.hexop.mixin.hexcellular;
 
-import at.petrak.hexcasting.api.casting.SpellList;
 import at.petrak.hexcasting.api.casting.eval.CastResult;
 import at.petrak.hexcasting.api.casting.eval.ResolvedPatternType;
 import at.petrak.hexcasting.api.casting.eval.sideeffects.OperatorSideEffect;
@@ -8,6 +7,7 @@ import at.petrak.hexcasting.api.casting.eval.vm.*;
 import at.petrak.hexcasting.api.casting.iota.*;
 import at.petrak.hexcasting.api.casting.mishaps.Mishap;
 import at.petrak.hexcasting.api.casting.mishaps.MishapEvalTooMuch;
+import at.petrak.hexcasting.api.utils.TreeList;
 import at.petrak.hexcasting.common.lib.hex.HexEvalSounds;
 import io.yukkuric.hexop.HexOPConfig;
 import miyucomics.hexcellular.PropertyIota;
@@ -38,7 +38,7 @@ public abstract class ExecutableProperty extends Iota {
 
         // read content
         var data = StateStorage.Companion.getProperty(world, name);
-        var spell = data instanceof ListIota list ? list.getList() : new SpellList.LList(List.of(data));
+        var spell = data instanceof ListIota list ? list.getList() : TreeList.from(List.of(data));
 
         // add to cont.
         var newCont = continuation.pushFrame(FrameFinishEval.INSTANCE).pushFrame(new FrameEvaluate(spell, true));

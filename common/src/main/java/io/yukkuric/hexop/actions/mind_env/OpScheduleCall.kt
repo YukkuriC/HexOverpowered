@@ -1,6 +1,5 @@
 package io.yukkuric.hexop.actions.mind_env
 
-import at.petrak.hexcasting.api.casting.SpellList
 import at.petrak.hexcasting.api.casting.castables.ConstMediaAction
 import at.petrak.hexcasting.api.casting.eval.CastingEnvironment
 import at.petrak.hexcasting.api.casting.eval.env.CircleCastEnv
@@ -12,13 +11,14 @@ import at.petrak.hexcasting.api.casting.mishaps.Mishap
 import at.petrak.hexcasting.api.casting.mishaps.MishapDisallowedSpell
 import at.petrak.hexcasting.api.casting.mishaps.MishapEvalTooMuch
 import at.petrak.hexcasting.api.casting.mishaps.MishapInternalException
+import at.petrak.hexcasting.api.utils.TreeList
 import io.yukkuric.hexop.HexOPConfig
 import io.yukkuric.hexop.ext.SilencedCastingEnv
 import net.minecraft.server.MinecraftServer
 import java.util.*
 
 object OpScheduleCall : ConstMediaAction {
-    class Signal(val code: SpellList) {
+    class Signal(val code: TreeList<Iota>) {
         var cancelled = false
     }
 
@@ -83,7 +83,7 @@ object OpScheduleCall : ConstMediaAction {
     @JvmStatic
     fun ResetQueue(server: MinecraftServer) = TaskQueue.clear()
 
-    fun QueryScheduledCode(env: CastingEnvironment): SpellList? {
+    fun QueryScheduledCode(env: CastingEnvironment): TreeList<Iota>? {
         val key = pickKeyFrom(env)
         val signal = SignalMap[key]
         if (signal == null || signal.cancelled) return null

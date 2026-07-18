@@ -6,6 +6,7 @@ import at.petrak.hexcasting.api.casting.iota.Iota
 import at.petrak.hexcasting.api.casting.mishaps.MishapBadCaster
 import at.petrak.hexcasting.api.casting.mishaps.MishapDisallowedSpell
 import at.petrak.hexcasting.api.casting.mishaps.MishapNotEnoughArgs
+import at.petrak.hexcasting.api.utils.TreeList
 import at.petrak.hexcasting.xplat.IXplatAbstractions
 import io.yukkuric.hexop.HexOPConfig
 import java.util.function.BiFunction
@@ -24,10 +25,9 @@ enum class OpMindStackEdit(override val argc: Int, val stackOp: BiFunction<List<
     override fun execute(args: List<Iota>, env: CastingEnvironment): List<Iota> {
         commonCheckMindEnv(env)
         val image = IXplatAbstractions.INSTANCE.getStaffcastVM(env.caster, env.castingHand).image
-        var stack = image.stack
-        if (stack !is MutableList<*>) stack = ArrayList(stack)
-        val ret = stackOp.apply(args, stack as MutableList<Iota>)
-        IXplatAbstractions.INSTANCE.setStaffcastImage(env.caster, image.copy(stack))
+        var stack = image.stack.toMutableList()
+        val ret = stackOp.apply(args, stack)
+        IXplatAbstractions.INSTANCE.setStaffcastImage(env.caster, image.copy(stack = TreeList.from(stack)))
         return ret
     }
 
