@@ -45,9 +45,9 @@ public abstract class ExecutableProperty extends Iota {
         if (vm.getImage().getOpsConsumed() > vm.getEnv().maxOpCount())
             return new CastResult(this, SpellContinuation.Done.INSTANCE, vm.getImage(), List.of(
                     new OperatorSideEffect.DoMishap(new MishapEvalTooMuch(), new Mishap.Context(null, null))
-            ), ResolvedPatternType.ERRORED, HexEvalSounds.MISHAP);
+            ), ResolvedPatternType.ERRORED, HexEvalSounds.MISHAP.get());
 
         // return
-        return new CastResult(this, newCont, vm.getImage().withUsedOp(), List.of(), ResolvedPatternType.EVALUATED, HexEvalSounds.NOTHING);
+        return new CastResult(this, newCont, vm.getImage().withUsedOp(), List.of(), ResolvedPatternType.EVALUATED, HexEvalSounds.NOTHING.get());
     }
 }
