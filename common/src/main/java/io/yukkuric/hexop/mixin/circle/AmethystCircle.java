@@ -61,7 +61,7 @@ public class AmethystCircle extends Block implements ICircleComponent {
 
             // grow shards
             for (var i = 0; i < growthStrength; i++) {
-                AccessorBlockBehaviour.class.cast(Blocks.BUDDING_AMETHYST).randomTick(state, world, pos, BUDDING_CHARGER);
+                AccessorBlockBehaviour.class.cast(Blocks.BUDDING_AMETHYST).callRandomTick(state, world, pos, BUDDING_CHARGER);
             }
         }
 
