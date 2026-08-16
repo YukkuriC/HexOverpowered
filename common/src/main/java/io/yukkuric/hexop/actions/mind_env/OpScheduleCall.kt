@@ -8,12 +8,13 @@ import at.petrak.hexcasting.api.casting.getInt
 import at.petrak.hexcasting.api.casting.getList
 import at.petrak.hexcasting.api.casting.iota.Iota
 import at.petrak.hexcasting.api.casting.mishaps.Mishap
-import at.petrak.hexcasting.api.casting.mishaps.MishapDisallowedSpell
 import at.petrak.hexcasting.api.casting.mishaps.MishapEvalTooMuch
 import at.petrak.hexcasting.api.casting.mishaps.MishapInternalException
 import at.petrak.hexcasting.api.utils.TreeList
 import io.yukkuric.hexop.HexOPConfig
 import io.yukkuric.hexop.ext.SilencedCastingEnv
+import io.yukkuric.hexop.legacy.MishapDisallowedSpell
+import io.yukkuric.hexop.legacy.caster
 import net.minecraft.server.MinecraftServer
 import java.util.*
 

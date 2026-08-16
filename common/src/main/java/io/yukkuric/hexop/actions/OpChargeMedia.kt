@@ -6,13 +6,13 @@ import at.petrak.hexcasting.api.casting.eval.env.CircleCastEnv
 import at.petrak.hexcasting.api.casting.eval.env.PackagedItemCastEnv
 import at.petrak.hexcasting.api.casting.eval.env.PlayerBasedCastEnv
 import at.petrak.hexcasting.api.casting.iota.Iota
-import at.petrak.hexcasting.api.casting.mishaps.MishapDisallowedSpell
 import at.petrak.hexcasting.api.item.MediaHolderItem
 import at.petrak.hexcasting.api.misc.MediaConstants
 import io.yukkuric.hexop.HexOPConfig
 import io.yukkuric.hexop.HexOverpowered.IsModLoaded
-import io.yukkuric.hexop.actions.OpChargeMedia.OpChargeForReal.rechargePersonalMedia
 import io.yukkuric.hexop.personal_mana.PersonalManaHolder
+import io.yukkuric.hexop.legacy.MishapDisallowedSpell
+import io.yukkuric.hexop.legacy.caster
 import net.minecraft.server.level.ServerPlayer
 import ram.talia.hexal.api.casting.eval.env.WispCastEnv
 

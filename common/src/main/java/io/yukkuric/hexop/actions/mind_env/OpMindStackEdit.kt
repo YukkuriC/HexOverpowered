@@ -4,11 +4,12 @@ import at.petrak.hexcasting.api.casting.castables.ConstMediaAction
 import at.petrak.hexcasting.api.casting.eval.CastingEnvironment
 import at.petrak.hexcasting.api.casting.iota.Iota
 import at.petrak.hexcasting.api.casting.mishaps.MishapBadCaster
-import at.petrak.hexcasting.api.casting.mishaps.MishapDisallowedSpell
 import at.petrak.hexcasting.api.casting.mishaps.MishapNotEnoughArgs
 import at.petrak.hexcasting.api.utils.TreeList
 import at.petrak.hexcasting.xplat.IXplatAbstractions
 import io.yukkuric.hexop.HexOPConfig
+import io.yukkuric.hexop.legacy.MishapDisallowedSpell
+import io.yukkuric.hexop.legacy.caster
 import java.util.function.BiFunction
 
 enum class OpMindStackEdit(override val argc: Int, val stackOp: BiFunction<List<Iota>, MutableList<Iota>, List<Iota>>) :

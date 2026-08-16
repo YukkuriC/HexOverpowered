@@ -11,12 +11,16 @@ import at.petrak.hexcasting.api.casting.getInt
 import at.petrak.hexcasting.api.casting.iota.DoubleIota
 import at.petrak.hexcasting.api.casting.iota.EntityIota
 import at.petrak.hexcasting.api.casting.iota.Iota
-import at.petrak.hexcasting.api.casting.mishaps.*
+import at.petrak.hexcasting.api.casting.mishaps.MishapInvalidIota
+import at.petrak.hexcasting.api.casting.mishaps.MishapNotEnoughArgs
+import at.petrak.hexcasting.api.casting.mishaps.MishapNotEnoughMedia
+import at.petrak.hexcasting.api.casting.mishaps.MishapOthersName
 import at.petrak.hexcasting.api.pigment.FrozenPigment
 import io.yukkuric.hexop.HexOPConfig
 import io.yukkuric.hexop.helpers.GetPigment
 import io.yukkuric.hexop.helpers.PrimeChecker
 import io.yukkuric.hexop.helpers.attack.EntityHealthAccessors
+import io.yukkuric.hexop.legacy.MishapDisallowedSpell
 import net.minecraft.world.entity.player.Player
 import net.minecraft.world.item.DyeColor
 import net.minecraft.world.phys.Vec3
