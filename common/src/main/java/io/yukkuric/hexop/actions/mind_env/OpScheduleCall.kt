@@ -1,9 +1,13 @@
 package io.yukkuric.hexop.actions.mind_env
 
+import at.petrak.hexcasting.api.HexAPI
 import at.petrak.hexcasting.api.casting.castables.ConstMediaAction
 import at.petrak.hexcasting.api.casting.eval.CastingEnvironment
+import at.petrak.hexcasting.api.casting.eval.OperationResult
 import at.petrak.hexcasting.api.casting.eval.env.CircleCastEnv
+import at.petrak.hexcasting.api.casting.eval.vm.CastingImage
 import at.petrak.hexcasting.api.casting.eval.vm.CastingVM
+import at.petrak.hexcasting.api.casting.eval.vm.SpellContinuation
 import at.petrak.hexcasting.api.casting.getInt
 import at.petrak.hexcasting.api.casting.getList
 import at.petrak.hexcasting.api.casting.iota.Iota
@@ -45,13 +49,26 @@ object OpScheduleCall : ConstMediaAction {
     private val SignalMap = WeakHashMap<Any?, Signal>()
     private val TaskQueue = PriorityQueue<Task> { ta, tb -> ta.myAge - tb.myAge }
 
+    // extracting image
+    lateinit var myImage: CastingImage
+    override fun operate(
+        env: CastingEnvironment,
+        image: CastingImage,
+        continuation: SpellContinuation
+    ): OperationResult {
+        myImage = image
+        return super.operate(env, image, continuation)
+    }
+
     override val argc = 2
     override fun execute(args: List<Iota>, env: CastingEnvironment): List<Iota> {
         if (!HexOPConfig.EnablesMindEnvActions()) throw MishapDisallowedSpell()
         val code = args.getList(0)
         val delay = args.getInt(1)
+        val ravenDataATM = myImage.userData.get(HexAPI.RAVENMIND_USERDATA)
         val action = Runnable {
             val vm = CastingVM.empty(SilencedCastingEnv.from(env))
+            ravenDataATM?.let { vm.image.userData.put(HexAPI.RAVENMIND_USERDATA, it) }
             vm.queueExecuteAndWrapIotas(code.toList(), env.world)
         }
         if (delay <= 0) {
