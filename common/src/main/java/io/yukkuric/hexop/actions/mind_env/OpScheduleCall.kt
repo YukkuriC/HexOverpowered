@@ -1,17 +1,22 @@
 package io.yukkuric.hexop.actions.mind_env
 
+import at.petrak.hexcasting.api.HexAPI
 import at.petrak.hexcasting.api.casting.SpellList
 import at.petrak.hexcasting.api.casting.castables.ConstMediaAction
 import at.petrak.hexcasting.api.casting.eval.CastingEnvironment
+import at.petrak.hexcasting.api.casting.eval.OperationResult
 import at.petrak.hexcasting.api.casting.eval.env.CircleCastEnv
+import at.petrak.hexcasting.api.casting.eval.vm.CastingImage
 import at.petrak.hexcasting.api.casting.eval.vm.CastingVM
+import at.petrak.hexcasting.api.casting.eval.vm.SpellContinuation
 import at.petrak.hexcasting.api.casting.getInt
-import at.petrak.hexcasting.api.casting.getList
 import at.petrak.hexcasting.api.casting.iota.Iota
+import at.petrak.hexcasting.api.casting.iota.ListIota
 import at.petrak.hexcasting.api.casting.mishaps.Mishap
 import at.petrak.hexcasting.api.casting.mishaps.MishapDisallowedSpell
 import at.petrak.hexcasting.api.casting.mishaps.MishapEvalTooMuch
 import at.petrak.hexcasting.api.casting.mishaps.MishapInternalException
+import at.petrak.hexcasting.api.casting.mishaps.MishapInvalidIota
 import io.yukkuric.hexop.HexOPConfig
 import io.yukkuric.hexop.ext.SilencedCastingEnv
 import net.minecraft.server.MinecraftServer
@@ -44,13 +49,30 @@ object OpScheduleCall : ConstMediaAction {
     private val SignalMap = WeakHashMap<Any?, Signal>()
     private val TaskQueue = PriorityQueue<Task> { ta, tb -> ta.myAge - tb.myAge }
 
+    // extracting image
+    lateinit var myImage: CastingImage
+    override fun operate(
+        env: CastingEnvironment,
+        image: CastingImage,
+        continuation: SpellContinuation
+    ): OperationResult {
+        myImage = image
+        return super.operate(env, image, continuation)
+    }
+
     override val argc = 2
     override fun execute(args: List<Iota>, env: CastingEnvironment): List<Iota> {
         if (!HexOPConfig.EnablesMindEnvActions()) throw MishapDisallowedSpell()
-        val code = args.getList(0)
+        val code = args[0].let { topIota ->
+            if (topIota is ListIota) topIota.list
+            else if (topIota.executable()) SpellList.LList(listOf(topIota))
+            else throw MishapInvalidIota.of(topIota, 0, "evaluatable")
+        }
         val delay = args.getInt(1)
+        val ravenDataATM = myImage.userData.get(HexAPI.RAVENMIND_USERDATA)
         val action = Runnable {
             val vm = CastingVM.empty(SilencedCastingEnv.from(env))
+            ravenDataATM?.let { vm.image.userData.put(HexAPI.RAVENMIND_USERDATA, it) }
             vm.queueExecuteAndWrapIotas(code.toList(), env.world)
         }
         if (delay <= 0) {
