@@ -34,6 +34,9 @@ public class HexOPConfig {
     public static boolean EnablesMindEnvActions() {
         return imp.EnablesMindEnvActions();
     }
+    public static boolean BypassesSilencedEnvRestrictions() {
+        return imp.BypassesSilencedEnvRestrictions();
+    }
     public static int TrulyHurtLevel() {
         return imp.TrulyHurtLevel();
     }
@@ -106,6 +109,7 @@ public class HexOPConfig {
         String desc_EnablesTeleportVehicles = "(DEPRECATED after HexCasting 0.11.3 because there's no limit anymore)\nTeleporting riding entities no longer do mishaps";
         String desc_EnablesChargeMediaAction = "if not, the `YJSP's Charge Media` pattern will be disabled";
         String desc_EnablesMindEnvActions = "if not, mind environment series patterns will be disabled";
+        String desc_BypassesSilencedEnvRestrictions = "enable to remove silenced casting for `Delay` pattern, and see mishaps and prints inside";
         String desc_TrulyHurtLevel = "level 1 enables extra `setHealth` method call;\nlevel 2 adds saved data searching & replacing if lv.1 failed;\nlevel 3 skips all custom health logics and calls the most basic dying logic, runs if lv.2 failed and target is mob, §4§lMIGHT CAUSE SEVERE GLITCHES, USE WITH CAUTION§r";
         String desc_EnablesFactorCutSpell = "if not, Factor Cut pattern will be disabled";
         String desc_FactorCutPrimeCost = "const cost for prime factors (in 1e-4 dust)";
@@ -136,6 +140,7 @@ public class HexOPConfig {
         boolean EnablesTeleportVehicles();
         boolean EnablesChargeMediaAction();
         boolean EnablesMindEnvActions();
+        boolean BypassesSilencedEnvRestrictions();
         int TrulyHurtLevel();
         boolean EnablesFactorCutSpell();
         int FactorCutPrimeCost();

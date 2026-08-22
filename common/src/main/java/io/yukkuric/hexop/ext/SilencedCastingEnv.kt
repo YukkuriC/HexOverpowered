@@ -3,8 +3,9 @@ package io.yukkuric.hexop.ext
 import at.petrak.hexcasting.api.casting.eval.CastingEnvironment
 import at.petrak.hexcasting.api.casting.eval.env.PlayerBasedCastEnv
 import at.petrak.hexcasting.api.casting.eval.sideeffects.OperatorSideEffect
-import io.yukkuric.hexop.mixin.accessor.AccessorCastingEnvironment
+import io.yukkuric.hexop.HexOPConfig
 import io.yukkuric.hexop.legacy.caster
+import io.yukkuric.hexop.mixin.accessor.AccessorCastingEnvironment
 import net.minecraft.network.chat.Component
 
 class SilencedCastingEnv(val master: PlayerBasedCastEnv) :
@@ -22,6 +23,7 @@ class SilencedCastingEnv(val master: PlayerBasedCastEnv) :
 
     companion object {
         fun from(env: CastingEnvironment): CastingEnvironment {
+            if (HexOPConfig.BypassesSilencedEnvRestrictions()) return env
             if (env is SilencedCastingEnv) return env
             if (env is PlayerBasedCastEnv) return SilencedCastingEnv(env)
             return env

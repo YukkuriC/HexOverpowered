@@ -38,6 +38,9 @@ public class HexOPConfigForge implements API {
     public boolean EnablesMindEnvActions() {
         return cfg_EnablesMindEnvActions.get();
     }
+    public boolean BypassesSilencedEnvRestrictions() {
+        return cfg_BypassesSilencedEnvRestrictions.get();
+    }
     public int TrulyHurtLevel() {
         return cfg_TrulyHurtLevel.get();
     }
@@ -111,6 +114,7 @@ public class HexOPConfigForge implements API {
             cfg_EnablesTeleportVehicles,
             cfg_EnablesChargeMediaAction,
             cfg_EnablesMindEnvActions,
+            cfg_BypassesSilencedEnvRestrictions,
             cfg_EnablesFactorCutSpell,
             cfg_FactorCutRandomMode,
             cfg_FactorCutPlayerProtection,
@@ -158,6 +162,7 @@ public class HexOPConfigForge implements API {
         builder.push("Pattern");
         cfg_EnablesChargeMediaAction = builder.comment(desc_EnablesChargeMediaAction).define("EnablesChargeMediaAction", true);
         cfg_EnablesMindEnvActions = builder.comment(desc_EnablesMindEnvActions).define("EnablesMindEnvActions", true);
+        cfg_BypassesSilencedEnvRestrictions = builder.comment(desc_BypassesSilencedEnvRestrictions).define("BypassesSilencedEnvRestrictions", false);
         cfg_TrulyHurtLevel = builder.comment(desc_TrulyHurtLevel).defineInRange("TrulyHurtLevel", 2, 0, 3);
         builder.pop();
 
