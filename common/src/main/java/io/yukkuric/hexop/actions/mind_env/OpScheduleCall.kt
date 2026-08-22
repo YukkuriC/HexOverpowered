@@ -1,12 +1,14 @@
 package io.yukkuric.hexop.actions.mind_env
 
 import at.petrak.hexcasting.api.spell.ConstMediaAction
+import at.petrak.hexcasting.api.spell.OperationResult
 import at.petrak.hexcasting.api.spell.SpellList
 import at.petrak.hexcasting.api.spell.casting.CastingContext
 import at.petrak.hexcasting.api.spell.casting.CastingHarness
+import at.petrak.hexcasting.api.spell.casting.eval.SpellContinuation
 import at.petrak.hexcasting.api.spell.getInt
-import at.petrak.hexcasting.api.spell.getList
 import at.petrak.hexcasting.api.spell.iota.Iota
+import at.petrak.hexcasting.api.spell.iota.ListIota
 import at.petrak.hexcasting.api.spell.math.HexDir
 import at.petrak.hexcasting.api.spell.math.HexPattern
 import at.petrak.hexcasting.api.spell.mishaps.Mishap
@@ -47,14 +49,31 @@ object OpScheduleCall : ConstMediaAction {
     private val SignalMap = WeakHashMap<Any?, Signal>()
     private val TaskQueue = PriorityQueue<Task> { ta, tb -> ta.myAge - tb.myAge }
 
+    // extracting image
+    var myRaven: Iota? = null
+    override fun operate(
+        continuation: SpellContinuation,
+        stack: MutableList<Iota>,
+        ravenmind: Iota?,
+        ctx: CastingContext
+    ): OperationResult {
+        myRaven = ravenmind
+        return super.operate(continuation, stack, ravenmind, ctx)
+    }
+
     override val argc = 2
     override fun execute(args: List<Iota>, ctx: CastingContext): List<Iota> {
         if (!HexOPConfig.EnablesMindEnvActions()) throw MishapDisallowedSpell()
         val env = ctx
-        val code = args.getList(0)
+        val code = args[0].let { topIota ->
+            if (topIota is ListIota) topIota.list
+            else SpellList.LList(listOf(topIota))
+        }
         val delay = args.getInt(1)
+        val ravenDataATM = myRaven
         val action = Runnable {
             val vm = CastingHarness(env)
+            vm.ravenmind = ravenDataATM
             vm.executeIotas(code.toList(), env.world)
         }
         if (delay <= 0) {
