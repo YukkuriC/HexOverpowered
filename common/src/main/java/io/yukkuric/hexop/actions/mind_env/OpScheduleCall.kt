@@ -9,11 +9,12 @@ import at.petrak.hexcasting.api.casting.eval.vm.CastingImage
 import at.petrak.hexcasting.api.casting.eval.vm.CastingVM
 import at.petrak.hexcasting.api.casting.eval.vm.SpellContinuation
 import at.petrak.hexcasting.api.casting.getInt
-import at.petrak.hexcasting.api.casting.getList
 import at.petrak.hexcasting.api.casting.iota.Iota
+import at.petrak.hexcasting.api.casting.iota.ListIota
 import at.petrak.hexcasting.api.casting.mishaps.Mishap
 import at.petrak.hexcasting.api.casting.mishaps.MishapEvalTooMuch
 import at.petrak.hexcasting.api.casting.mishaps.MishapInternalException
+import at.petrak.hexcasting.api.casting.mishaps.MishapInvalidIota
 import at.petrak.hexcasting.api.utils.TreeList
 import io.yukkuric.hexop.HexOPConfig
 import io.yukkuric.hexop.ext.SilencedCastingEnv
@@ -63,7 +64,11 @@ object OpScheduleCall : ConstMediaAction {
     override val argc = 2
     override fun execute(args: List<Iota>, env: CastingEnvironment): List<Iota> {
         if (!HexOPConfig.EnablesMindEnvActions()) throw MishapDisallowedSpell()
-        val code = args.getList(0)
+        val code = args[0].let { topIota ->
+            if (topIota is ListIota) topIota.list
+            else if (topIota.executable()) TreeList.from(listOf(topIota))
+            else throw MishapInvalidIota.of(topIota, 0, "evaluatable")
+        }
         val delay = args.getInt(1)
         val ravenDataATM = myImage.userData.get(HexAPI.RAVENMIND_USERDATA)
         val action = Runnable {
