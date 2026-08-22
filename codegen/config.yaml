@@ -50,6 +50,12 @@
   category: Pattern
   descrip: if not, mind environment series patterns will be disabled
   side: common
+- name: BypassesSilencedEnvRestrictions
+  type: boolean
+  default: 'false'
+  category: Pattern
+  descrip: enable to remove silenced casting for `Delay` pattern, and see mishaps and prints inside
+  side: common
 - name: TrulyHurtLevel
   type: int
   default: 2, 0, 3

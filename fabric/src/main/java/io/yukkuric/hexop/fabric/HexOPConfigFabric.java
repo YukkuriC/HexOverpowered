@@ -38,6 +38,8 @@ public class HexOPConfigFabric implements ConfigData {
         private boolean EnablesChargeMediaAction = true;
         @Comment("<Pattern> " + desc_EnablesMindEnvActions)
         private boolean EnablesMindEnvActions = true;
+        @Comment("<Pattern> " + desc_BypassesSilencedEnvRestrictions)
+        private boolean BypassesSilencedEnvRestrictions = false;
         @Comment("<Pattern> " + desc_TrulyHurtLevel)
         private int TrulyHurtLevel = 2;
         @Comment("<Pattern.FactorCut> " + desc_EnablesFactorCutSpell)
@@ -104,6 +106,9 @@ public class HexOPConfigFabric implements ConfigData {
         }
         public boolean EnablesMindEnvActions() {
             return EnablesMindEnvActions;
+        }
+        public boolean BypassesSilencedEnvRestrictions() {
+            return BypassesSilencedEnvRestrictions;
         }
         public int TrulyHurtLevel() {
             return TrulyHurtLevel;
