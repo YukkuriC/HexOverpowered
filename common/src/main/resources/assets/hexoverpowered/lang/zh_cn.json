@@ -28,6 +28,6 @@
   "book.descrip.hexoverpowered:get_personal_media": "获取我的个人媒质条中有多少媒质（以 $(bold)$(item)0.0001$() 粉为单位）。",
   "book.descrip.hexoverpowered:get_personal_media_max": "获取我的个人媒质条最多可容纳多少媒质（以 $(bold)$(item)0.0001$() 粉为单位）。",
   "book.descrip.hexoverpowered:mind_env/running_code": "获取当前环境上一次延时执行的图案列表。",
-  "book.descrip.hexoverpowered:mind_env/schedule": "将给定iota列表延迟给定时间（tick数）后执行；每种执行途径同时最多只能有一个延时，发起新延时将取消已有延时动作。若延时不大于0，则法术将立刻执行。",
-  "book.descrip.hexoverpowered:mind_env/schedule.2": "每种执行途径同时最多只能有一个延时，发起新延时将取消已有延时动作。作为分割施法环境的代价，延时法术不能向施法者发送任何信息，包括揭示和事故。"
+  "book.descrip.hexoverpowered:mind_env/schedule": "将$(bold)唯一的/$给定iota列表延迟给定时间（tick数）后执行；若延时不大于0，则法术将立刻执行。",
+  "book.descrip.hexoverpowered:mind_env/schedule.2": "每种执行途径同时$(bold)$(thing)最多只能有一个/$延时，发起新延时将$(bold)取消/$已有延时动作。$(br)作为分割施法环境的代价，延时法术不能向施法者发送任何信息，包括揭示和事故。"
 }

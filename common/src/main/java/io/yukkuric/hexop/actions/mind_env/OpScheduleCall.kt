@@ -20,8 +20,13 @@ import io.yukkuric.hexop.HexOPConfig
 import io.yukkuric.hexop.ext.SilencedCastingEnv
 import io.yukkuric.hexop.legacy.MishapDisallowedSpell
 import io.yukkuric.hexop.legacy.caster
+import net.minecraft.nbt.IntTag
+import net.minecraft.nbt.NumericTag
 import net.minecraft.server.MinecraftServer
 import java.util.*
+
+const val USERDATA_USELESS_CALL = "hexop:dumbass_score"
+const val USELESS_CALL_THRESHOLD = 10
 
 object OpScheduleCall : ConstMediaAction {
     class Signal(val code: TreeList<Iota>) {
@@ -74,6 +79,7 @@ object OpScheduleCall : ConstMediaAction {
         val action = Runnable {
             val vm = CastingVM.empty(SilencedCastingEnv.from(env))
             ravenDataATM?.let { vm.image.userData.put(HexAPI.RAVENMIND_USERDATA, it) }
+            myImage.userData[USERDATA_USELESS_CALL]?.let { vm.image.userData.put(USERDATA_USELESS_CALL, it) }
             vm.queueExecuteAndWrapIotas(code.toList(), env.world)
         }
         if (delay <= 0) {
@@ -87,7 +93,12 @@ object OpScheduleCall : ConstMediaAction {
 
         val key = pickKeyFrom(env)
         val signal = Signal(code)
-        SignalMap.put(key, signal)?.cancelled = true
+        SignalMap.put(key, signal)?.let {
+            it.cancelled = true
+            val dumbCount = 1 + ((myImage.userData.get(USERDATA_USELESS_CALL) as? NumericTag)?.asInt ?: 0)
+            myImage.userData.put(USERDATA_USELESS_CALL, IntTag.valueOf(dumbCount))
+            if (dumbCount >= USELESS_CALL_THRESHOLD) throw MishapEvalTooMuch()
+        }
 
         val server = env.world.server
         TaskQueue.add(Task(delay + server.tickCount, env, signal, action))
