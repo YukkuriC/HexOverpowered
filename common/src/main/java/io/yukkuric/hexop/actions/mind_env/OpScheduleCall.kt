@@ -12,15 +12,16 @@ import at.petrak.hexcasting.api.casting.eval.vm.SpellContinuation
 import at.petrak.hexcasting.api.casting.getInt
 import at.petrak.hexcasting.api.casting.iota.Iota
 import at.petrak.hexcasting.api.casting.iota.ListIota
-import at.petrak.hexcasting.api.casting.mishaps.Mishap
-import at.petrak.hexcasting.api.casting.mishaps.MishapDisallowedSpell
-import at.petrak.hexcasting.api.casting.mishaps.MishapEvalTooMuch
-import at.petrak.hexcasting.api.casting.mishaps.MishapInternalException
-import at.petrak.hexcasting.api.casting.mishaps.MishapInvalidIota
+import at.petrak.hexcasting.api.casting.mishaps.*
 import io.yukkuric.hexop.HexOPConfig
 import io.yukkuric.hexop.ext.SilencedCastingEnv
+import net.minecraft.nbt.IntTag
+import net.minecraft.nbt.NumericTag
 import net.minecraft.server.MinecraftServer
 import java.util.*
+
+const val USERDATA_USELESS_CALL = "hexop:dumbass_score"
+const val USELESS_CALL_THRESHOLD = 10
 
 object OpScheduleCall : ConstMediaAction {
     class Signal(val code: SpellList) {
@@ -73,6 +74,7 @@ object OpScheduleCall : ConstMediaAction {
         val action = Runnable {
             val vm = CastingVM.empty(SilencedCastingEnv.from(env))
             ravenDataATM?.let { vm.image.userData.put(HexAPI.RAVENMIND_USERDATA, it) }
+            myImage.userData[USERDATA_USELESS_CALL]?.let { vm.image.userData.put(USERDATA_USELESS_CALL, it) }
             vm.queueExecuteAndWrapIotas(code.toList(), env.world)
         }
         if (delay <= 0) {
@@ -86,7 +88,12 @@ object OpScheduleCall : ConstMediaAction {
 
         val key = pickKeyFrom(env)
         val signal = Signal(code)
-        SignalMap.put(key, signal)?.cancelled = true
+        SignalMap.put(key, signal)?.let {
+            it.cancelled = true
+            val dumbCount = 1 + ((myImage.userData.get(USERDATA_USELESS_CALL) as? NumericTag)?.asInt ?: 0)
+            myImage.userData.put(USERDATA_USELESS_CALL, IntTag.valueOf(dumbCount))
+            if (dumbCount >= USELESS_CALL_THRESHOLD) throw MishapEvalTooMuch()
+        }
 
         val server = env.world.server
         TaskQueue.add(Task(delay + server.tickCount, env, signal, action))
