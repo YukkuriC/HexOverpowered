@@ -7,7 +7,7 @@ import at.petrak.hexcasting.api.casting.iota.ListIota
 import at.petrak.hexcasting.api.casting.iota.PatternIota
 import at.petrak.hexcasting.xplat.IXplatAbstractions
 import io.yukkuric.hexop.actions.mind_env.OpMindStackEdit.Companion.commonCheckMindEnv
-import io.yukkuric.hexop.legacy.caster
+import io.yukkuric.yclib_kt.legacy.caster
 
 object OpMindPatterns : ConstMediaAction {
     override val argc = 0

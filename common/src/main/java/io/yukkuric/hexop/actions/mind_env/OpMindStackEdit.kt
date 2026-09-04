@@ -8,8 +8,8 @@ import at.petrak.hexcasting.api.casting.mishaps.MishapNotEnoughArgs
 import at.petrak.hexcasting.api.utils.TreeList
 import at.petrak.hexcasting.xplat.IXplatAbstractions
 import io.yukkuric.hexop.HexOPConfig
-import io.yukkuric.hexop.legacy.MishapDisallowedSpell
-import io.yukkuric.hexop.legacy.caster
+import io.yukkuric.yclib_kt.legacy.MishapDisallowedSpell
+import io.yukkuric.yclib_kt.legacy.caster
 import java.util.function.BiFunction
 
 enum class OpMindStackEdit(override val argc: Int, val stackOp: BiFunction<List<Iota>, MutableList<Iota>, List<Iota>>) :

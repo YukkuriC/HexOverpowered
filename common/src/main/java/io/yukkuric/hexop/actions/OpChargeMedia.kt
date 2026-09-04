@@ -11,8 +11,8 @@ import at.petrak.hexcasting.api.misc.MediaConstants
 import io.yukkuric.hexop.HexOPConfig
 import io.yukkuric.hexop.HexOverpowered.IsModLoaded
 import io.yukkuric.hexop.personal_mana.PersonalManaHolder
-import io.yukkuric.hexop.legacy.MishapDisallowedSpell
-import io.yukkuric.hexop.legacy.caster
+import io.yukkuric.yclib_kt.legacy.MishapDisallowedSpell
+import io.yukkuric.yclib_kt.legacy.caster
 import net.minecraft.server.level.ServerPlayer
 import ram.talia.hexal.api.casting.eval.env.WispCastEnv
 

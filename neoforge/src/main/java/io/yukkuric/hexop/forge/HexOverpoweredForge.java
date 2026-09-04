@@ -8,6 +8,7 @@ import io.yukkuric.hexop.actions.HexOPActions;
 import io.yukkuric.hexop.actions.mind_env.OpScheduleCall;
 import io.yukkuric.hexop.forge.interop.mekanism.MekTooltip;
 import io.yukkuric.hexop.forge.interop.mekanism.MekasuitMediaHolder;
+import io.yukkuric.yclib.YCLib;
 import mekanism.common.item.gear.ItemMekaSuitArmor;
 import mekanism.common.registries.MekanismItems;
 import net.minecraft.core.registries.Registries;
@@ -32,7 +33,7 @@ public final class HexOverpoweredForge extends HexOverpowered {
         });
         evBus.addListener((ServerStartingEvent event) -> OpScheduleCall.ResetQueue(event.getServer()));
 
-        if (HexOverpowered.IsModLoaded("hexal")) {
+        YCLib.tryLoadInterop("hexal", () -> {
             /*
             evBus.addListener((RegisterCapabilitiesEvent e) -> {
                 e.registerBlockEntity(
@@ -43,8 +44,8 @@ public final class HexOverpoweredForge extends HexOverpowered {
             });
             */
             throw new NotImplementedException("until hexal 1.21");
-        }
-        if (HexOverpowered.IsModLoaded("mekanism")) {
+        });
+        YCLib.tryLoadInterop("mekanism", () -> {
             evBus.addListener((RegisterCapabilitiesEvent e) -> {
                 e.registerItem(
                         HexCapabilities.Item.MEDIA,
@@ -59,7 +60,7 @@ public final class HexOverpoweredForge extends HexOverpowered {
                 );
             });
             evBus.addListener(MekTooltip::handleMekasuitTooltip);
-        }
+        });
 
         var modBus = modContainer.getEventBus();
         modBus.addListener((RegisterEvent event) -> {
