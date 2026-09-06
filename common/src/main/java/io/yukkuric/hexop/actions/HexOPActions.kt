@@ -34,7 +34,7 @@ class HexOPActions {
         }
 
         private fun wrap(name: String, signature: String, dir: HexDir, action: Action?): ActionRegistryEntry {
-            val pattern = HexPattern.fromAngles(signature, dir)
+            val pattern = HexPattern.fromAngleString(signature, dir, false)
             val key = opModLoc(name)
             val entry = ActionRegistryEntry(pattern, action)
             CACHED[key] = entry
