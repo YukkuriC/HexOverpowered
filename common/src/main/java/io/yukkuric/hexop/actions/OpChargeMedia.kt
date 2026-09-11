@@ -8,8 +8,8 @@ import at.petrak.hexcasting.api.spell.casting.CastingContext
 import at.petrak.hexcasting.api.spell.iota.Iota
 import at.petrak.hexcasting.api.spell.mishaps.MishapDisallowedSpell
 import io.yukkuric.hexop.HexOPConfig
-import io.yukkuric.hexop.HexOverpowered.IsModLoaded
 import io.yukkuric.hexop.personal_mana.PersonalManaHolder
+import io.yukkuric.yclib.YCLib.modLoaded
 import net.minecraft.server.level.ServerPlayer
 import ram.talia.hexal.api.spell.casting.IMixinCastingContext
 
@@ -18,7 +18,7 @@ object OpChargeMedia : BaseSelectAction(
     OpChargeForReal,
     OpChargeFake,
 ) {
-    private val hasHexal = lazy { IsModLoaded("hexal") }
+    private val hasHexal = lazy { modLoaded("hexal") }
     private const val MEDIA_TARGET = 114514 * MediaConstants.DUST_UNIT
 
     object OpChargeForReal : ConstMediaAction {

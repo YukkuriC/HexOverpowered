@@ -8,6 +8,7 @@ import io.yukkuric.hexop.actions.mind_env.OpScheduleCall;
 import io.yukkuric.hexop.forge.hexal.NexusItemCap;
 import io.yukkuric.hexop.forge.interop.mekanism.MekTooltip;
 import io.yukkuric.hexop.forge.interop.mekanism.MekasuitMediaHolder;
+import io.yukkuric.yclib.YCLib;
 import mekanism.common.item.gear.ItemMekaSuitArmor;
 import net.minecraft.core.Registry;
 import net.minecraft.world.entity.EntityType;
@@ -42,16 +43,14 @@ public final class HexOverpoweredForge extends HexOverpowered {
         });
         evBus.addListener((ServerStartingEvent event) -> OpScheduleCall.ResetQueue(event.getServer()));
 
-        if (HexOverpowered.IsModLoaded("hexal")) {
+        YCLib.tryLoadInterop("hexal", () -> {
             evBus.addGenericListener(BlockEntity.class, (AttachCapabilitiesEvent<BlockEntity> e) -> {
                 var o = e.getObject();
                 if (!(o instanceof BlockEntityMediafiedStorage be)) return;
                 e.addCapability(ID_NEXUS_INVENTORY, new NexusItemCap.Provider(be));
             });
-        }
-        if (HexOverpowered.IsModLoaded("mekanism")) {
-            doProvide = ForgeCapabilityHandler.class.getDeclaredMethod("provide", ItemStack.class, Capability.class, NonNullSupplier.class);
-            doProvide.setAccessible(true);
+        });
+        YCLib.tryLoadInterop("mekanism", () -> {
             evBus.addGenericListener(ItemStack.class, (AttachCapabilitiesEvent<ItemStack> e) -> {
                 var stack = e.getObject();
                 if (!(stack.getItem() instanceof ItemMekaSuitArmor)) return;
@@ -63,7 +62,7 @@ public final class HexOverpoweredForge extends HexOverpowered {
                 }
             });
             evBus.addListener(MekTooltip::handleMekasuitTooltip);
-        }
+        });
 
         var modBus = FMLJavaModLoadingContext.get().getModEventBus();
         modBus.addListener((RegisterEvent event) -> {

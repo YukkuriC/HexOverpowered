@@ -4,6 +4,7 @@ import at.petrak.hexcasting.api.misc.MediaConstants;
 import io.yukkuric.hexop.actions.HexOPActions;
 import com.mojang.logging.LogUtils;
 import io.yukkuric.hexop.interop.hexparse.HexParseInteropEntry;
+import io.yukkuric.yclib.YCLib;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
@@ -14,7 +15,7 @@ public class HexOverpowered {
         INSTANCE = this;
         HexOPActions.keepAlive();
         // common init
-        if (IsModLoaded("hexparse")) HexParseInteropEntry.init();
+        YCLib.tryLoadInterop("hexparse", HexParseInteropEntry::init);
     }
 
     public static final String MOD_ID = "hexoverpowered";
@@ -28,9 +29,6 @@ public class HexOverpowered {
         return new ResourceLocation(MOD_ID, path);
     }
 
-    public static boolean IsModLoaded(String id) {
-        return HexOPXPlat.INSTANCE.isModLoaded(id);
-    }
     public static boolean IsFakePlayer(Player target) {
         // whitelist-ed
         return target.getClass() != ServerPlayer.class;
