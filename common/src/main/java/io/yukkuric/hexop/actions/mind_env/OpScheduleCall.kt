@@ -20,40 +20,76 @@ import io.yukkuric.hexop.HexOPConfig
 import io.yukkuric.hexop.ext.SilencedCastingEnv
 import io.yukkuric.hexop.legacy.MishapDisallowedSpell
 import io.yukkuric.hexop.legacy.caster
-import net.minecraft.nbt.IntTag
-import net.minecraft.nbt.NumericTag
 import net.minecraft.server.MinecraftServer
 import java.util.*
 
-const val USERDATA_USELESS_CALL = "hexop:dumbass_score"
 const val USELESS_CALL_THRESHOLD = 10
+const val MAX_CALL_THRESHOLD = 100000
 
+// test 1: (mind_env/running_code,print,num_3,mind_env/schedule)num_3,mind_env/schedule // forever
+// test 2: (print,(),num_0,mind_env/schedule)#my_aim,raycast,for_range/floodfill // stops at 1000 for size exceeded
+// test 3: (print,(),num_1,mind_env/schedule)#my_aim,raycast,for_range/floodfill // stops at 10 executions
+// test 4: (read/local,print,num_0,mind_env/schedule)write/local,read/local,num_0,mind_env/schedule // stops at 1e5 exec
 object OpScheduleCall : ConstMediaAction {
-    class Signal(val code: TreeList<Iota>) {
-        var cancelled = false
+    class SameTickCallCounter(val limit: Int) {
+        var lastChangeAge = -1
+        var calledCount = 0
+        fun update(now: Int) {
+            if (now == lastChangeAge) {
+                calledCount++
+                if (calledCount >= limit) {
+                    calledCount = 0
+                    throw MishapEvalTooMuch()
+                }
+            } else {
+                calledCount = 1
+            }
+            lastChangeAge = now
+        }
+    }
+
+    class TaskPool(val key: Any?) {
+        val queue = ArrayDeque<Task>()
+
+        fun cancel(): Boolean {
+            val ret = queue.any { !it.executed }
+            queue.clear()
+            return ret
+        }
+
+        fun execute(tick: Int) {
+            val peek = queue.peekFirst() ?: return
+            if (peek.execute(tick)) {
+                val newPeek = queue.peekFirst()
+                if (peek === newPeek) queue.pollFirst()
+            }
+        }
+
+        val counterNormal = SameTickCallCounter(MAX_CALL_THRESHOLD)
+        val counterDumb = SameTickCallCounter(USELESS_CALL_THRESHOLD)
     }
 
     class Task(
         val myAge: Int, val env: CastingEnvironment,
-        val signal: Signal, val action: Runnable
+        val code: TreeList<Iota>, val action: (now: Int) -> Unit,
     ) {
+        var executed = false
         fun execute(tick: Int): Boolean {
             if (tick < myAge) return false
-            if (signal.cancelled) return true
             try {
-                action.run()
+                action(tick)
             } catch (e: Exception) {
                 val mishap = MishapInternalException(e)
-                var msg = mishap.errorMessageWithName(env, Mishap.Context(null, null))
+                val msg = mishap.errorMessageWithName(env, Mishap.Context(null, null))
                 if (env is CircleCastEnv) env.impetus?.postPrint(msg)
                 else env.caster?.sendSystemMessage(msg)
             }
+            executed = true
             return true
         }
     }
 
-    private val SignalMap = WeakHashMap<Any?, Signal>()
-    private val TaskQueue = PriorityQueue<Task> { ta, tb -> ta.myAge - tb.myAge }
+    private val TaskMap = WeakHashMap<Any?, TaskPool>()
 
     // extracting image
     lateinit var myImage: CastingImage
@@ -69,6 +105,10 @@ object OpScheduleCall : ConstMediaAction {
     override val argc = 2
     override fun execute(args: List<Iota>, env: CastingEnvironment): List<Iota> {
         if (!HexOPConfig.EnablesMindEnvActions()) throw MishapDisallowedSpell()
+
+        // prepare all
+        val tickThisExec = env.world.server.tickCount
+        val key = pickKeyFrom(env)
         val code = args[0].let { topIota ->
             if (topIota is ListIota) topIota.list
             else if (topIota.executable()) TreeList.from(listOf(topIota))
@@ -76,32 +116,31 @@ object OpScheduleCall : ConstMediaAction {
         }
         val delay = args.getInt(1)
         val ravenDataATM = myImage.userData.get(HexAPI.RAVENMIND_USERDATA)
-        val action = Runnable {
+        val taskPool = TaskMap.computeIfAbsent(key, ::TaskPool)
+        val action: (Int) -> Unit = { tick ->
+            taskPool.counterNormal.update(tick)
             val vm = CastingVM.empty(SilencedCastingEnv.from(env))
             ravenDataATM?.let { vm.image.userData.put(HexAPI.RAVENMIND_USERDATA, it) }
-            myImage.userData[USERDATA_USELESS_CALL]?.let { vm.image.userData.put(USERDATA_USELESS_CALL, it) }
             vm.queueExecuteAndWrapIotas(code.toList(), env.world)
         }
+
+        // remove old
+        if (taskPool.cancel()) taskPool.counterDumb.update(tickThisExec)
+
+        // 0t call
         if (delay <= 0) {
             try {
-                action.run()
+                action.invoke(tickThisExec)
             } catch (e: StackOverflowError) {
                 throw MishapEvalTooMuch()
             }
             return listOf()
         }
 
-        val key = pickKeyFrom(env)
-        val signal = Signal(code)
-        SignalMap.put(key, signal)?.let {
-            it.cancelled = true
-            val dumbCount = 1 + ((myImage.userData.get(USERDATA_USELESS_CALL) as? NumericTag)?.asInt ?: 0)
-            myImage.userData.put(USERDATA_USELESS_CALL, IntTag.valueOf(dumbCount))
-            if (dumbCount >= USELESS_CALL_THRESHOLD) throw MishapEvalTooMuch()
-        }
+        // append new
+        taskPool.queue.addLast(Task(delay + tickThisExec, env, code, action))
 
-        val server = env.world.server
-        TaskQueue.add(Task(delay + server.tickCount, env, signal, action))
+        // end
         return listOf()
     }
 
@@ -109,18 +148,18 @@ object OpScheduleCall : ConstMediaAction {
 
     @JvmStatic
     fun ProcessQueue(server: MinecraftServer) {
-        while (!TaskQueue.isEmpty()) {
-            if (TaskQueue.peek().execute(server.tickCount)) TaskQueue.remove()
-            else break
+        TaskMap.forEach { (_, task) ->
+            task.execute(server.tickCount)
         }
     }
     @JvmStatic
-    fun ResetQueue(server: MinecraftServer) = TaskQueue.clear()
+    fun ResetQueue(server: MinecraftServer) {
+        TaskMap.clear()
+    }
 
     fun QueryScheduledCode(env: CastingEnvironment): TreeList<Iota>? {
         val key = pickKeyFrom(env)
-        val signal = SignalMap[key]
-        if (signal == null || signal.cancelled) return null
-        return signal.code
+        val pool = TaskMap[key]
+        return pool?.queue?.peekFirst()?.code
     }
 }
