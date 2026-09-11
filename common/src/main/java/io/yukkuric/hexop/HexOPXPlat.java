@@ -4,6 +4,7 @@ import java.util.ServiceLoader;
 
 public abstract class HexOPXPlat {
     public static final HexOPXPlat INSTANCE = get();
+    protected abstract boolean isModLoaded(String id);
 
     private static HexOPXPlat get() {
         var providers = ServiceLoader.load(HexOPXPlat.class).stream().toList();

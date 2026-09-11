@@ -20,7 +20,7 @@ import io.yukkuric.hexop.HexOPConfig
 import io.yukkuric.hexop.helpers.GetPigment
 import io.yukkuric.hexop.helpers.PrimeChecker
 import io.yukkuric.hexop.helpers.attack.EntityHealthAccessors
-import io.yukkuric.yclib_kt.legacy.MishapDisallowedSpell
+import io.yukkuric.hexop.legacy.MishapDisallowedSpell
 import net.minecraft.world.entity.player.Player
 import net.minecraft.world.item.DyeColor
 import net.minecraft.world.phys.Vec3

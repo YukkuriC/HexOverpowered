@@ -4,7 +4,7 @@ import at.petrak.hexcasting.api.casting.eval.CastingEnvironment
 import at.petrak.hexcasting.api.casting.eval.env.PlayerBasedCastEnv
 import at.petrak.hexcasting.api.casting.eval.sideeffects.OperatorSideEffect
 import io.yukkuric.hexop.HexOPConfig
-import io.yukkuric.yclib_kt.legacy.caster
+import io.yukkuric.hexop.legacy.caster
 import io.yukkuric.hexop.mixin.accessor.AccessorCastingEnvironment
 import net.minecraft.network.chat.Component
 

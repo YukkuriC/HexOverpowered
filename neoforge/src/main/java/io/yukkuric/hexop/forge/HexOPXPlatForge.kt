@@ -5,9 +5,14 @@ import io.yukkuric.hexop.helpers.attack.EntityHealthAccessors
 import io.yukkuric.hexop.helpers.attack.IEntityHealthAccessor
 import net.minecraft.world.entity.Entity
 import net.minecraft.world.entity.LivingEntity
+import net.neoforged.fml.ModList
 import net.neoforged.neoforge.entity.PartEntity
 
 class HexOPXPlatForge : HexOPXPlat() {
+    override fun isModLoaded(id: String?): Boolean {
+        return ModList.get().isLoaded(id)
+    }
+
     companion object {
         object PART_ENTITY : IEntityHealthAccessor<PartEntity<*>> {
             override fun validate(target: Entity) = target is PartEntity<*>

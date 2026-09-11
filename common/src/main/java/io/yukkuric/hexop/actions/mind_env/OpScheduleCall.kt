@@ -18,8 +18,8 @@ import at.petrak.hexcasting.api.casting.mishaps.MishapInvalidIota
 import at.petrak.hexcasting.api.utils.TreeList
 import io.yukkuric.hexop.HexOPConfig
 import io.yukkuric.hexop.ext.SilencedCastingEnv
-import io.yukkuric.yclib_kt.legacy.MishapDisallowedSpell
-import io.yukkuric.yclib_kt.legacy.caster
+import io.yukkuric.hexop.legacy.MishapDisallowedSpell
+import io.yukkuric.hexop.legacy.caster
 import net.minecraft.nbt.IntTag
 import net.minecraft.nbt.NumericTag
 import net.minecraft.server.MinecraftServer

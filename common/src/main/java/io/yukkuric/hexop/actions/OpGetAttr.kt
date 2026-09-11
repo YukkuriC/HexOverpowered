@@ -5,7 +5,7 @@ import at.petrak.hexcasting.api.casting.eval.CastingEnvironment
 import at.petrak.hexcasting.api.casting.iota.DoubleIota
 import at.petrak.hexcasting.api.casting.iota.Iota
 import io.yukkuric.hexop.HexOPAttributes
-import io.yukkuric.yclib_kt.legacy.caster
+import io.yukkuric.hexop.legacy.caster
 import net.minecraft.core.Holder
 import net.minecraft.world.entity.ai.attributes.Attribute
 
