@@ -27,6 +27,7 @@ import org.apache.commons.lang3.NotImplementedException;
 public final class HexOverpoweredForge extends HexOverpowered {
     public HexOverpoweredForge(ModContainer modContainer) {
         var evBus = NeoForge.EVENT_BUS;
+        var modBus = modContainer.getEventBus();
         evBus.addListener((ServerTickEvent.Pre event) -> {
             OpScheduleCall.ProcessQueue(event.getServer());
         });
@@ -45,7 +46,7 @@ public final class HexOverpoweredForge extends HexOverpowered {
             throw new NotImplementedException("until hexal 1.21");
         }
         if (HexOverpowered.IsModLoaded("mekanism")) {
-            evBus.addListener((RegisterCapabilitiesEvent e) -> {
+            modBus.addListener((RegisterCapabilitiesEvent e) -> {
                 e.registerItem(
                         HexCapabilities.Item.MEDIA,
                         (stack, ctx) -> {
@@ -61,7 +62,6 @@ public final class HexOverpoweredForge extends HexOverpowered {
             evBus.addListener(MekTooltip::handleMekasuitTooltip);
         }
 
-        var modBus = modContainer.getEventBus();
         modBus.addListener((RegisterEvent event) -> {
             var key = event.getRegistryKey();
             if (key.equals(HexRegistries.ACTION)) {
