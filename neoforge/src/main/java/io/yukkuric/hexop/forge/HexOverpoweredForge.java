@@ -6,6 +6,7 @@ import io.yukkuric.hexop.HexOPAttributes;
 import io.yukkuric.hexop.HexOverpowered;
 import io.yukkuric.hexop.actions.HexOPActions;
 import io.yukkuric.hexop.actions.mind_env.OpScheduleCall;
+import io.yukkuric.hexop.forge.hexal.NexusItemCap;
 import io.yukkuric.hexop.forge.interop.mekanism.MekTooltip;
 import io.yukkuric.hexop.forge.interop.mekanism.MekasuitMediaHolder;
 import mekanism.common.item.gear.ItemMekaSuitArmor;
@@ -14,6 +15,7 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.world.entity.EntityType;
 import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.common.Mod;
+import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.entity.EntityAttributeModificationEvent;
@@ -21,7 +23,7 @@ import net.neoforged.neoforge.event.entity.EntityJoinLevelEvent;
 import net.neoforged.neoforge.event.server.ServerStartingEvent;
 import net.neoforged.neoforge.event.tick.ServerTickEvent;
 import net.neoforged.neoforge.registries.RegisterEvent;
-import org.apache.commons.lang3.NotImplementedException;
+import ram.talia.hexal.common.lib.HexalBlockEntities;
 
 @Mod(HexOverpowered.MOD_ID)
 public final class HexOverpoweredForge extends HexOverpowered {
@@ -34,16 +36,13 @@ public final class HexOverpoweredForge extends HexOverpowered {
         evBus.addListener((ServerStartingEvent event) -> OpScheduleCall.ResetQueue(event.getServer()));
 
         if (HexOverpowered.IsModLoaded("hexal")) {
-            /*
-            evBus.addListener((RegisterCapabilitiesEvent e) -> {
+            modBus.addListener((RegisterCapabilitiesEvent e) -> {
                 e.registerBlockEntity(
-                        HexCapabilities.MEDIA_HANDLER.block(),
-                        BlockEntityMediafiedStorage.class,
+                        Capabilities.ItemHandler.BLOCK,
+                        HexalBlockEntities.MEDIAFIED_STORAGE,
                         (be, direction) -> new NexusItemCap(be)
                 );
             });
-            */
-            throw new NotImplementedException("until hexal 1.21");
         }
         if (HexOverpowered.IsModLoaded("mekanism")) {
             modBus.addListener((RegisterCapabilitiesEvent e) -> {

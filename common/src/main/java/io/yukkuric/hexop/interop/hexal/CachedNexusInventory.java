@@ -2,15 +2,13 @@ package io.yukkuric.hexop.interop.hexal;
 
 import io.yukkuric.hexop.HexOPConfig;
 import net.minecraft.world.item.ItemStack;
-import org.apache.commons.lang3.NotImplementedException;
 import org.jetbrains.annotations.NotNull;
 import ram.talia.hexal.api.config.HexalConfig;
 import ram.talia.hexal.api.mediafieditems.ItemRecord;
 import ram.talia.hexal.common.blocks.entity.BlockEntityMediafiedStorage;
 
 import java.lang.reflect.Field;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import static io.yukkuric.hexop.interop.hexal.CompressedChestMenu.UI_VISIBLE_SLOTS;
 
@@ -35,7 +33,7 @@ public class CachedNexusInventory implements AutoCloseable {
 
     public CachedNexusInventory(BlockEntityMediafiedStorage be) {
         source = be;
-        maxTypes = HexalConfig.getServer().getMaxRecordsInMediafiedStorage();
+        maxTypes = HexalConfig.Server.getMaxRecordsInMediafiedStorage();
     }
 
     // ========== General API ==========
@@ -75,14 +73,7 @@ public class CachedNexusInventory implements AutoCloseable {
     }
 
     protected boolean matches(ItemRecord record, ItemStack stack) {
-        /*
-        if (record.getItem() != stack.getItem()) return false;
-        var tag = record.getTag();
-        var newTag = stack.getTag();
-        if (tag == null) return newTag == null;
-        return tag.equals(newTag);
-        */
-        throw new NotImplementedException("until hexal 1.21");
+        return record.typeMatches(stack);
     }
 
     // ========== Nexus Anim Tracker ==========
