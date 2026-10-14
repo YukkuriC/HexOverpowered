@@ -1,21 +1,16 @@
 package io.yukkuric.hexop.actions.mind_env
 
-import at.petrak.hexcasting.api.HexAPI
 import at.petrak.hexcasting.api.casting.castables.ConstMediaAction
 import at.petrak.hexcasting.api.casting.eval.CastingEnvironment
 import at.petrak.hexcasting.api.casting.eval.OperationResult
 import at.petrak.hexcasting.api.casting.eval.env.CircleCastEnv
-import at.petrak.hexcasting.api.casting.eval.vm.CastingImage
-import at.petrak.hexcasting.api.casting.eval.vm.CastingVM
-import at.petrak.hexcasting.api.casting.eval.vm.SpellContinuation
+import at.petrak.hexcasting.api.casting.eval.vm.*
 import at.petrak.hexcasting.api.casting.getInt
 import at.petrak.hexcasting.api.casting.iota.Iota
 import at.petrak.hexcasting.api.casting.iota.ListIota
-import at.petrak.hexcasting.api.casting.mishaps.Mishap
-import at.petrak.hexcasting.api.casting.mishaps.MishapEvalTooMuch
-import at.petrak.hexcasting.api.casting.mishaps.MishapInternalException
-import at.petrak.hexcasting.api.casting.mishaps.MishapInvalidIota
+import at.petrak.hexcasting.api.casting.mishaps.*
 import at.petrak.hexcasting.api.utils.TreeList
+import at.petrak.hexcasting.common.lib.hex.HexImageComponents
 import io.yukkuric.hexop.HexOPConfig
 import io.yukkuric.hexop.ext.SilencedCastingEnv
 import io.yukkuric.hexop.legacy.MishapDisallowedSpell
@@ -115,12 +110,12 @@ object OpScheduleCall : ConstMediaAction {
             else throw MishapInvalidIota.of(topIota, 0, "evaluatable")
         }
         val delay = args.getInt(1)
-        val ravenDataATM = myImage.userData.get(HexAPI.RAVENMIND_USERDATA)
+        val ravenDataATM = myImage.components[HexImageComponents.RAVENMIND.get()] as? Iota
         val taskPool = TaskMap.computeIfAbsent(key, ::TaskPool)
         val action: (Int) -> Unit = { tick ->
             taskPool.counterNormal.update(tick)
             val vm = CastingVM.empty(SilencedCastingEnv.from(env))
-            ravenDataATM?.let { vm.image.userData.put(HexAPI.RAVENMIND_USERDATA, it) }
+            ravenDataATM?.let { vm.image = vm.image.withComponent(HexImageComponents.RAVENMIND.get(), ravenDataATM) }
             vm.queueExecuteAndWrapIotas(code.toList(), env.world)
         }
 
